@@ -9,7 +9,7 @@
       "@layouts/*": ["layouts/*"],
       "@lib/*": ["lib/*"],
       "@browser/*": ["lib/browser/*"],
-      "@build/*": ["lib/node/*"],
+      "@build/*": ["lib/build/*"],
       "@styles/*": ["styles/*"]
     },
     "jsx": "react-jsx",
