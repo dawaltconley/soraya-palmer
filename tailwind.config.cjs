@@ -1,3 +1,4 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
@@ -8,6 +9,10 @@ module.exports = {
         DEFAULT: '1rem',
         sm: '2rem',
       },
+    },
+    fontFamily: {
+      serif: ['Playfair', ...defaultTheme.fontFamily.serif],
+      display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
     },
     extend: {
       inset: {

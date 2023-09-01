@@ -1,0 +1,15 @@
+---
+interface Props {
+  useAsTitle?: boolean
+}
+
+const { useAsTitle } = Astro.props
+
+const H = useAsTitle ? 'h1' : 'h4'
+---
+
+<header>
+  <div class="container mx-auto py-2">
+    <H class="font-display text-lg"><a href="/">Soraya Palmer</a></H>
+  </div>
+</header>
