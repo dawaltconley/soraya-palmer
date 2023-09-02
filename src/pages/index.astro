@@ -1,15 +1,47 @@
 ---
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
+import Quote from '@components/Quote.tsx'
 ---
 
 <Base title="Soraya Palmer">
-  <Header useAsTitle="true" />
+  <Header useAsTitle />
   <main>
     <div id="splash" class="flex h-[50vh] min-h-min w-full bg-gray-200">
       <div class="m-auto text-4xl font-bold text-white">Splash</div>
     </div>
-    <div id="pull-quotes"></div>
+    <div
+      id="pull-quotes"
+      class="container mx-auto grid grid-cols-3 gap-8 py-16"
+    >
+      <Quote
+        type="review"
+        author="Ingrid Rojas Contreras"
+        source="The New York Times Book Review"
+        url="https://www.nytimes.com/2023/03/28/books/review/the-human-origins-of-beatrice-porter-and-other-essential-ghosts-soraya-palmer.html"
+      >
+        This is a book written with the gods of storytelling in mind
+      </Quote>
+
+      <Quote
+        type="review"
+        source="Today"
+        url="https://www.today.com/popculture/best-new-books-2023-t272941"
+      >
+        One of the Best New Books to Read in 2023.
+      </Quote>
+
+      <Quote
+        type="review"
+        author="Sarah Neilson"
+        source="Shondaland"
+        url="https://www.shondaland.com/inspire/books/a43391194/soraya-palmers-the-human-origins-of-beatrice-porter-and-other-essential-ghosts/"
+      >
+        [A] stunning debut novel . . . With magnetic prose and nuanced
+        characters, Palmer has created a story where readers will be invested
+        from page one.
+      </Quote>
+    </div>
     <div id="about"></div>
     <div id="writing">
       <!-- other writing, optional? -->
