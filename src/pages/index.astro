@@ -44,15 +44,19 @@ import Quote from '@components/Quote.tsx'
       </Quote>
     </div>
 
-    <div id="about" class="container mx-auto my-16 grid grid-cols-2 gap-16">
-      <div class="layer-children relative aspect-square">
+    <div id="about" class="container mx-auto my-16 justify-center lg:flex">
+      <div
+        class="layer-children mx-auto mb-8 aspect-square max-w-md shrink-0 self-start lg:mx-0 lg:mb-0 lg:w-1/2"
+      >
         <img
           src="/media/headshot.jpeg"
           alt="Headshot of Soraya Palmer"
           class="rounded-full object-cover"
         />
       </div>
-      <div class="max-w-prose self-center font-serif">
+      <div
+        class="mx-auto max-w-prose self-center font-serif lg:ml-16 lg:mr-0 lg:w-1/2"
+      >
         <p>
           <h2
             class="mb-2 mr-1 inline font-display text-4xl font-bold underline decoration-gray-300 decoration-4"
