@@ -28,15 +28,12 @@ export default function Quote({
   }
 
   return (
-    <figure className="max-w-xs font-display">
-      <blockquote
-        cite={url?.toString()}
-        className="text-xl leading-snug text-gray-900"
-      >
+    <figure className="max-w-xs font-display text-xl">
+      <blockquote cite={url?.toString()} className="leading-snug text-gray-900">
         {quote}
       </blockquote>
       {citation && (
-        <figcaption className="mt-2 block text-right text-lg text-gray-500 before:content-['\2014\20']">
+        <figcaption className="mt-2 block text-right font-serif text-xl leading-6 text-gray-500 before:content-['\2014\20']">
           {citation}
         </figcaption>
       )}

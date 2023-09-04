@@ -11,7 +11,11 @@ module.exports = {
       },
     },
     fontFamily: {
-      serif: ['Playfair', ...defaultTheme.fontFamily.serif],
+      sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+      // serif: ['Playfair', ...defaultTheme.fontFamily.serif],
+      // serif: ['Georgia', ...defaultTheme.fontFamily.serif],
+      serif: ['Lora', ...defaultTheme.fontFamily.serif],
+      // serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
       display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
     },
     extend: {
