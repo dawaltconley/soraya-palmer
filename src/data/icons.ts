@@ -6,11 +6,11 @@ import { definition as IconTwitter } from '@fortawesome/free-brands-svg-icons/fa
 import { definition as IconLinkedIn } from '@fortawesome/free-brands-svg-icons/faLinkedin'
 import { definition as IconInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram'
 
-import { Icon } from '@lib/icons'
+import { Icon, getIconFromUrl } from '@lib/icons'
 
 const icons = {
-  email: new Icon({ name: 'Email', url: 'email', icons: IconEmail }),
-  phone: new Icon({ name: 'Phone', url: 'phone', icons: IconPhone }),
+  email: new Icon({ name: 'Email', url: 'mailto:', icons: IconEmail }),
+  phone: new Icon({ name: 'Phone', url: 'tel:', icons: IconPhone }),
   twitter: new Icon({
     name: 'Twitter',
     url: 'https://twitter.com',
@@ -29,3 +29,7 @@ const icons = {
 } as const
 
 export default icons
+
+export type IconKey = keyof typeof icons
+export const isIconKey = (str: string): str is IconKey => str in icons
+export { getIconFromUrl }
