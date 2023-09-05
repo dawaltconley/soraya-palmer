@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
@@ -18,6 +19,9 @@ module.exports = {
       display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
     },
     extend: {
+      colors: {
+        gray: colors.neutral,
+      },
       inset: {
         'almost-full': 'calc(100% - 1px)',
       },
