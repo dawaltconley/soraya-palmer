@@ -28,7 +28,7 @@ export default function Quote({
   }
 
   return (
-    <figure className="max-w-xs font-display text-xl">
+    <figure className="font-display text-xl">
       <blockquote cite={url?.toString()} className="leading-snug text-gray-900">
         {quote}
       </blockquote>
