@@ -64,10 +64,6 @@ export default function BookSplash({ init = 'initial' }: BookSplashProps) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const isPlaying = isVideoLoaded && state === 'video'
 
-  const image = useRef<HTMLImageElement>(null)
-  const text = useRef<HTMLDivElement>(null)
-  const video = useRef<HTMLDivElement>(null)
-
   return (
     <div
       id="splash"
@@ -80,7 +76,6 @@ export default function BookSplash({ init = 'initial' }: BookSplashProps) {
     >
       <div className="container mx-auto h-full justify-center py-16 md:flex">
         <div
-          ref={video}
           className={clsx(
             'absolute inset-0 flex w-full duration-1000',
             state === 'initial' ? 'pointer-events-none opacity-0' : 'delay-300',
@@ -114,7 +109,6 @@ export default function BookSplash({ init = 'initial' }: BookSplashProps) {
           </div>
         </div>
         <img
-          ref={image}
           className={clsx(
             'mx-auto h-full min-h-[32rem] object-contain drop-shadow-2xl duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',
             state === 'initial'
@@ -125,7 +119,6 @@ export default function BookSplash({ init = 'initial' }: BookSplashProps) {
           alt="Book cover of The Human Origins of Beatrice Porter"
         />
         <div
-          ref={text}
           className={clsx(
             'mt-8 max-w-prose font-serif text-white duration-1000 md:ml-12 md:mt-0',
             state === 'initial'
