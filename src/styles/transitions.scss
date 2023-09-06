@@ -1,0 +1,81 @@
+%transition {
+  transition-duration: 1s;
+  transition-property: transform, opacity;
+}
+
+%delay {
+  transition-delay: 0.3s;
+}
+
+.fade-left {
+  $distance: 4rem;
+  &-enter {
+    transform: translateX(-$distance);
+    opacity: 0;
+  }
+  &-enter-active,
+  &-enter-done {
+    @extend %transition, %delay;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  &-exit {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  &-exit-active,
+  &-exit-done {
+    @extend %transition;
+    transform: translateX(-$distance);
+    opacity: 0;
+  }
+}
+
+.fade-right {
+  $distance: 4rem;
+  &-enter {
+    transform: translateX($distance);
+    opacity: 0;
+  }
+  &-enter-active,
+  &-enter-done {
+    @extend %transition, %delay;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  &-exit {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  &-exit-active,
+  &-exit-done {
+    @extend %transition;
+    transform: translateX($distance);
+    opacity: 0;
+  }
+}
+
+.from-center {
+  $scale: 0.8;
+  &-enter {
+    transform: scale($scale);
+    opacity: 0;
+  }
+  &-enter-active,
+  &-enter-done {
+    @extend %transition, %delay;
+    transform: scale(1);
+    opacity: 1;
+    z-index: 100;
+  }
+  &-exit {
+    transform: scale(1);
+    opacity: 1;
+  }
+  &-exit-active,
+  &-exit-done {
+    @extend %transition;
+    transform: scale($scale);
+    opacity: 0;
+  }
+}
