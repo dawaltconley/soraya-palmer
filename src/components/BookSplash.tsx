@@ -4,7 +4,7 @@ import Icon from './Icon'
 import Spinner from './Spinner'
 import clsx from 'clsx'
 import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
-import { faCircleXmark } from '@fortawesome/pro-regular-svg-icons/faCircleXmark'
+import { faXmark } from '@fortawesome/pro-regular-svg-icons/faXmark'
 
 interface TrailerProps extends ComponentPropsWithoutRef<'video'> {
   play?: boolean
@@ -53,11 +53,16 @@ const Trailer = ({
   )
 }
 
-export default function BookSplash() {
-  const [state, setState] = useState<'initial' | 'loading' | 'playing'>(
-    'loading',
-  )
+type SplashState = 'initial' | 'video'
+
+export interface BookSplashProps {
+  init?: SplashState
+}
+
+export default function BookSplash({ init = 'initial' }: BookSplashProps) {
+  const [state, setState] = useState<SplashState>(init)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
+  const isPlaying = isVideoLoaded && state === 'video'
 
   const image = useRef<HTMLImageElement>(null)
   const text = useRef<HTMLDivElement>(null)
@@ -81,26 +86,30 @@ export default function BookSplash() {
             state === 'initial' ? 'pointer-events-none opacity-0' : 'delay-300',
           )}
         >
-          <div className="relative m-auto aspect-square w-full md:h-full md:w-auto">
+          <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
             <Trailer
-              play={state === 'playing'}
+              play={isPlaying}
               className={clsx(
                 'duration-1000',
-                state === 'playing' ? 'delay-300' : 'scale-95 opacity-0',
+                isPlaying ? 'delay-300' : 'scale-95 opacity-0',
               )}
-              onReady={() => {
-                setState('playing')
-                setIsVideoLoaded(true)
-              }}
+              onReady={() => setIsVideoLoaded(true)}
               onEnded={() => {
                 window.setTimeout(() => setState('initial'), 500)
               }}
             />
+            <div className="absolute inset-0 flex">
+              <Spinner
+                className={clsx('m-auto text-4xl', {
+                  hidden: isVideoLoaded,
+                })}
+              />
+            </div>
             <button
-              className="absolute right-0 top-0 -translate-y-full p-4 text-xl text-gray-600 md:left-full md:right-auto md:translate-y-0"
+              className="absolute right-0 top-0 -translate-y-full p-4 text-xl md:left-full md:right-auto md:translate-y-0"
               onClick={() => setState('initial')}
             >
-              <Icon icon={faCircleXmark} />
+              <Icon icon={faXmark} />
             </button>
           </div>
         </div>
@@ -149,16 +158,10 @@ export default function BookSplash() {
             </a>
             <button
               className="inline-block px-4 py-3 font-sans"
-              onClick={() =>
-                isVideoLoaded ? setState('playing') : setState('loading')
-              }
+              onClick={() => setState('video')}
             >
-              {state === 'loading' ? (
-                <Spinner className="fa-inline" />
-              ) : (
-                <Icon icon={faCirclePlay} className="fa-inline" />
-              )}{' '}
-              Watch the trailer
+              <Icon icon={faCirclePlay} className="fa-inline" /> Watch the
+              trailer
             </button>
           </div>
         </div>
