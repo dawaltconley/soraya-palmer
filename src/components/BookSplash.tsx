@@ -1,3 +1,4 @@
+import type { ComponentPropsWithoutRef, SyntheticEvent } from 'react'
 import { useState, useEffect, useRef } from 'react'
 import Icon from './Icon'
 import Spinner from './Spinner'
@@ -5,37 +6,47 @@ import clsx from 'clsx'
 import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
 import { faCircleXmark } from '@fortawesome/pro-regular-svg-icons/faCircleXmark'
 
-interface TrailerProps {
-  onReady: () => void
-  onEnded: () => void
+interface TrailerProps extends ComponentPropsWithoutRef<'video'> {
+  play?: boolean
+  onReady: (e?: SyntheticEvent<HTMLVideoElement>) => void
+  onEnded: (e?: SyntheticEvent<HTMLVideoElement>) => void
 }
 
-const Trailer = ({ onReady, onEnded }: TrailerProps) => {
+const Trailer = ({
+  play = false,
+  onReady,
+  onEnded,
+  ...props
+}: TrailerProps) => {
   const video = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (video.current && video.current.readyState >= 3) {
+      onReady()
+    }
+  }, [])
 
   useEffect(() => {
     const v = video.current
     if (!v) return
-    if (v.readyState >= 3) {
-      onReady()
+    if (play) {
+      v.currentTime = 0
+      v.play()
     } else {
-      v.addEventListener('canplaythrough', onReady)
+      v.pause()
     }
-    v.addEventListener('ended', onEnded)
-
-    return () => {
-      v.removeEventListener('canplaythrough', onReady)
-      v.removeEventListener('ended', onEnded)
-    }
-  }, [])
+  }, [play])
 
   return (
     <video
       ref={video}
       muted
-      autoPlay
+      autoPlay={false}
       preload="auto"
       className="absolute inset-0"
+      onCanPlayThrough={onReady}
+      onEnded={onEnded}
+      {...props}
     >
       <source src="/media/humanorigins_1080x1080_3.mp4" type="video/mp4" />
     </video>
@@ -46,6 +57,7 @@ export default function BookSplash() {
   const [state, setState] = useState<'initial' | 'loading' | 'playing'>(
     'loading',
   )
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false)
 
   const image = useRef<HTMLImageElement>(null)
   const text = useRef<HTMLDivElement>(null)
@@ -66,14 +78,20 @@ export default function BookSplash() {
           ref={video}
           className={clsx(
             'absolute inset-0 flex w-full duration-1000',
-            state === 'initial'
-              ? 'pointer-events-none scale-90 opacity-0'
-              : 'delay-300',
+            state === 'initial' ? 'pointer-events-none opacity-0' : 'delay-300',
           )}
         >
           <div className="relative m-auto aspect-square w-full md:h-full md:w-auto">
             <Trailer
-              onReady={() => setState('playing')}
+              play={state === 'playing'}
+              className={clsx(
+                'duration-1000',
+                state === 'playing' ? 'delay-300' : 'scale-95 opacity-0',
+              )}
+              onReady={() => {
+                setState('playing')
+                setIsVideoLoaded(true)
+              }}
               onEnded={() => {
                 window.setTimeout(() => setState('initial'), 500)
               }}
@@ -131,7 +149,9 @@ export default function BookSplash() {
             </a>
             <button
               className="inline-block px-4 py-3 font-sans"
-              onClick={() => setState('loading')}
+              onClick={() =>
+                isVideoLoaded ? setState('playing') : setState('loading')
+              }
             >
               {state === 'loading' ? (
                 <Spinner className="fa-inline" />
