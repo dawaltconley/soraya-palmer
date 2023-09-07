@@ -3,7 +3,23 @@ import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import BookSplash from '~/components/BookSplash.tsx'
 import Quote from '@components/Quote.tsx'
+import ArticlePreview from '~/components/ArticlePreview.tsx'
 import Footer from '@components/Footer.astro'
+import { getMetadata } from '~/lib/build/url-metadata'
+
+const articles = await Promise.all(
+  [
+    'https://hazlitt.net/longreads/falling-love-david',
+    'https://electricliterature.com/7-books-about-hauntings-by-black-women-writers/',
+    'https://www.pshares.org/issues/spring-2016',
+  ].map((url) => getMetadata(url).then((meta) => ({ url, ...meta }))),
+)
+
+articles.sort((a, b) => {
+  const dateA = a.date ? new Date(a.date).getMilliseconds() : -Infinity
+  const dateB = b.date ? new Date(b.date).getMilliseconds() : -Infinity
+  return dateB - dateA
+})
 ---
 
 <Base title="Soraya Palmer">
@@ -71,10 +87,20 @@ import Footer from '@components/Footer.astro'
       </div>
     </div>
 
-    <!-- other writing, optional?
-    <div id="writing">
+    <div id="writing" class="my-8 bg-gray-50">
+      <div class="container mx-auto py-8">
+        <h2 class="mb-8 text-center font-display text-3xl font-bold">
+          More Writing
+        </h2>
+        <div class="grid gap-8 md:grid-cols-3">
+          {
+            articles
+              .slice(0, 3)
+              .map((article) => <ArticlePreview client:load {...article} />)
+          }
+        </div>
+      </div>
     </div>
-     -->
 
     <div id="contact-group" class="container mx-auto justify-around xl:flex">
       <div
