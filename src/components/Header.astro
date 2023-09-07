@@ -1,14 +1,15 @@
 ---
 interface Props {
+  class?: string
   useAsTitle?: boolean
 }
 
-const { useAsTitle } = Astro.props
+const { class: className, useAsTitle } = Astro.props
 
 const H = useAsTitle ? 'h1' : 'h4'
 ---
 
-<header>
+<header id="header" class:list={['w-full', className]}>
   <div class="container mx-auto flex h-14 items-end justify-between py-2">
     <H class="font-display text-2xl">
       <a href="/">Soraya Palmer</a>
@@ -22,3 +23,26 @@ const H = useAsTitle ? 'h1' : 'h4'
     </nav>
   </div>
 </header>
+
+<style lang="scss">
+  .header-transition {
+    @apply delay-300 duration-1000;
+
+    &--hidden {
+      @apply pointer-events-none -translate-y-4 opacity-0 delay-0;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('header') as HTMLDivElement
+
+  window.addEventListener('splashstate', (e) => {
+    header.classList.add('header-transition')
+    if (e.detail.state === 'video') {
+      header.classList.add('header-transition--hidden')
+    } else {
+      header.classList.remove('header-transition--hidden')
+    }
+  })
+</script>

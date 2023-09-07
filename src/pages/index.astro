@@ -23,9 +23,9 @@ articles.sort((a, b) => {
 ---
 
 <Base title="Soraya Palmer">
-  <Header useAsTitle />
+  <Header useAsTitle class="relative z-10 -mb-14 text-white" />
   <main class="text-lg">
-    <BookSplash client:load />
+    <BookSplash client:load init="video" className="pt-14" />
     <div id="pull-quotes" class="mb-8 bg-gray-50">
       <div
         class="container mx-auto grid justify-items-center gap-16 py-16 sm:grid-cols-3 sm:gap-8 lg:gap-16"

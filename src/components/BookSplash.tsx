@@ -55,24 +55,51 @@ const Trailer = ({
 
 type SplashState = 'initial' | 'video'
 
-export interface BookSplashProps {
+export interface BookSplashProps extends ComponentPropsWithoutRef<'div'> {
   init?: SplashState
 }
 
-export default function BookSplash({ init = 'initial' }: BookSplashProps) {
+export type SplashStateEvent = CustomEvent<{ state: SplashState }>
+
+declare global {
+  interface WindowEventMap {
+    splashstate: SplashStateEvent
+  }
+}
+
+export default function BookSplash({
+  init = 'initial',
+  className,
+  ...divProps
+}: BookSplashProps) {
+  const splash = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<SplashState>(init)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const isPlaying = isVideoLoaded && state === 'video'
 
+  useEffect(() => {
+    if (!splash.current) return
+    const event: SplashStateEvent = new CustomEvent('splashstate', {
+      bubbles: true,
+      detail: {
+        state,
+      },
+    })
+    splash.current.dispatchEvent(event)
+  }, [state])
+
   return (
     <div
+      ref={splash}
       id="splash"
       className={clsx(
         'vignette relative min-h-[50vh] w-full bg-gray-800 duration-1000',
         state === 'initial'
           ? 'max-h-[200vh] delay-300'
           : 'max-h-screen bg-gray-950',
+        className,
       )}
+      {...divProps}
     >
       <div className="container mx-auto h-full justify-center py-16 md:flex">
         <div
