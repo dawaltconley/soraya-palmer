@@ -26,37 +26,38 @@ articles.sort((a, b) => {
   <Header useAsTitle />
   <main class="text-lg">
     <BookSplash client:load />
-    <div
-      id="pull-quotes"
-      class="container mx-auto my-16 grid justify-items-center gap-16 sm:grid-cols-3 sm:gap-8 lg:gap-16"
-    >
-      <Quote
-        type="review"
-        author="Ingrid Rojas Contreras"
-        source="The New York Times Book Review"
-        url="https://www.nytimes.com/2023/03/28/books/review/the-human-origins-of-beatrice-porter-and-other-essential-ghosts-soraya-palmer.html"
+    <div id="pull-quotes" class="mb-8 bg-gray-50">
+      <div
+        class="container mx-auto grid justify-items-center gap-16 py-16 sm:grid-cols-3 sm:gap-8 lg:gap-16"
       >
-        This is a book written with the gods of storytelling in mind.
-      </Quote>
+        <Quote
+          type="review"
+          author="Ingrid Rojas Contreras"
+          source="The New York Times Book Review"
+          url="https://www.nytimes.com/2023/03/28/books/review/the-human-origins-of-beatrice-porter-and-other-essential-ghosts-soraya-palmer.html"
+        >
+          This is a book written with the gods of storytelling in mind.
+        </Quote>
 
-      <Quote
-        type="review"
-        source="Today"
-        url="https://www.today.com/popculture/best-new-books-2023-t272941"
-      >
-        One of the Best New Books to Read in 2023.
-      </Quote>
+        <Quote
+          type="review"
+          source="Today"
+          url="https://www.today.com/popculture/best-new-books-2023-t272941"
+        >
+          One of the Best New Books to Read in 2023.
+        </Quote>
 
-      <Quote
-        type="review"
-        author="Sarah Neilson"
-        source="Shondaland"
-        url="https://www.shondaland.com/inspire/books/a43391194/soraya-palmers-the-human-origins-of-beatrice-porter-and-other-essential-ghosts/"
-      >
-        [A] stunning debut novel . . . With magnetic prose and nuanced
-        characters, Palmer has created a story where readers will be invested
-        from page one.
-      </Quote>
+        <Quote
+          type="review"
+          author="Sarah Neilson"
+          source="Shondaland"
+          url="https://www.shondaland.com/inspire/books/a43391194/soraya-palmers-the-human-origins-of-beatrice-porter-and-other-essential-ghosts/"
+        >
+          [A] stunning debut novel . . . With magnetic prose and nuanced
+          characters, Palmer has created a story where readers will be invested
+          from page one.
+        </Quote>
+      </div>
     </div>
 
     <div id="about" class="container mx-auto my-16 justify-center lg:flex">
