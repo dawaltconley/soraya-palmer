@@ -1,30 +1,72 @@
 ---
 interface Props {
   class?: string
+  textColor?: string
   useAsTitle?: boolean
 }
 
-const { class: className, useAsTitle } = Astro.props
+const { class: className, useAsTitle, textColor } = Astro.props
 
 const H = useAsTitle ? 'h1' : 'h4'
 ---
 
-<header id="header" class:list={['w-full', className]}>
-  <div class="container mx-auto flex h-14 items-end justify-between py-2">
+<header
+  id="header"
+  class:list={['header w-full', className]}
+  style={{
+    '--text-color': textColor,
+  }}
+>
+  <nav class="container mx-auto flex h-14 items-end justify-between py-2">
     <H class="font-display text-2xl">
       <a href="/">Soraya Palmer</a>
     </H>
-    <nav class="">
-      <ul class="flex items-end">
-        <li class="px-4">Writing</li>
-        <li class="px-4">Press</li>
-        <li class="px-4">Work with me</li>
-      </ul>
-    </nav>
-  </div>
+
+    <button
+      class="hamburger hamburger--slider relative z-30 -mr-2 px-2 py-1 sm:hidden"
+      type="button"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+
+    <ul class="header__links sm:flex sm:items-end">
+      <li class="-mb-4 p-4">Writing</li>
+      <li class="-mb-4 p-4">Press</li>
+      <li class="-mb-4 p-4">Work with me</li>
+    </ul>
+  </nav>
 </header>
 
 <style lang="scss">
+  .header {
+    color: var(--text-color, inherit);
+  }
+
+  .hamburger-inner {
+    &,
+    &::before,
+    &::after {
+      background-color: var(--text-color);
+      transition-property: background-color, transform, opacity;
+    }
+  }
+
+  .hamburger.is-active {
+    --text-color: theme('colors.gray.900');
+  }
+
+  @media screen and (max-width: theme('screens.sm') - 1) {
+    .header__links {
+      @apply fixed right-0 top-0 z-20 h-screen translate-x-full justify-center bg-gray-50 px-4 pt-24 text-xl text-gray-900 duration-300;
+
+      &--open {
+        @apply translate-x-0;
+      }
+    }
+  }
+
   .header-transition {
     @apply delay-300 duration-1000;
 
@@ -36,6 +78,38 @@ const H = useAsTitle ? 'h1' : 'h4'
 
 <script>
   const header = document.getElementById('header') as HTMLDivElement
+  const hamburger = header.querySelector('.hamburger')
+  const links = header.querySelector('.header__links')
+  const lightbox = document.createElement('div')
+  lightbox.classList.add('lightbox')
+  header.appendChild(lightbox)
+
+  let isOpen = false
+
+  const open = () => {
+    isOpen = true
+    links?.classList.add('header__links--open')
+    hamburger?.classList.add('is-active')
+    lightbox.classList.add('lightbox--active')
+  }
+
+  const close = () => {
+    isOpen = false
+    links?.classList.remove('header__links--open')
+    hamburger?.classList.remove('is-active')
+    lightbox.classList.remove('lightbox--active')
+  }
+
+  const toggleOpen = () => {
+    if (isOpen) {
+      close()
+    } else {
+      open()
+    }
+  }
+
+  hamburger?.addEventListener('click', toggleOpen)
+  lightbox.addEventListener('click', close)
 
   window.addEventListener('splashstate', (e) => {
     header.classList.add('header-transition')
