@@ -97,7 +97,7 @@ articles.sort((a, b) => {
           {
             articles
               .slice(0, 3)
-              .map((article) => <ArticlePreview client:load {...article} />)
+              .map((article) => <ArticlePreview {...article} />)
           }
         </div>
       </div>
