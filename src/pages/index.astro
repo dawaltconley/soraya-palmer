@@ -1,11 +1,11 @@
 ---
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
-import BookSplash from '~/components/BookSplash.tsx'
+import BookSplash from '@components/BookSplash'
 import Quote from '@components/Quote.tsx'
-import ArticlePreview from '~/components/ArticlePreview.tsx'
+import ArticlePreview from '@components/ArticlePreview.tsx'
 import Footer from '@components/Footer.astro'
-import { getMetadata } from '~/lib/build/url-metadata'
+import { getMetadata } from '@lib/build/url-metadata'
 
 const articles = await Promise.all(
   [
