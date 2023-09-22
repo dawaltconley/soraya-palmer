@@ -1,12 +1,11 @@
 import { defineConfig } from 'astro/config'
 
-import path from 'node:path'
 import * as sass from 'sass'
-import mkTwFunctions from 'sass-tailwind-functions'
+import mkTwFunctions from 'sass-tailwind-functions/legacy'
 import react from '@astrojs/react'
 import tina from 'astro-tina'
 
-const twFunctions = mkTwFunctions(sass, path.resolve('./tailwind.config.cjs'))
+const { pathname: twConfig } = new URL('./tailwind.config.cjs', import.meta.url)
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,7 +18,7 @@ export default defineConfig({
           includePaths: ['node_modules', 'src/styles'],
           quietDeps: true,
           functions: {
-            ...twFunctions,
+            ...mkTwFunctions(sass, twConfig),
           },
         },
       },
