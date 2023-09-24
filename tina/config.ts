@@ -122,7 +122,6 @@ export default defineConfig({
             name: 'url',
             label: 'URL',
             required: true,
-            isTitle: true,
             ui: {
               // @ts-expect-error
               component: UrlMetadata,
@@ -141,6 +140,7 @@ export default defineConfig({
             name: 'title',
             label: 'Title',
             required: true,
+            isTitle: true,
           },
           {
             type: 'image',
