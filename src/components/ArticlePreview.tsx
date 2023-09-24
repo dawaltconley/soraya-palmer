@@ -1,7 +1,7 @@
 export interface ArticlePreviewProps {
   url: string | URL
-  title?: string | null
-  image?: string | null
+  title: string
+  image: string
   description?: string | null
   publisher?: string | null
   hLevel?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -20,7 +20,7 @@ export default function ArticlePreview({
       <div className="layer-children aspect-video shrink-0">
         <img
           className="object-cover"
-          src={image || ''}
+          src={image}
           alt=""
           loading="lazy"
           decoding="async"

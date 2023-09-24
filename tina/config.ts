@@ -140,11 +140,13 @@ export default defineConfig({
             type: 'string',
             name: 'title',
             label: 'Title',
+            required: true,
           },
           {
             type: 'image',
             name: 'image',
             label: 'Image',
+            required: true,
           },
           {
             type: 'string',
