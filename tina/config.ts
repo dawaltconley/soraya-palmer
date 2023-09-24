@@ -1,10 +1,11 @@
+import { UrlMetadata } from './components/UrlMetadata'
 import { defineConfig } from 'tinacms'
 import { toUrl } from '../src/lib/utils'
 
 // Your hosting provider likely exposes this as an environment variable
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main'
 
-const validateUrl = (url: string) => {
+const validateUrl = (url: string): string | void => {
   try {
     if (url) new URL(url)
   } catch (e) {
@@ -123,7 +124,16 @@ export default defineConfig({
             required: true,
             isTitle: true,
             ui: {
+              // @ts-expect-error
+              component: UrlMetadata,
+              // @ts-expect-error
               validate: validateUrl,
+              metadataFields: {
+                title: 'title',
+                image: 'image.url',
+                description: 'description',
+                publisher: 'publisher',
+              },
             },
           },
           {
