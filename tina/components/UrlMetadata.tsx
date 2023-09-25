@@ -1,4 +1,4 @@
-import type { MqlResponse } from '@microlink/mql'
+import type { MqlResponse, MicrolinkApiOptions } from '@microlink/mql'
 import mql from '@microlink/mql'
 import React, { useState, useRef } from 'react'
 import type { InputProps } from 'tinacms'
@@ -6,7 +6,10 @@ import { wrapFieldsWithMeta, Input, LoadingDots } from 'tinacms'
 import { get, memoize } from 'lodash'
 
 const getMetadata = memoize(
-  async (urlString: string | URL): Promise<MqlResponse['data']> => {
+  async (
+    urlString: string | URL,
+    options?: MicrolinkApiOptions,
+  ): Promise<MqlResponse['data']> => {
     let url: URL
     try {
       url = new URL(urlString)
@@ -14,7 +17,10 @@ const getMetadata = memoize(
       throw new Error(`Couldn't parse url: ${urlString}`)
     }
 
-    const { status, data } = await mql(url.href, { meta: true })
+    const { status, data } = await mql(url.href, {
+      meta: true,
+      ...options,
+    })
     if (status !== 'success')
       throw new Error(`Error fetching metadata for ${url.href}: ${status}`)
 
@@ -23,15 +29,15 @@ const getMetadata = memoize(
 )
 
 export interface UrlMetadataProps {
-  metadataFields: Record<string, string>
+  metadataFields: Record<
+    string,
+    string | ((data: MqlResponse['data']) => string)
+  >
+  mqlOptions: MicrolinkApiOptions
 }
 
 export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
   ({ field, input, form }) => {
-    if (!('form' in window)) {
-      ;(window as any).form = form
-    }
-
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
@@ -40,14 +46,18 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
       setIsLoading(true)
       window.clearTimeout(debounce.current)
       debounce.current = window.setTimeout(() => {
-        getMetadata(url)
+        getMetadata(url, field.mqlOptions)
           .then((metadata) => {
             setError(null)
             if (metadata.url) input.onChange(metadata.url)
             form.batch(() => {
               Object.entries(field.metadataFields).forEach(
                 ([field, property]) => {
-                  form.change(field, get(metadata, property, ''))
+                  const value: string =
+                    typeof property === 'function'
+                      ? property(metadata)
+                      : get(metadata, property, '')
+                  form.change(field, value)
                 },
               )
             })
@@ -62,7 +72,6 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
         <div className="relative">
           <Input
             {...input}
-            // value={input.value}
             error={error}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               input.onChange(e.target.value)
@@ -71,7 +80,7 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
           />
           {isLoading && (
             <div className="absolute bottom-0 right-2 top-0 flex flex-col justify-center">
-              <LoadingDots color="rgb(67 62 82)" />
+              <LoadingDots color="rgb(0, 132, 255)" />
             </div>
           )}
         </div>
