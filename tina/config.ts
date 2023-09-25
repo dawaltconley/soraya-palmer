@@ -103,8 +103,18 @@ export default defineConfig({
               metadataFields: {
                 title: 'title',
                 image: 'image.url',
+                date: (data: any) => data.publishedDate || data.date,
                 description: 'description',
                 publisher: 'publisher',
+              },
+              mqlOptions: {
+                data: {
+                  publishedDate: {
+                    selector: 'meta[property="article:published_time"]',
+                    attr: 'content',
+                    type: 'date',
+                  },
+                },
               },
             },
           },
@@ -120,6 +130,11 @@ export default defineConfig({
             name: 'image',
             label: 'Image',
             required: true,
+          },
+          {
+            type: 'datetime',
+            name: 'date',
+            label: 'Date',
           },
           {
             type: 'string',
