@@ -77,11 +77,7 @@ const writingSamples = await client.queries.writingSamples()
       </div>
     </div>
 
-    <div id="writing" class="my-8 bg-gray-50">
-      <div class="container mx-auto py-8">
-        <WritingSamples client:tina writing={writingSamples} />
-      </div>
-    </div>
+    <WritingSamples client:tina writing={writingSamples} />
 
     <div id="contact-group" class="container mx-auto justify-around xl:flex">
       <div
