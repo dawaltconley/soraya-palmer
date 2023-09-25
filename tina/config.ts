@@ -58,23 +58,36 @@ export default defineConfig({
         fields: [
           {
             type: 'object',
-            label: 'Writing samples',
             name: 'writing',
-            list: true,
-            ui: {
-              itemProps: (item) => {
-                return {
-                  label: item.writing || 'Add sample',
-                }
-              },
-            },
+            label: 'Writing',
+            required: true,
             fields: [
               {
-                type: 'reference',
-                label: 'Writing',
-                name: 'writing',
-                collections: ['writing'],
-                required: true,
+                type: 'string',
+                name: 'title',
+                label: 'Title',
+              },
+              {
+                type: 'object',
+                label: 'Selections',
+                name: 'selections',
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return {
+                      label: item.writing || 'Add sample',
+                    }
+                  },
+                },
+                fields: [
+                  {
+                    type: 'reference',
+                    label: 'Selection',
+                    name: 'item',
+                    collections: ['writing'],
+                    required: true,
+                  },
+                ],
               },
             ],
           },

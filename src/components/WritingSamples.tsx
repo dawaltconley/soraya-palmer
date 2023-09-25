@@ -9,7 +9,8 @@ export interface WritingSamplesProps {
 
 export default function WritingSamples({ writing }: WritingSamplesProps) {
   const { data } = useTina(writing)
-  const articles = data.home.writing?.map((w) => w?.writing).filter(isNotEmpty)
+  const { title, selections } = data.home.writing
+  const articles = selections?.map((w) => w?.item).filter(isNotEmpty)
 
   return (
     <div
@@ -19,7 +20,7 @@ export default function WritingSamples({ writing }: WritingSamplesProps) {
     >
       <div className="container mx-auto py-8">
         <h2 className="mb-8 text-center font-display text-3xl font-bold">
-          More Writing
+          {title}
         </h2>
         {articles && (
           <div className="grid gap-8 md:grid-cols-3">
