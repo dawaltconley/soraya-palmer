@@ -1,0 +1,15 @@
+query writingSamples {
+  home(relativePath: "home.yaml") {
+    writing {
+      writing {
+        ... on Writing {
+          url
+          title
+          image
+          publisher
+          description
+        }
+      }
+    }
+  }
+}
