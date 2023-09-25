@@ -1,6 +1,5 @@
 import { UrlMetadata } from './components/UrlMetadata'
 import { defineConfig } from 'tinacms'
-import { toUrl } from '../src/lib/utils'
 
 // Your hosting provider likely exposes this as an environment variable
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main'
@@ -12,13 +11,6 @@ const validateUrl = (url: string): string | void => {
     return `${url} is not a valid URL.`
   }
 }
-
-const slugify = (str: string): string =>
-  str
-    .replace(/[^A-z0-9_]+/g, ' ')
-    .trim()
-    .replaceAll(' ', '-')
-    .toLowerCase()
 
 export default defineConfig({
   branch,
@@ -97,18 +89,6 @@ export default defineConfig({
         name: 'writing',
         label: 'Writing',
         path: 'content/writing',
-        ui: {
-          filename: {
-            slugify: (entry) => {
-              if (!entry.url) return ''
-              const url = toUrl(entry.url)
-              if (url) {
-                return `${slugify(url.hostname)}__${slugify(url.pathname)}`
-              }
-              return slugify(entry?.title || entry.url)
-            },
-          },
-        },
         fields: [
           {
             type: 'string',
