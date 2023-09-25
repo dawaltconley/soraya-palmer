@@ -93,10 +93,10 @@ export default function BookSplash({
       ref={splash}
       id="splash"
       className={clsx(
-        'vignette relative min-h-[50vh] w-full bg-gray-800 duration-1000',
+        'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full duration-1000 before:delay-[inherit] before:duration-[inherit]',
         state === 'initial'
-          ? 'max-h-[200vh] delay-300'
-          : 'max-h-screen bg-gray-950',
+          ? 'max-h-[200vh] delay-300 before:bg-gray-950/80'
+          : 'max-h-screen before:bg-gray-950',
         className,
       )}
       {...divProps}
@@ -147,7 +147,7 @@ export default function BookSplash({
         />
         <div
           className={clsx(
-            'mt-8 max-w-prose font-serif text-white duration-1000 md:ml-12 md:mt-0',
+            'relative mt-8 max-w-prose font-serif text-white duration-1000 md:ml-12 md:mt-0',
             state === 'initial'
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',

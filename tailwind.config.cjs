@@ -22,9 +22,9 @@ module.exports = {
         // serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
         display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
       },
-      colors: {
-        gray: colors.neutral,
-      },
+      // colors: {
+      //   gray: colors.neutral,
+      // },
       inset: {
         'almost-full': 'calc(100% - 1px)',
       },
