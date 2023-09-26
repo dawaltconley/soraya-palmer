@@ -16,7 +16,7 @@ export default function WritingSamples({ writing }: WritingSamplesProps) {
     <div
       id="writing"
       className="my-8 bg-gray-50"
-      data-tina-field={tinaField(data.home, 'writing')}
+      data-tina-field={tinaField(data.home.writing)}
     >
       <div className="container mx-auto py-8">
         <h2 className="mb-8 text-center font-display text-3xl font-bold">

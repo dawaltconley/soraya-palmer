@@ -58,11 +58,12 @@ export default defineConfig({
                 type: 'string',
                 name: 'title',
                 label: 'Title',
+                required: true,
               },
               {
                 type: 'object',
-                label: 'Selections',
                 name: 'selections',
+                label: 'Selections',
                 list: true,
                 ui: {
                   itemProps: (item) => {

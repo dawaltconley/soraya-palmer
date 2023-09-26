@@ -6,10 +6,10 @@ query writingSamples {
         item {
           ... on Writing {
             url
-              title
-              image
-              publisher
-              description
+            title
+            image
+            publisher
+            description
           }
         }
       }
