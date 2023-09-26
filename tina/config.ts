@@ -66,11 +66,9 @@ export default defineConfig({
                 label: 'Selections',
                 list: true,
                 ui: {
-                  itemProps: (item) => {
-                    return {
-                      label: item.writing || 'Add sample',
-                    }
-                  },
+                  itemProps: ({ item }) => ({
+                    label: item || 'Add sample',
+                  }),
                 },
                 fields: [
                   {
