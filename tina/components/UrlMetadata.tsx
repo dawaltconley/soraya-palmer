@@ -33,11 +33,13 @@ export interface UrlMetadataProps {
     string,
     string | ((data: MqlResponse['data']) => string)
   >
+  overwriteFields: boolean
   mqlOptions: MicrolinkApiOptions
 }
 
 export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
   ({ field, input, form }) => {
+    ;(window as any).form = form
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
@@ -50,16 +52,17 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
           .then((metadata) => {
             setError(null)
             if (metadata.url) input.onChange(metadata.url)
+            const { values } = form.getState()
             form.batch(() => {
-              Object.entries(field.metadataFields).forEach(
-                ([field, property]) => {
+              Object.entries(field.metadataFields)
+                .filter(([f]) => field.overwriteFields || !values[f])
+                .forEach(([field, property]) => {
                   const value: string =
                     typeof property === 'function'
                       ? property(metadata)
                       : get(metadata, property, '')
                   form.change(field, value)
-                },
-              )
+                })
             })
           })
           .catch(setError)
