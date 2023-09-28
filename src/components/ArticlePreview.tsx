@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react'
+
 export interface ArticlePreviewProps {
   url: string | URL
   title: string
   image: string
-  description?: string | null
+  description?: ReactNode
   publisher?: string | null
   hLevel?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
@@ -33,7 +35,7 @@ export default function ArticlePreview({
           </a>
         </H>
         {publisher && <p className="italic text-gray-500">{publisher}</p>}
-        {description && <p className="mt-2">{description}</p>}
+        {description && <div className="mt-2">{description}</div>}
       </div>
     </div>
   )
