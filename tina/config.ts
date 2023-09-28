@@ -1,6 +1,4 @@
 import type { Collection } from 'tinacms'
-// import type { Collection, TinaField, Field, Template } from 'tinacms'
-// import type { UrlMetadataProps } from './components/UrlMetadata'
 import { UrlMetadata } from './components/UrlMetadata'
 import { defineConfig } from 'tinacms'
 
