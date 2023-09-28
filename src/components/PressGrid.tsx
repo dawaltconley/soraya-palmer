@@ -17,11 +17,13 @@ export default function PressGrid({ query }: PressGridProps) {
       data-tina-field={tinaField(data.pressPage.press)}
     >
       {press.map((p) => {
+        let content: ReactNode
         if (p.__typename === 'PressPagePressArticle' && p.article) {
           const id = p.article._sys.filename
-          const { url, title, image, description, source } = p.article
+          const { url, title, image, source } = p.article
+          const description = <TinaMarkdown content={p.article.description} />
           if (image) {
-            return (
+            content = (
               <ArticlePreview
                 key={id}
                 url={url}
@@ -32,12 +34,13 @@ export default function PressGrid({ query }: PressGridProps) {
               />
             )
           } else {
-            return <div>Oops! missing article image</div>
+            // TODO fix
+            content = <div>Oops! missing article image</div>
           }
         } else if (p.__typename === 'PressPagePressQuote' && p.quote) {
           const id = p.quote._sys.filename
           const { author, book, quote } = p.quote
-          return (
+          content = (
             <Quote
               key={id}
               type="author"
@@ -50,6 +53,7 @@ export default function PressGrid({ query }: PressGridProps) {
         } else {
           return null
         }
+        return <div data-tina-field={tinaField(p)}>{content}</div>
       })}
     </div>
   )
