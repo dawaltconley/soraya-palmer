@@ -138,6 +138,21 @@ const writing: Collection = {
   ],
 }
 
+const toRichText = (str: string) => ({
+  type: 'root',
+  children: [
+    {
+      type: 'p',
+      children: [
+        {
+          type: 'text',
+          text: str,
+        },
+      ],
+    },
+  ],
+})
+
 const press: Collection = {
   name: 'press',
   label: 'Press',
@@ -159,7 +174,7 @@ const press: Collection = {
           date: (data: any) => data.publishedDate || data.date,
           quote: (data: any) => {
             console.log(data)
-            return data.description
+            return toRichText(data.description)
           },
           source: 'publisher',
           author: 'author',
@@ -206,6 +221,7 @@ const press: Collection = {
       type: 'rich-text',
       name: 'quote',
       label: 'Quote',
+      isBody: true,
     },
   ],
 }
@@ -220,6 +236,7 @@ const quotes: Collection = {
       name: 'quote',
       label: 'Quote',
       required: true,
+      isBody: true,
     },
     {
       type: 'string',
@@ -283,7 +300,6 @@ export default defineConfig({
   branch,
   clientId: null, // Get this from tina.io
   token: null, // Get this from tina.io
-
   build: {
     outputFolder: 'admin',
     publicFolder: 'public',
