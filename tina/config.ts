@@ -1,6 +1,7 @@
 import type { Collection } from 'tinacms'
 import { UrlMetadata } from './components/UrlMetadata'
 import { defineConfig } from 'tinacms'
+import { toUrl } from '../src/lib/utils'
 
 // Your hosting provider likely exposes this as an environment variable
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main'
@@ -12,6 +13,12 @@ const validateUrl = (url: string): string | void => {
     return `${url} is not a valid URL.`
   }
 }
+
+const slugify = (str: string): string =>
+  str
+    .replace(/[^A-z0-9_]+/g, ' ')
+    .trim()
+    .replaceAll(' ', '-')
 
 const homePage: Collection = {
   name: 'home',
@@ -73,6 +80,14 @@ const writing: Collection = {
   name: 'writing',
   label: 'Writing',
   path: 'content/writing',
+  ui: {
+    filename: {
+      slugify: ({ url, title, publisher }) => {
+        const prefix = publisher || toUrl(url)?.hostname
+        return slugify([prefix, title].join('__'))
+      },
+    },
+  },
   fields: [
     {
       type: 'string',
@@ -155,6 +170,14 @@ const press: Collection = {
   name: 'press',
   label: 'Press',
   path: 'content/press',
+  ui: {
+    filename: {
+      slugify: ({ url, title, source }) => {
+        const prefix = source || toUrl(url)?.hostname
+        return slugify([prefix, title].join('__'))
+      },
+    },
+  },
   fields: [
     {
       type: 'string',
