@@ -60,7 +60,7 @@ const homePage: Collection = {
               label: 'Selection',
               name: 'item',
               collections: ['writing'],
-              required: true,
+              required: true, // TODO: this may break builds!!
             },
           ],
         },
@@ -217,17 +217,17 @@ const press: Collection = {
     },
     {
       type: 'rich-text',
-      name: 'quote',
-      label: 'Quote',
+      name: 'description', // maybe make this a textarea and add a separate optional "pullquote" field?
+      label: 'Excerpt or description',
       isBody: true,
     },
   ],
 }
 
 const quotes: Collection = {
-  name: 'quote',
+  name: 'quotes',
   label: 'Author Quotes',
-  path: 'content/quote',
+  path: 'content/quotes',
   fields: [
     {
       type: 'rich-text',
@@ -241,6 +241,7 @@ const quotes: Collection = {
       name: 'author',
       label: 'Author',
       required: true,
+      isTitle: true,
     },
     {
       type: 'string',
@@ -251,7 +252,7 @@ const quotes: Collection = {
 }
 
 const pressPage: Collection = {
-  name: 'quotes',
+  name: 'pressPage',
   label: 'Press Page',
   path: 'content/pages',
   match: {
@@ -275,12 +276,30 @@ const pressPage: Collection = {
       label: 'Press',
       list: true,
       required: true,
-      fields: [
+      templates: [
         {
-          type: 'reference',
-          collections: ['press', 'quotes'],
-          name: 'item',
+          name: 'article',
+          label: 'Article',
+          fields: [
+            {
+              type: 'reference',
+              collections: ['press'],
+              name: 'article',
+              label: 'Quote',
+            },
+          ],
+        },
+        {
+          name: 'quote',
           label: 'Quote',
+          fields: [
+            {
+              type: 'reference',
+              collections: ['quotes'],
+              name: 'quote',
+              label: 'Quote',
+            },
+          ],
         },
       ],
     },
