@@ -215,7 +215,6 @@ const press: Collection = {
       type: 'string',
       name: 'title',
       label: 'Title',
-      isTitle: true,
       required: true,
     },
     {
@@ -304,6 +303,12 @@ const pressPage: Collection = {
         {
           name: 'article',
           label: 'Article',
+          ui: {
+            itemProps: (item) => {
+              const label = [item._template, item.article].join(': ')
+              return { label }
+            },
+          },
           fields: [
             {
               type: 'reference',
@@ -316,6 +321,12 @@ const pressPage: Collection = {
         {
           name: 'quote',
           label: 'Quote',
+          ui: {
+            itemProps: (item) => {
+              const label = [item._template, item.quote].join(': ')
+              return { label }
+            },
+          },
           fields: [
             {
               type: 'reference',
