@@ -1,1 +1,2 @@
-press: []
+press:
+  - _template: article
