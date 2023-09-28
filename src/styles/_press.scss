@@ -1,0 +1,9 @@
+@layer components {
+  .press-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: theme('spacing.48');
+    grid-auto-flow: row dense;
+    gap: theme('spacing.4');
+  }
+}

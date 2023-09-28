@@ -15,8 +15,9 @@ export default function ArticlePreview({
   description,
   publisher,
   image,
-  hLevel: H = 'h3',
+  hLevel,
 }: ArticlePreviewProps) {
+  const H = hLevel || 'p'
   return (
     <div className="relative flex flex-col font-serif text-base">
       <div className="layer-children aspect-video shrink-0">
