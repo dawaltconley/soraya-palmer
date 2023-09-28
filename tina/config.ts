@@ -264,10 +264,11 @@ const pressPage: Collection = {
       create: false,
       delete: false,
     },
-    // router: async ({ document }) => {
-    //   if (document._sys.filename === 'home') return '/'
-    //   return undefined
-    // },
+    router: async ({ document }) => {
+      console.log('router', document)
+      if (document._sys.filename === 'press') return '/press'
+      return undefined
+    },
   },
   fields: [
     {
