@@ -1,17 +1,12 @@
 import type { WritingSamplesQuery } from '@tina/__generated__/types'
-import { useTina, tinaField } from 'tinacms/dist/react'
+import { tinaField } from 'tinacms/dist/react'
+import { withTinaWrapper } from '@browser/withTinaWrapper'
 import ArticlePreview from './ArticlePreview'
 import { isNotEmpty } from '@lib/utils'
 
-export interface WritingSamplesProps {
-  writing: Parameters<typeof useTina<WritingSamplesQuery>>[0]
-}
-
-export default function WritingSamples({ writing }: WritingSamplesProps) {
-  const { data } = useTina(writing)
+export default withTinaWrapper<WritingSamplesQuery>(({ data }) => {
   const { title, selections } = data.home.writing
   const articles = selections?.map((w) => w?.item).filter(isNotEmpty)
-
   return (
     <div
       id="writing"
@@ -32,4 +27,4 @@ export default function WritingSamples({ writing }: WritingSamplesProps) {
       </div>
     </div>
   )
-}
+})
