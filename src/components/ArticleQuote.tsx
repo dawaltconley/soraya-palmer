@@ -15,7 +15,7 @@ interface ArticleQuote {
   hLevel?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
-type Style = 'article' | 'quote'
+type Style = 'article' | 'quote' | 'quote-headshot' | 'quote-background'
 
 export interface ArticleQuoteProps extends ArticleQuote {
   style: Style
@@ -29,7 +29,29 @@ export default function ArticleQuote({ style, ...props }: ArticleQuoteProps) {
     case 'quote':
       if (hasProps(props, ['description', 'source'])) {
         const { description, ...quoteProps } = props
-        return <ReviewQuote {...quoteProps}>{description}</ReviewQuote>
+        return (
+          <ReviewQuote style="basic" {...quoteProps}>
+            {description}
+          </ReviewQuote>
+        )
+      }
+    case 'quote-headshot':
+      if (hasProps(props, ['description', 'source'])) {
+        const { description, ...quoteProps } = props
+        return (
+          <ReviewQuote style="headshot" {...quoteProps}>
+            {description}
+          </ReviewQuote>
+        )
+      }
+    case 'quote-background':
+      if (hasProps(props, ['description', 'source'])) {
+        const { description, ...quoteProps } = props
+        return (
+          <ReviewQuote style="background" {...quoteProps}>
+            {description}
+          </ReviewQuote>
+        )
       }
   }
   return null
@@ -60,14 +82,14 @@ export function ArticleMinimal({
           decoding="async"
         />
       </div>
-      <div className="relative z-10 flex h-full flex-col justify-center px-8 py-6">
+      <div className="vignette relative z-10 flex h-full flex-col justify-center px-8 py-6">
         <H className="m-auto font-serif text-2xl font-bold leading-tight">
           <a href={url.toString()} className="pseudo-fill-parent">
             {title}
           </a>
         </H>
         {(date || source) && (
-          <div className="mt-4 flex gap-2 text-base leading-tight">
+          <div className="mt-4 flex gap-2 leading-tight">
             {date && (
               <time dateTime={date.toISOString()}>
                 {date.format('MMM D, YYYY')}
