@@ -3,7 +3,7 @@ import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import ArticlePreview from './ArticlePreview'
-import Quote from './Quote'
+import { AuthorQuote } from './Quote'
 
 export interface PressGridProps {
   query: Parameters<typeof useTina<PressPageQuery>>[0]
@@ -42,14 +42,9 @@ export default function PressGrid({ query }: PressGridProps) {
           const id = p.quote._sys.filename
           const { author, book, quote } = p.quote
           content = (
-            <Quote
-              key={id}
-              type="author"
-              author={author}
-              source={book || undefined}
-            >
+            <AuthorQuote key={id} author={author} book={book || undefined}>
               <TinaMarkdown content={quote} />
-            </Quote>
+            </AuthorQuote>
           )
         } else {
           return null
