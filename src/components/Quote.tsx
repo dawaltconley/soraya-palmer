@@ -1,68 +1,164 @@
+import type { WithRequired } from '@lib/utils'
 import type { ReactNode } from 'react'
+import { hasProps } from '@lib/utils'
 
 interface QuoteProps {
   children: ReactNode
   citation?: ReactNode
+  style?: 'basic' | 'headshot' | 'background'
   url?: string | URL
+  image?: string
 }
 
-export default function Quote({ children: quote, citation, url }: QuoteProps) {
-  if (url)
-    citation = (
-      <a href={url.toString()} className="pseudo-fill-parent" target="_blank">
-        {citation}
+export default function Quote({ style = 'basic', ...props }: QuoteProps) {
+  if (props.url)
+    props.citation = (
+      <a
+        href={props.url.toString()}
+        className="pseudo-fill-parent"
+        target="_blank"
+      >
+        {props.citation}
       </a>
     )
 
-  return (
-    <figure className="relative font-display">
+  switch (style) {
+    case 'headshot':
+      if (hasProps(props, ['image', 'citation'])) {
+        return QuoteHeadshot(props)
+      }
+    case 'background':
+      if (hasProps(props, ['image', 'citation'])) {
+        return QuoteBackground(props)
+      }
+    default:
+      return QuoteBasic(props)
+  }
+}
+
+export const QuoteBasic = ({ children: quote, citation, url }: QuoteProps) => (
+  <figure className="relative h-full font-display">
+    <blockquote
+      cite={url?.toString()}
+      className="text-xl leading-snug text-gray-900"
+    >
+      {quote}
+    </blockquote>
+    {citation && (
+      <figcaption className="mt-2 block text-right font-serif text-base leading-snug text-gray-500 before:content-['\2014\20']">
+        {citation}
+      </figcaption>
+    )}
+  </figure>
+)
+
+export const QuoteHeadshot = ({
+  children: quote,
+  citation,
+  image,
+  url,
+}: WithRequired<QuoteProps, 'image' | 'citation'>) => (
+  <figure className="relative flex h-full flex-col font-display">
+    <blockquote
+      cite={url?.toString()}
+      className="m-auto text-xl leading-snug text-gray-900"
+    >
+      {quote}
+    </blockquote>
+    <figcaption className="mt-4 flex flex-row items-center text-right font-serif text-lg leading-snug text-gray-500">
+      <div className="ml-auto">{citation}</div>
+      <img
+        className="ml-4 aspect-square h-28 w-28 rounded-full object-cover"
+        src={image}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </figcaption>
+  </figure>
+)
+
+export const QuoteBackground = ({
+  children: quote,
+  citation,
+  image,
+  url,
+}: WithRequired<QuoteProps, 'image' | 'citation'>) => (
+  <div className="text-shadow relative h-full font-serif text-base text-white min-aspect-video">
+    <div className="overlay-after absolute inset-0 z-0 after:bg-gray-950/80">
+      <img
+        className="h-full w-full object-cover"
+        src={image}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <figcaption className="vignette relative z-10 flex h-full flex-col justify-center px-8 py-6">
       <blockquote
         cite={url?.toString()}
-        className="text-xl leading-snug text-gray-900"
+        className="m-auto text-xl leading-snug"
       >
         {quote}
       </blockquote>
-      {citation && (
-        <figcaption className="mt-2 block text-right font-serif text-base leading-snug text-gray-500 before:content-['\2014\20']">
-          {citation}
-        </figcaption>
-      )}
-    </figure>
-  )
-}
+      <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">
+        <span className="ml-auto">{citation}</span>
+      </figcaption>
+    </figcaption>
+  </div>
+)
 
-export interface AuthorQuoteProps {
-  children: ReactNode
+export interface AuthorQuoteProps extends QuoteProps {
   author: string
   book?: string
-  url?: string | URL
 }
 
 export function AuthorQuote({ author, book, ...props }: AuthorQuoteProps) {
-  const citation: ReactNode = book ? (
-    <>
-      {author}, author of <span className="italic">{book}</span>
-    </>
-  ) : (
-    author
-  )
+  let citation: ReactNode = author
+  if (book) {
+    const description = (
+      <>
+        author of <span className="italic">{book}</span>
+      </>
+    )
+    if (props.style === 'headshot') {
+      citation = (
+        <>
+          <div>{author}</div>
+          <div>{description}</div>
+        </>
+      )
+    } else {
+      citation = (
+        <>
+          {author}, {description}
+        </>
+      )
+    }
+  }
   return <Quote citation={citation} {...props} />
 }
 
-export interface ReviewQuoteProps {
-  children: ReactNode
+export interface ReviewQuoteProps extends QuoteProps {
   source: string
   author?: string
-  url?: string | URL
 }
 
 export function ReviewQuote({ author, source, ...props }: ReviewQuoteProps) {
   let citation = <cite>{source}</cite>
-  if (author)
+  if (author && props.style === 'headshot') {
+    citation = (
+      <>
+        <div>{author}</div>
+        <div>{citation}</div>
+      </>
+    )
+  } else if (author) {
     citation = (
       <>
         {author}, {citation}
       </>
     )
+  }
   return <Quote citation={citation} {...props} />
 }
