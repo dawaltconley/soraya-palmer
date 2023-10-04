@@ -8,4 +8,4 @@ author: Suzi Feay
 source: Financial Times
 ---
 
-"In wild, firecracker prose, Palmer whirls the reader into a realm where the real and unreal are constantly changing places. It’s a stunning feat of storytelling in itself."
+In wild, firecracker prose, Palmer whirls the reader into a realm where the real and unreal are constantly changing places. It’s a stunning feat of storytelling in itself.
