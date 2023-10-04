@@ -67,7 +67,7 @@ export function ArticleMinimal({
           </a>
         </H>
         {(date || source) && (
-          <div className="mt-4 flex gap-2 leading-tight">
+          <div className="mt-4 flex gap-2 text-base leading-tight">
             {date && (
               <time dateTime={date.toISOString()}>
                 {date.format('MMM D, YYYY')}
