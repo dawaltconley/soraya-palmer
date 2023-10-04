@@ -7,3 +7,9 @@
     gap: theme('spacing.4');
   }
 }
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 1px 1px 4px theme('colors.gray.950');
+  }
+}

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
-import ArticlePreview from './ArticlePreview'
+import ArticleQuote from './ArticleQuote'
 import { AuthorQuote } from './Quote'
 
 export interface PressGridProps {
@@ -21,23 +21,23 @@ export default function PressGrid({ query }: PressGridProps) {
         let content: ReactNode
         if (p.__typename === 'PressPagePressArticle' && p.article) {
           const id = p.article._sys.filename
-          const { url, title, image, source } = p.article
-          const description = <TinaMarkdown content={p.article.description} />
-          if (image) {
-            content = (
-              <ArticlePreview
-                key={id}
-                url={url}
-                title={title}
-                image={image}
-                publisher={source}
-                description={description}
-              />
-            )
-          } else {
-            // TODO fix
-            content = <div>Oops! missing article image</div>
-          }
+          const { url, title, image, date, source, author } = p.article
+          const description = p.article.description ? (
+            <TinaMarkdown content={p.article.description} />
+          ) : undefined
+          content = (
+            <ArticleQuote
+              key={id}
+              style="article"
+              url={url}
+              title={title}
+              date={date || undefined}
+              image={image || undefined}
+              source={source || undefined}
+              author={author || undefined}
+              description={description}
+            />
+          )
         } else if (p.__typename === 'PressPagePressQuote' && p.quote) {
           const id = p.quote._sys.filename
           const { author, book, quote } = p.quote
