@@ -2,7 +2,7 @@
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import BookSplash from '@components/BookSplash.tsx'
-import Quote from '@components/Quote.tsx'
+import { ReviewQuote } from '@components/Quote.tsx'
 import WritingSamples from '@components/WritingSamples.tsx'
 import Footer from '@components/Footer.astro'
 
@@ -19,25 +19,22 @@ const writingSamples = await client.queries.writingSamples()
       <div
         class="container mx-auto grid justify-items-center gap-16 py-16 sm:grid-cols-3 sm:gap-8 lg:gap-16"
       >
-        <Quote
-          type="review"
+        <ReviewQuote
           author="Ingrid Rojas Contreras"
           source="The New York Times Book Review"
           url="https://www.nytimes.com/2023/03/28/books/review/the-human-origins-of-beatrice-porter-and-other-essential-ghosts-soraya-palmer.html"
         >
           This is a book written with the gods of storytelling in mind.
-        </Quote>
+        </ReviewQuote>
 
-        <Quote
-          type="review"
+        <ReviewQuote
           source="Today"
           url="https://www.today.com/popculture/best-new-books-2023-t272941"
         >
           One of the Best New Books to Read in 2023.
-        </Quote>
+        </ReviewQuote>
 
-        <Quote
-          type="review"
+        <ReviewQuote
           author="Sarah Neilson"
           source="Shondaland"
           url="https://www.shondaland.com/inspire/books/a43391194/soraya-palmers-the-human-origins-of-beatrice-porter-and-other-essential-ghosts/"
@@ -45,7 +42,7 @@ const writingSamples = await client.queries.writingSamples()
           [A] stunning debut novel . . . With magnetic prose and nuanced
           characters, Palmer has created a story where readers will be invested
           from page one.
-        </Quote>
+        </ReviewQuote>
       </div>
     </div>
 

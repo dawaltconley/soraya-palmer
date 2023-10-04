@@ -1,34 +1,21 @@
 import type { ReactNode } from 'react'
 
 interface QuoteProps {
-  type: 'review' | 'author'
   children: ReactNode
-  author?: string
+  citation?: ReactNode
   url?: string | URL
-  source?: string
 }
 
-export default function Quote({
-  type,
-  children: quote,
-  author,
-  url,
-  source,
-}: QuoteProps) {
-  let citation: ReactNode = null
-  if (author && source) {
+export default function Quote({ children: quote, citation, url }: QuoteProps) {
+  if (url)
     citation = (
-      <>
-        {author},{' '}
-        {type === 'author' ? `author of ${source}` : <cite>{source}</cite>}
-      </>
+      <a href={url.toString()} className="pseudo-fill-parent" target="_blank">
+        {citation}
+      </a>
     )
-  } else {
-    citation = author || (source ? <cite>{source}</cite> : null)
-  }
 
   return (
-    <figure className="font-display">
+    <figure className="relative font-display">
       <blockquote
         cite={url?.toString()}
         className="text-xl leading-snug text-gray-900"
@@ -42,4 +29,40 @@ export default function Quote({
       )}
     </figure>
   )
+}
+
+export interface AuthorQuoteProps {
+  children: ReactNode
+  author: string
+  book?: string
+  url?: string | URL
+}
+
+export function AuthorQuote({ author, book, ...props }: AuthorQuoteProps) {
+  const citation: ReactNode = book ? (
+    <>
+      {author}, author of <span className="italic">{book}</span>
+    </>
+  ) : (
+    author
+  )
+  return <Quote citation={citation} {...props} />
+}
+
+export interface ReviewQuoteProps {
+  children: ReactNode
+  source: string
+  author?: string
+  url?: string | URL
+}
+
+export function ReviewQuote({ author, source, ...props }: ReviewQuoteProps) {
+  let citation = <cite>{source}</cite>
+  if (author)
+    citation = (
+      <>
+        {author}, {citation}
+      </>
+    )
+  return <Quote citation={citation} {...props} />
 }
