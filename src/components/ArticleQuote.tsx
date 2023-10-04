@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
+import type { WithRequired } from '@lib/utils'
 import { ReviewQuote } from './Quote'
+import { hasProps } from '@lib/utils'
 import dayjs from 'dayjs'
 
 interface ArticleQuote {
@@ -14,15 +16,6 @@ interface ArticleQuote {
 }
 
 type Style = 'article' | 'quote'
-
-type WithRequired<T, K extends keyof T> = T & Required<Pick<T, K>>
-
-function hasProps<T extends object, K extends keyof T>(
-  obj: T,
-  props: K[],
-): obj is WithRequired<T, K> {
-  return props.every((p) => p in obj)
-}
 
 export interface ArticleQuoteProps extends ArticleQuote {
   style: Style
@@ -43,19 +36,8 @@ export default function ArticleQuote({ style, ...props }: ArticleQuoteProps) {
 }
 
 // variants
-
-// type ArticleMinimalProps = ArticleQuote &
-//   Required<Pick<ArticleQuote, 'url' | 'title' | 'image'>>
-//
-// type QuoteMinimalProps = ArticleQuote &
-//   Required<Pick<ArticleQuote, 'description' | 'source'>>
-//
-// type QuoteImageProps = QuoteMinimalProps &
-//   Required<Pick<QuoteMinimalProps, 'image'>>
-
 type Article = WithRequired<ArticleQuote, 'url' | 'title' | 'image'>
 type Quote = WithRequired<ArticleQuote, 'description' | 'source'>
-type QuoteImage = WithRequired<Quote, 'image'>
 
 export function ArticleMinimal({
   url,

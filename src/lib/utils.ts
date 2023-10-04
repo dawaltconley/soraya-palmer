@@ -9,3 +9,12 @@ export function toUrl(str: string | URL): URL | null {
     return null
   }
 }
+
+export type WithRequired<T, K extends keyof T> = T & Required<Pick<T, K>>
+
+export function hasProps<T extends object, K extends keyof T>(
+  obj: T,
+  props: K[],
+): obj is WithRequired<T, K> {
+  return props.every((p) => p in obj)
+}
