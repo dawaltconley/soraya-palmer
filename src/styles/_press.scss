@@ -13,12 +13,19 @@
     display: flex;
     flex-direction: column;
 
+    &--vignette {
+      --shadow-color: theme('colors.gray.950 / 20%');
+      box-shadow: 0 0 4rem 0 var(--shadow-color) inset;
+    }
+
     &--background {
       @apply text-shadow text-white min-aspect-video;
       display: block;
     }
 
     &__image-container {
+      z-index: -1;
+
       &--background {
         @apply overlay-after absolute inset-0 z-0 after:bg-gray-950/80;
       }
@@ -29,10 +36,17 @@
     }
 
     &__content {
-      @apply z-10 flex flex-col justify-center py-4;
+      @apply flex flex-col justify-center py-4;
+      z-index: -1; // under vignette
 
       &--overlay {
-        @apply vignette relative z-10 flex h-full flex-col justify-center px-8 py-6;
+        @apply relative z-10 flex h-full flex-col justify-center px-8 py-6;
+      }
+
+      &--background {
+        padding: theme('spacing.4');
+        color: theme('colors.white');
+        background-color: theme('colors.orange.800');
       }
     }
 

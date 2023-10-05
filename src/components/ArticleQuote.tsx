@@ -19,6 +19,7 @@ interface ArticleQuote {
 type Style =
   | 'article'
   | 'article-basic'
+  | 'article-bold-title'
   | 'quote'
   | 'quote-headshot'
   | 'quote-background'
@@ -32,6 +33,8 @@ export default function ArticleQuote({ style, ...props }: ArticleQuoteProps) {
     switch (style) {
       case 'article':
         return <ArticlePreview style="background-title" {...props} />
+      case 'article-bold-title':
+        return <ArticlePreview style="bold-title" {...props} />
       case 'article-basic':
         return <ArticlePreview style="basic" {...props} />
     }
@@ -78,18 +81,20 @@ export function ArticlePreview({
   description,
   hLevel,
   style = 'basic',
-}: Article & { style?: 'basic' | 'background-title' }) {
+}: Article & { style?: 'basic' | 'background-title' | 'bold-title' }) {
   const date = dateString ? dayjs(dateString) : null
   const H = hLevel || 'p'
   return (
     <div
       className={clsx('reference', {
         'reference--background': style === 'background-title',
+        'reference--vignette':
+          style === 'bold-title' || style === 'background-title',
       })}
     >
       <div
         className={clsx('reference__image-container', {
-          // 'flex-grow': style === 'basic',
+          'flex-grow': style === 'bold-title',
           'reference__image-container--background':
             style === 'background-title',
         })}
@@ -105,6 +110,7 @@ export function ArticlePreview({
       <div
         className={clsx('reference__content', {
           'reference__content--overlay': style === 'background-title',
+          'reference__content--background': style === 'bold-title',
         })}
       >
         <H className="reference__title">
@@ -117,6 +123,7 @@ export function ArticlePreview({
             className={clsx('reference__meta', {
               'reference__meta--first reference__meta--light':
                 style === 'basic',
+              'reference__meta--first': style === 'bold-title',
               'reference__meta--justified': style === 'background-title',
             })}
           >
@@ -139,7 +146,7 @@ export function ArticlePreview({
         {description && (
           <div
             className={clsx('reference__description', {
-              hidden: style === 'background-title',
+              hidden: style === 'background-title' || style === 'bold-title',
             })}
           >
             {description}
