@@ -22,37 +22,37 @@ export interface ArticleQuoteProps extends ArticleQuote {
 }
 
 export default function ArticleQuote({ style, ...props }: ArticleQuoteProps) {
-  switch (style) {
-    case 'article':
-      if (hasProps(props, ['url', 'title', 'image']))
+  if (hasProps(props, ['url', 'title', 'image'])) {
+    switch (style) {
+      case 'article':
         return ArticleMinimal(props)
-    case 'quote':
-      if (hasProps(props, ['description', 'source'])) {
-        const { description, ...quoteProps } = props
-        return (
-          <ReviewQuote style="basic" {...quoteProps}>
-            {description}
-          </ReviewQuote>
-        )
-      }
-    case 'quote-headshot':
-      if (hasProps(props, ['description', 'source'])) {
-        const { description, ...quoteProps } = props
+    }
+  }
+
+  if (hasProps(props, ['description', 'source'])) {
+    const { description, ...quoteProps } = props
+    switch (style) {
+      case 'quote-headshot':
         return (
           <ReviewQuote style="headshot" {...quoteProps}>
             {description}
           </ReviewQuote>
         )
-      }
-    case 'quote-background':
-      if (hasProps(props, ['description', 'source'])) {
-        const { description, ...quoteProps } = props
+      case 'quote-background':
         return (
           <ReviewQuote style="background" {...quoteProps}>
             {description}
           </ReviewQuote>
         )
-      }
+      case 'quote':
+      // fallthrough
+      default:
+        return (
+          <ReviewQuote style="basic" {...quoteProps}>
+            {description}
+          </ReviewQuote>
+        )
+    }
   }
   return null
 }
