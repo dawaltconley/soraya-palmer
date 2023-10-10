@@ -51,7 +51,11 @@
     }
 
     &__title {
-      @apply m-auto font-serif text-2xl font-bold leading-tight;
+      @apply font-serif text-2xl font-bold leading-tight;
+
+      &--center {
+        margin: auto;
+      }
     }
 
     &__meta {
