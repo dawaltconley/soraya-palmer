@@ -1,6 +1,8 @@
 import type { Collection } from 'tinacms'
-import { UrlMetadata } from './components/UrlMetadata'
+import type { ArticlePreviewStyle } from '@components/ArticleQuote'
+import type { QuoteStyle } from '@components/Quote'
 import { defineConfig } from 'tinacms'
+import { UrlMetadata } from './components/UrlMetadata'
 import { toUrl } from '../src/lib/utils'
 
 // Your hosting provider likely exposes this as an environment variable
@@ -273,6 +275,58 @@ const quotes: Collection = {
   ],
 }
 
+interface ArticleStyleOptions {
+  value: ArticlePreviewStyle
+  label: string
+}
+
+const articleStyleOptions: ArticleStyleOptions[] = [
+  {
+    value: 'article',
+    label: 'Article Basic',
+  },
+  {
+    value: 'article-bg-title',
+    label: 'Article Background',
+  },
+  {
+    value: 'article-bold-title',
+    label: 'Article Bold',
+  },
+  {
+    value: 'quote',
+    label: 'Quote Basic',
+  },
+  {
+    value: 'quote-background',
+    label: 'Quote Background',
+  },
+  {
+    value: 'quote-headshot',
+    label: 'Quote Headshot',
+  },
+]
+
+interface QuoteStyleOptions {
+  value: QuoteStyle
+  label: string
+}
+
+const quoteStyleOptions: QuoteStyleOptions[] = [
+  {
+    value: 'basic',
+    label: 'Quote Basic',
+  },
+  {
+    value: 'background',
+    label: 'Quote Background',
+  },
+  {
+    value: 'headshot',
+    label: 'Quote Headshot',
+  },
+]
+
 const pressPage: Collection = {
   name: 'pressPage',
   label: 'Press Page',
@@ -316,6 +370,13 @@ const pressPage: Collection = {
               name: 'article',
               label: 'Quote',
             },
+            {
+              type: 'string',
+              name: 'style',
+              label: 'Style',
+              required: true,
+              options: articleStyleOptions,
+            },
           ],
         },
         {
@@ -334,17 +395,17 @@ const pressPage: Collection = {
               name: 'quote',
               label: 'Quote',
             },
+            {
+              type: 'string',
+              name: 'style',
+              label: 'Style',
+              required: true,
+              options: quoteStyleOptions,
+            },
           ],
         },
       ],
     },
-    // {
-    //   type: 'object',
-    //   name: 'press',
-    //   label: 'press',
-    //   list: true,
-    //   templates: [press, quotes],
-    // },
   ],
 }
 

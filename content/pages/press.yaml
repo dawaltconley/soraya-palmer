@@ -1,21 +1,29 @@
 press:
   - article: >-
       content/press/The-New-York-Times-Book-Review__For-This-Brooklyn-Family-Myth-and-Reality-Are-One-and-the-Same.md
+    style: quote-background
     _template: article
   - article: >-
       content/press/Oprah-Daily__Caribbean-Writers-You-Need-to-Read-This-Summer.md
+    style: article-bold-title
     _template: article
   - article: >-
       content/press/Shondaland__The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts.md
+    style: quote-background
     _template: article
   - article: content/press/Financial-Times__A-Round-Up-of-Debut-Novels.md
+    style: article-bg-title
     _template: article
   - quote: content/quotes/Mina-Sekin.md
+    style: basic
     _template: quote
   - quote: content/quotes/Daphne-Palasi-Andreades.md
+    style: basic
     _template: quote
   - article: >-
       content/press/Elle__Our-Favorite-and-Most-Anticipated-Books-of-2023-So-Far.md
+    style: quote-background
     _template: article
   - article: content/press/Today__45-new-books-we-can-t-wait-to-read-in-2023.md
+    style: article-bold-title
     _template: article

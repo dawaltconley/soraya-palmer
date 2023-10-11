@@ -16,26 +16,35 @@ interface ArticleQuote {
   hLevel?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
-type Style =
-  | 'article'
-  | 'article-basic'
-  | 'article-bold-title'
-  | 'quote'
-  | 'quote-headshot'
-  | 'quote-background'
+const ArticlePreviewStyle = [
+  'article',
+  'article-bg-title',
+  'article-bold-title',
+  'quote',
+  'quote-headshot',
+  'quote-background',
+] as const
+
+export type ArticlePreviewStyle = (typeof ArticlePreviewStyle)[number]
+
+export const isArticleStyle = (str: string): str is ArticlePreviewStyle =>
+  ArticlePreviewStyle.some((s) => s === str)
 
 export interface ArticleQuoteProps extends ArticleQuote {
-  style: Style
+  style?: ArticlePreviewStyle
 }
 
-export default function ArticleQuote({ style, ...props }: ArticleQuoteProps) {
+export default function ArticleQuote({
+  style = 'article',
+  ...props
+}: ArticleQuoteProps) {
   if (hasProps(props, ['url', 'title', 'image'])) {
     switch (style) {
-      case 'article':
+      case 'article-bg-title':
         return <ArticlePreview style="background-title" {...props} />
       case 'article-bold-title':
         return <ArticlePreview style="bold-title" {...props} />
-      case 'article-basic':
+      case 'article':
         return <ArticlePreview style="basic" {...props} />
     }
   }
