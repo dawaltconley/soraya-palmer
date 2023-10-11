@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["*"],
       "@components/*": ["src/components/*"],
       "@data/*": ["src/data/*"],
       "@layouts/*": ["src/layouts/*"],
@@ -11,7 +10,8 @@
       "@browser/*": ["src/lib/browser/*"],
       "@build/*": ["src/lib/build/*"],
       "@styles/*": ["src/styles/*"],
-      "@tina/*": ["tina/*"]
+      "@tina/*": ["tina/*"],
+      "~/*": ["*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"
