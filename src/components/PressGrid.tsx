@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
-import ArticleQuote from './ArticleQuote'
-import { AuthorQuote } from './Quote'
+import ArticleQuote, { isArticleStyle } from './ArticleQuote'
+import { AuthorQuote, isQuoteStyle } from './Quote'
 
 export interface PressGridProps {
   query: Parameters<typeof useTina<PressPageQuery>>[0]
@@ -28,7 +28,7 @@ export default function PressGrid({ query }: PressGridProps) {
           content = (
             <ArticleQuote
               key={id}
-              style="article"
+              style={p.style && isArticleStyle(p.style) ? p.style : 'article'}
               url={url}
               title={title}
               date={date || undefined}
@@ -42,7 +42,12 @@ export default function PressGrid({ query }: PressGridProps) {
           const id = p.quote._sys.filename
           const { author, book, quote } = p.quote
           content = (
-            <AuthorQuote key={id} author={author} book={book || undefined}>
+            <AuthorQuote
+              key={id}
+              style={p.style && isQuoteStyle(p.style) ? p.style : 'basic'}
+              author={author}
+              book={book || undefined}
+            >
               <TinaMarkdown content={quote} />
             </AuthorQuote>
           )

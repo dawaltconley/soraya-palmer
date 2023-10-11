@@ -2,10 +2,17 @@ import type { WithRequired } from '@lib/utils'
 import type { ReactNode } from 'react'
 import { hasProps } from '@lib/utils'
 
-interface QuoteProps {
+const QuoteStyle = ['basic', 'headshot', 'background'] as const
+
+export type QuoteStyle = (typeof QuoteStyle)[number]
+
+export const isQuoteStyle = (str: string): str is QuoteStyle =>
+  QuoteStyle.some((s) => s === str)
+
+export interface QuoteProps {
   children: ReactNode
   citation?: ReactNode
-  style?: 'basic' | 'headshot' | 'background'
+  style?: QuoteStyle
   url?: string | URL
   image?: string
 }
