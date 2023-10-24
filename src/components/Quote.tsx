@@ -104,7 +104,7 @@ export const QuoteBackground = ({
     <figure className="reference__content reference__content--overlay">
       <blockquote
         cite={url?.toString()}
-        className="feathered-blur relative m-auto text-xl"
+        className="feathered-blur-before relative m-auto text-xl"
       >
         {quote}
       </blockquote>
