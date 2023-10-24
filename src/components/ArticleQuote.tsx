@@ -124,7 +124,8 @@ export function ArticlePreview({
       >
         <H
           className={clsx('reference__title', {
-            'reference__title--center': style === 'background-title',
+            'reference__title--center feathered-blur relative':
+              style === 'background-title',
           })}
         >
           <a href={url.toString()} className="pseudo-fill-parent">

@@ -115,4 +115,29 @@
   .text-shadow {
     text-shadow: 1px 1px 4px theme('colors.gray.950');
   }
+
+  .feathered-blur::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    backdrop-filter: blur(var(--blur-size, 4px));
+    mask-image: linear-gradient(
+        to top,
+        transparent 0%,
+        #ffffff var(--feather-size, 2rem) calc(100% - var(--feather-size, 2rem)),
+        transparent 100%
+      ),
+      linear-gradient(
+        to left,
+        transparent 0%,
+        #ffffff var(--feather-size, 2rem) calc(100% - var(--feather-size, 2rem)),
+        transparent 100%
+      );
+    mask-repeat: no-repeat;
+    mask-composite: intersect;
+  }
 }

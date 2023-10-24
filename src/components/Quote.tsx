@@ -91,27 +91,27 @@ export const QuoteBackground = ({
   image,
   url,
 }: WithRequired<QuoteProps, 'image' | 'citation'>) => (
-  <div className="text-shadow relative h-full font-serif text-base text-white min-aspect-video">
-    <div className="overlay-after absolute inset-0 z-0 after:bg-gray-950/80">
+  <div className="reference reference--background reference--vignette">
+    <div className="reference__image-container reference__image-container--background">
       <img
-        className="h-full w-full object-cover"
+        className="reference__image"
         src={image}
         alt=""
         loading="lazy"
         decoding="async"
       />
     </div>
-    <figcaption className="vignette relative z-10 flex h-full flex-col justify-center px-8 py-6">
+    <figure className="reference__content reference__content--overlay">
       <blockquote
         cite={url?.toString()}
-        className="m-auto text-xl leading-snug"
+        className="feathered-blur relative m-auto text-xl"
       >
         {quote}
       </blockquote>
       <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">
         <span className="ml-auto">{citation}</span>
       </figcaption>
-    </figcaption>
+    </figure>
   </div>
 )
 
