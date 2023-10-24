@@ -39,7 +39,7 @@
     "react-transition-group": "^4.4.5",
     "sass": "^1.66.1",
     "sass-parallax": "^0.6.1",
-    "sass-tailwind-functions": "^1.1.0",
+    "sass-tailwind-functions": "github:dawaltconley/sass-tailwind-functions",
     "tailwindcss": "^3.3.3",
     "tinacms": "^1.5.20",
     "typescript": "^5.2.2"
