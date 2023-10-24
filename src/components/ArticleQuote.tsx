@@ -124,7 +124,7 @@ export function ArticlePreview({
       >
         <H
           className={clsx('reference__title', {
-            'reference__title--center feathered-blur relative':
+            'reference__title--center feathered-blur-before relative':
               style === 'background-title',
           })}
         >
