@@ -58,7 +58,7 @@ export default function PressGrid({ query }: PressGridProps) {
         return (
           <div
             key={id}
-            className="press-grid__item"
+            className="press-grid__item drop-shadow"
             style={
               {
                 '--rows': p.rows || 1,

@@ -19,7 +19,7 @@ export interface QuoteProps {
 }
 
 export default function Quote({ style = 'basic', ...props }: QuoteProps) {
-  if (props.url)
+  if (props.url && style !== 'tile')
     props.citation = (
       <a
         href={props.url.toString()}
@@ -126,7 +126,7 @@ export const QuoteTile = ({
   image,
   url,
 }: WithRequired<QuoteProps, 'citation'>) => (
-  <ImageCard image={image}>
+  <ImageCard image={image} url={url}>
     <figure className="flex max-w-prose flex-col justify-center px-8 py-6 font-serif">
       <blockquote cite={url?.toString()} className="m-auto text-xl">
         {quote}
