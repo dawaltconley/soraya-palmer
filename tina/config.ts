@@ -305,6 +305,10 @@ const articleStyleOptions: ArticleStyleOptions[] = [
     value: 'quote-headshot',
     label: 'Quote Headshot',
   },
+  {
+    value: 'quote-tile',
+    label: 'Quote Tile',
+  },
 ]
 
 interface QuoteStyleOptions {
@@ -324,6 +328,10 @@ const quoteStyleOptions: QuoteStyleOptions[] = [
   {
     value: 'headshot',
     label: 'Quote Headshot',
+  },
+  {
+    value: 'tile',
+    label: 'Quote Tile',
   },
 ]
 
