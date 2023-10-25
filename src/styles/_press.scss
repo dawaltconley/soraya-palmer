@@ -1,22 +1,29 @@
 @layer components {
   .press-grid {
-    --columns: 1;
+    --template-columns: 1;
     display: grid;
-    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-template-columns: repeat(var(--template-columns), 1fr);
     grid-auto-rows: minmax(theme('spacing.48'), auto);
     grid-auto-flow: row dense;
     gap: theme('spacing.4');
 
+    &__item {
+      --rows: 1;
+      --cols: 1;
+      @apply min-aspect-video;
+    }
+
     @media #{screen('lg')} {
-      --columns: 2;
+      --template-columns: 2;
+
+      &__item {
+        grid-row: span var(--rows);
+        grid-column: span var(--cols);
+      }
     }
 
     @media #{screen('xl')} {
-      --columns: 3;
-    }
-
-    &__item {
-      @apply min-aspect-video;
+      --template-columns: 3;
     }
   }
 
