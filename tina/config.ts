@@ -294,6 +294,10 @@ const articleStyleOptions: ArticleStyleOptions[] = [
     label: 'Article Bold',
   },
   {
+    value: 'article-tile-title',
+    label: 'Article Tile',
+  },
+  {
     value: 'quote',
     label: 'Quote Basic',
   },
@@ -385,6 +389,16 @@ const pressPage: Collection = {
               required: true,
               options: articleStyleOptions,
             },
+            {
+              type: 'number',
+              name: 'rows',
+              label: 'Rows',
+            },
+            {
+              type: 'number',
+              name: 'cols',
+              label: 'Cols',
+            },
           ],
         },
         {
@@ -409,6 +423,16 @@ const pressPage: Collection = {
               label: 'Style',
               required: true,
               options: quoteStyleOptions,
+            },
+            {
+              type: 'number',
+              name: 'rows',
+              label: 'Rows',
+            },
+            {
+              type: 'number',
+              name: 'cols',
+              label: 'Cols',
             },
           ],
         },

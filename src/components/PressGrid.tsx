@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, CSSProperties } from 'react'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
@@ -19,8 +19,9 @@ export default function PressGrid({ query }: PressGridProps) {
     >
       {press.map((p) => {
         let content: ReactNode
+        let id: string
         if (p.__typename === 'PressPagePressArticle' && p.article) {
-          const id = p.article._sys.filename
+          id = p.article._sys.filename
           const { url, title, image, date, source, author } = p.article
           const description = p.article.description ? (
             <TinaMarkdown content={p.article.description} />
@@ -39,7 +40,7 @@ export default function PressGrid({ query }: PressGridProps) {
             />
           )
         } else if (p.__typename === 'PressPagePressQuote' && p.quote) {
-          const id = p.quote._sys.filename
+          id = p.quote._sys.filename
           const { author, book, quote } = p.quote
           content = (
             <AuthorQuote
@@ -54,7 +55,21 @@ export default function PressGrid({ query }: PressGridProps) {
         } else {
           return null
         }
-        return <div data-tina-field={tinaField(p)}>{content}</div>
+        return (
+          <div
+            key={id}
+            className="press-grid__item"
+            style={
+              {
+                '--rows': p.rows || 1,
+                '--cols': p.cols || 1,
+              } as CSSProperties
+            }
+            data-tina-field={tinaField(p)}
+          >
+            {content}
+          </div>
+        )
       })}
     </div>
   )
