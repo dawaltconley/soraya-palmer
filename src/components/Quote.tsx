@@ -2,7 +2,7 @@ import type { WithRequired } from '@lib/utils'
 import type { ReactNode } from 'react'
 import { hasProps } from '@lib/utils'
 
-const QuoteStyle = ['basic', 'headshot', 'background'] as const
+const QuoteStyle = ['basic', 'headshot', 'background', 'tile'] as const
 
 export type QuoteStyle = (typeof QuoteStyle)[number]
 
@@ -37,6 +37,10 @@ export default function Quote({ style = 'basic', ...props }: QuoteProps) {
     case 'background':
       if (hasProps(props, ['image', 'citation'])) {
         return QuoteBackground(props)
+      }
+    case 'tile':
+      if (hasProps(props, ['image', 'citation'])) {
+        return QuoteTile(props)
       }
     default:
       return QuoteBasic(props)
@@ -106,6 +110,33 @@ export const QuoteBackground = ({
         cite={url?.toString()}
         className="feathered-blur-before relative m-auto text-xl"
       >
+        {quote}
+      </blockquote>
+      <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">
+        <span className="ml-auto">{citation}</span>
+      </figcaption>
+    </figure>
+  </div>
+)
+
+export const QuoteTile = ({
+  children: quote,
+  citation,
+  image,
+  url,
+}: WithRequired<QuoteProps, 'image' | 'citation'>) => (
+  <div className="reference reference--tile reference--vignette">
+    <div className="reference__image-container reference__image-container--tile">
+      <img
+        className="reference__image"
+        src={image}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+    <figure className="reference__content reference__content--tile drop-shadow-xl">
+      <blockquote cite={url?.toString()} className="m-auto text-xl">
         {quote}
       </blockquote>
       <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">

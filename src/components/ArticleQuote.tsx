@@ -23,6 +23,7 @@ const ArticlePreviewStyle = [
   'quote',
   'quote-headshot',
   'quote-background',
+  'quote-tile',
 ] as const
 
 export type ArticlePreviewStyle = (typeof ArticlePreviewStyle)[number]
@@ -61,6 +62,12 @@ export default function ArticleQuote({
       case 'quote-background':
         return (
           <ReviewQuote style="background" {...quoteProps}>
+            {description}
+          </ReviewQuote>
+        )
+      case 'quote-tile':
+        return (
+          <ReviewQuote style="tile" {...quoteProps}>
             {description}
           </ReviewQuote>
         )

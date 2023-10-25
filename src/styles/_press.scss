@@ -39,9 +39,16 @@
       display: block;
     }
 
+    &--tile {
+      justify-content: center;
+    }
+
     &__image-container {
       &--background {
         @apply overlay-after absolute inset-0 z-0 after:bg-gray-950/75;
+      }
+      &--tile {
+        @apply absolute inset-0 z-0;
       }
     }
 
@@ -60,6 +67,13 @@
         padding: theme('spacing.4');
         color: theme('colors.white');
         background-color: theme('colors.gray.800');
+      }
+
+      &--tile {
+        position: relative;
+        margin: theme('spacing.8');
+        padding: theme('spacing.8');
+        background-color: theme('colors.white');
       }
     }
 
