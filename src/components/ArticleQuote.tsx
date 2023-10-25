@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { WithRequired } from '@lib/utils'
 import { ReviewQuote } from './Quote'
+import ImageCard from './ImageCard'
 import { hasProps } from '@lib/utils'
 import dayjs from 'dayjs'
 import clsx from 'clsx'
@@ -47,7 +48,7 @@ export default function ArticleQuote({
       case 'article-bold-title':
         return <ArticlePreview style="bold-title" {...props} />
       case 'article-tile-title':
-        return <ArticlePreview style="tile-title" {...props} />
+        return <ArticleTile {...props} />
       case 'article':
         return <ArticlePreview style="basic" {...props} />
     }
@@ -184,5 +185,43 @@ export function ArticlePreview({
         )}
       </div>
     </div>
+  )
+}
+
+export function ArticleTile({
+  url,
+  title,
+  image,
+  source,
+  date: dateString,
+  description,
+  hLevel,
+}: Article) {
+  const date = dateString ? dayjs(dateString) : null
+  const H = hLevel || 'p'
+
+  return (
+    <ImageCard image={image} url={url}>
+      <div className="flex max-w-prose flex-col justify-center bg-white px-8 py-6 font-serif text-base">
+        <H className="font-display text-2xl font-bold leading-tight">{title}</H>
+        {(date || source) && (
+          <div className="-order-1 flex leading-tight">
+            {date && (
+              <time dateTime={date.toISOString()}>
+                {date.format('MMM D, YYYY')}
+              </time>
+            )}
+            {source && (
+              <span className="ml-1 italic before:content-['\20\2014\20']">
+                {source}
+              </span>
+            )}
+          </div>
+        )}
+        {description && (
+          <div className="mt-2 hidden @2xl/image-card:block">{description}</div>
+        )}
+      </div>
+    </ImageCard>
   )
 }

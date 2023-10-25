@@ -1,7 +1,7 @@
 import type { WithRequired } from '@lib/utils'
 import type { ReactNode } from 'react'
+import ImageCard from './ImageCard'
 import { hasProps } from '@lib/utils'
-import clsx from 'clsx'
 
 const QuoteStyle = ['basic', 'headshot', 'background', 'tile'] as const
 
@@ -126,23 +126,8 @@ export const QuoteTile = ({
   image,
   url,
 }: WithRequired<QuoteProps, 'citation'>) => (
-  <div
-    className={clsx('reference reference--tile', {
-      'bg-amber-300': !image,
-    })}
-  >
-    {image && (
-      <div className="reference--vignette reference__image-container reference__image-container--tile">
-        <img
-          className="reference__image"
-          src={image}
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    )}
-    <figure className="reference__content reference__content--tile drop-shadow-xl">
+  <ImageCard image={image}>
+    <figure className="flex max-w-prose flex-col justify-center px-8 py-6 font-serif">
       <blockquote cite={url?.toString()} className="m-auto text-xl">
         {quote}
       </blockquote>
@@ -150,7 +135,7 @@ export const QuoteTile = ({
         <span className="ml-auto">{citation}</span>
       </figcaption>
     </figure>
-  </div>
+  </ImageCard>
 )
 
 export interface AuthorQuoteProps extends QuoteProps {

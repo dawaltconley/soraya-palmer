@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -59,8 +61,14 @@
   }
 
   .vignette {
-    --shadow-color: theme('colors.gray.950 / 50%');
-    box-shadow: 0 0 8em 0 var(--shadow-color) inset;
+    $color: theme('colors.gray.950');
+    $r: color.red($color);
+    $g: color.green($color);
+    $b: color.blue($color);
+    $spread: 8em;
+    box-shadow: 0 0 var(--vignette-spread, $spread) 0
+      var(--vignette-color, rgba($r, $g, $b, var(--vignette-opacity, 0.5)))
+      inset;
   }
 
   .lightbox {
