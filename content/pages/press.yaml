@@ -12,22 +12,24 @@ press:
   - article: content/press/Financial-Times__A-Round-Up-of-Debut-Novels.md
     style: article-tile-title
     _template: article
+  - quote: content/quotes/Daphne-Palasi-Andreades.md
+    style: tile
+    cols: 2
+    _template: quote
   - article: >-
       content/press/Shondaland__The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts.md
     style: quote-tile
     _template: article
-  - quote: content/quotes/Daphne-Palasi-Andreades.md
-    style: basic
-    _template: quote
   - article: content/press/Today__45-new-books-we-can-t-wait-to-read-in-2023.md
     style: article-tile-title
     _template: article
   - quote: content/quotes/Mina-Sekin.md
-    style: basic
+    style: tile
+    cols: 2
     _template: quote
   - article: >-
       content/press/Elle__Our-Favorite-and-Most-Anticipated-Books-of-2023-So-Far.md
     style: quote-tile
     rows: 1
-    cols: 2
+    cols: 3
     _template: article
