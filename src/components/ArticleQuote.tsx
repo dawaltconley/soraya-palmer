@@ -20,6 +20,7 @@ const ArticlePreviewStyle = [
   'article',
   'article-bg-title',
   'article-bold-title',
+  'article-tile-title',
   'quote',
   'quote-headshot',
   'quote-background',
@@ -45,6 +46,8 @@ export default function ArticleQuote({
         return <ArticlePreview style="background-title" {...props} />
       case 'article-bold-title':
         return <ArticlePreview style="bold-title" {...props} />
+      case 'article-tile-title':
+        return <ArticlePreview style="tile-title" {...props} />
       case 'article':
         return <ArticlePreview style="basic" {...props} />
     }
@@ -97,22 +100,30 @@ export function ArticlePreview({
   description,
   hLevel,
   style = 'basic',
-}: Article & { style?: 'basic' | 'background-title' | 'bold-title' }) {
+}: Article & {
+  style?: 'basic' | 'background-title' | 'bold-title' | 'tile-title'
+}) {
   const date = dateString ? dayjs(dateString) : null
   const H = hLevel || 'p'
+
+  const isBasic = style === 'basic'
+  const isBg = style === 'background-title'
+  const isBold = style === 'bold-title'
+  const isTile = style === 'tile-title'
+
   return (
     <div
       className={clsx('reference', {
-        'reference--background': style === 'background-title',
-        'reference--vignette':
-          style === 'bold-title' || style === 'background-title',
+        'reference--background reference--vignette': isBg,
+        'reference--vignette': isBold,
+        'reference--tile reference--vignette': isTile,
       })}
     >
       <div
         className={clsx('reference__image-container', {
-          'flex-grow': style === 'bold-title',
-          'reference__image-container--background':
-            style === 'background-title',
+          'flex-grow': isBold,
+          'reference__image-container--background': isBg,
+          'reference__image-container--tile': isTile,
         })}
       >
         <img
@@ -125,14 +136,14 @@ export function ArticlePreview({
       </div>
       <div
         className={clsx('reference__content', {
-          'reference__content--overlay': style === 'background-title',
-          'reference__content--background': style === 'bold-title',
+          'reference__content--overlay': isBg,
+          'reference__content--background': isBold,
+          'reference__content--tile drop-shadow-xl': isTile,
         })}
       >
         <H
           className={clsx('reference__title', {
-            'reference__title--center feathered-blur-before relative':
-              style === 'background-title',
+            'reference__title--center feathered-blur-before relative': isBg,
           })}
         >
           <a href={url.toString()} className="pseudo-fill-parent">
@@ -142,10 +153,9 @@ export function ArticlePreview({
         {(date || source) && (
           <div
             className={clsx('reference__meta', {
-              'reference__meta--first reference__meta--light':
-                style === 'basic',
-              'reference__meta--first': style === 'bold-title',
-              'reference__meta--justified': style === 'background-title',
+              'reference__meta--first reference__meta--light': isBasic,
+              'reference__meta--first': isBold || isTile,
+              'reference__meta--justified': isBg,
             })}
           >
             {date && (
@@ -156,7 +166,7 @@ export function ArticlePreview({
             {source && (
               <span
                 className={clsx('reference__source', {
-                  'reference__source--right': style === 'background-title',
+                  'reference__source--right': isBg,
                 })}
               >
                 {source}
@@ -167,7 +177,7 @@ export function ArticlePreview({
         {description && (
           <div
             className={clsx('reference__description', {
-              hidden: style === 'background-title' || style === 'bold-title',
+              hidden: isBg || isBold || isTile,
             })}
           >
             {description}
