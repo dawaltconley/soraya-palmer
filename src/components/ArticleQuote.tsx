@@ -114,16 +114,15 @@ export function ArticlePreview({
   return (
     <div
       className={clsx('reference', {
-        'reference--background reference--vignette': isBg,
-        'reference--vignette': isBold,
-        'reference--tile reference--vignette': isTile,
+        'reference--background': isBg,
+        'reference--tile': isTile,
       })}
     >
       <div
         className={clsx('reference__image-container', {
-          'flex-grow': isBold,
-          'reference__image-container--background': isBg,
-          'reference__image-container--tile': isTile,
+          'reference--vignette flex-grow': isBold,
+          'reference__image-container--background reference--vignette': isBg,
+          'reference__image-container--tile reference--vignette': isTile,
         })}
       >
         <img

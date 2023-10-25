@@ -10,7 +10,18 @@
     &__item {
       --rows: 1;
       --cols: 1;
-      @apply min-aspect-video;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        padding-top: min(20rem, 50%);
+        float: left;
+      }
+      &::after {
+        content: '';
+        display: table;
+        clear: both;
+      }
     }
 
     @media #{screen('lg')} {
@@ -18,7 +29,7 @@
 
       &__item {
         grid-row: span var(--rows);
-        grid-column: span var(--cols);
+        grid-column: span min(var(--template-columns), var(--cols));
       }
     }
 
@@ -28,12 +39,14 @@
   }
 
   .reference {
+    $bp: theme('screens.sm');
     $block: &;
     @apply relative h-full font-serif text-base;
     display: flex;
     flex-direction: column;
+    container: reference / inline-size;
 
-    &--vignette::after {
+    &--vignette::before {
       --shadow-color: theme('colors.gray.950 / 20%');
       content: '';
       position: absolute;
@@ -41,8 +54,10 @@
       left: 0;
       right: 0;
       bottom: 0;
+      z-index: 1;
       box-shadow: 0 0 4rem 0 var(--shadow-color) inset;
       pointer-events: none;
+      // mix-blend-mode: darken;
     }
 
     &--background {
@@ -62,7 +77,6 @@
       &--tile {
         @apply absolute inset-0 z-0;
 
-        // @apply overlay-after after:bg-amber-100 after:mix-blend-screeB;
         &::after {
           content: '';
           position: absolute;
@@ -70,6 +84,7 @@
           left: 0;
           right: 0;
           bottom: 0;
+          z-index: 2;
           // background-color: #{"theme('colors.gray.300 / 20%')"};
           background-color: #{"theme('colors.amber.300 / 20%')"};
           // background-color: theme('colors.amber.500');
@@ -96,10 +111,11 @@
       }
 
       &--tile {
-        position: relative;
+        margin: auto;
         padding: theme('spacing.6') theme('spacing.8');
         background-color: theme('colors.white');
         border: 4px solid theme('colors.amber.300');
+        max-width: 65ch;
       }
     }
 
@@ -129,15 +145,7 @@
       }
     }
 
-    &__date {
-      // &::after {
-      //   content: ' — ';
-      //   margin-right: theme('spacing.1');
-      // }
-    }
-
     &__source {
-      // @apply ml-auto text-right italic;
       @apply text-right italic;
 
       &::before {
@@ -156,6 +164,30 @@
 
     &__description {
       margin-top: theme('spacing.2');
+    }
+
+    @container reference (min-width: #{$bp}) {
+      &--tile {
+        padding: 0;
+      }
+
+      &__image-container--tile {
+        right: auto;
+        height: 100%;
+        max-width: 60%;
+      }
+
+      &__content--tile {
+        &:not(:first-child) {
+          margin-right: 0;
+          max-width: min(65ch, 60%);
+        }
+      }
+
+      &__description {
+        display: unset !important;
+        font-size: theme('fontSize.lg');
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import type { WithRequired } from '@lib/utils'
 import type { ReactNode } from 'react'
 import { hasProps } from '@lib/utils'
+import clsx from 'clsx'
 
 const QuoteStyle = ['basic', 'headshot', 'background', 'tile'] as const
 
@@ -39,7 +40,7 @@ export default function Quote({ style = 'basic', ...props }: QuoteProps) {
         return QuoteBackground(props)
       }
     case 'tile':
-      if (hasProps(props, ['image', 'citation'])) {
+      if (hasProps(props, ['citation'])) {
         return QuoteTile(props)
       }
     default:
@@ -124,17 +125,23 @@ export const QuoteTile = ({
   citation,
   image,
   url,
-}: WithRequired<QuoteProps, 'image' | 'citation'>) => (
-  <div className="reference reference--tile reference--vignette">
-    <div className="reference__image-container reference__image-container--tile">
-      <img
-        className="reference__image"
-        src={image}
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
+}: WithRequired<QuoteProps, 'citation'>) => (
+  <div
+    className={clsx('reference reference--tile', {
+      'bg-amber-300': !image,
+    })}
+  >
+    {image && (
+      <div className="reference--vignette reference__image-container reference__image-container--tile">
+        <img
+          className="reference__image"
+          src={image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )}
     <figure className="reference__content reference__content--tile drop-shadow-xl">
       <blockquote cite={url?.toString()} className="m-auto text-xl">
         {quote}
