@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import ImageCard from './ImageCard'
 
 export interface ArticlePreviewProps {
   url: string | URL
@@ -19,25 +20,17 @@ export default function ArticlePreview({
 }: ArticlePreviewProps) {
   const H = hLevel || 'p'
   return (
-    <div className="relative flex flex-col font-serif text-base">
-      <div className="layer-children aspect-video shrink-0">
-        <img
-          className="object-cover"
-          src={image}
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <div className="h-full">
-        <H className="mt-2 font-display text-2xl font-bold">
-          <a href={url.toString()} className="pseudo-fill-parent">
-            {title}
-          </a>
-        </H>
+    <ImageCard
+      url={url}
+      style="card"
+      image={image}
+      imgClass="aspect-video grow-0 shrink-0"
+    >
+      <div className="font-serif text-base">
+        <H className="mt-2 font-display text-2xl font-bold">{title}</H>
         {publisher && <p className="italic text-gray-500">{publisher}</p>}
         {description && <div className="mt-2">{description}</div>}
       </div>
-    </div>
+    </ImageCard>
   )
 }

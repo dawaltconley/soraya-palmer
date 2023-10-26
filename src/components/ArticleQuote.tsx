@@ -201,8 +201,13 @@ export function ArticleTile({
   const H = hLevel || 'p'
 
   return (
-    <ImageCard style="tile" image={image} url={url}>
-      <div className="flex max-w-prose flex-col justify-center bg-white px-8 py-6 font-serif text-base">
+    <ImageCard
+      style="tile"
+      url={url}
+      image={image}
+      imgClass="shrink-0 basis-[40%]"
+    >
+      <div className="flex h-full max-w-prose flex-col px-8 py-6 font-serif text-base">
         <H className="font-display text-2xl font-bold leading-tight">{title}</H>
         {(date || source) && (
           <div className="-order-1 flex leading-tight">

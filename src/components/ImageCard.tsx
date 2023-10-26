@@ -24,7 +24,7 @@ interface ImageCardProps {
   title?: ReactNode
   style?: 'card' | 'tile'
   styleLarge?: 'card' | 'tile'
-  imgBasis?: string
+  imgClass?: string
 }
 
 export default function ImageCard({
@@ -34,7 +34,7 @@ export default function ImageCard({
   // title,
   style = 'card',
   // styleLarge = style,
-  imgBasis,
+  imgClass,
   children,
 }: ImageCardProps) {
   const Wrapper = url ? 'a' : 'div'
@@ -43,13 +43,14 @@ export default function ImageCard({
       href={url?.toString()}
       className="group relative block h-full @container/image-card"
     >
-      <div className="flex h-full w-full flex-col @2xl:flex-row">
+      <div className="flex h-full w-full flex-col overflow-hidden @2xl:flex-row">
         {image && (
           <div
             className={clsx(
-              'overlay-before overlay-after before:vignette grow duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:scale-105 group-hover:after:bg-gray-800/20 @2xl:w-1/2',
-              { 'relative shrink-0 basis-[40%]': style === 'card' },
+              'overlay-before overlay-after before:vignette grow overflow-hidden duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2',
+              imgClass,
               {
+                relative: style === 'card',
                 'absolute inset-0 z-0 h-full @2xl:relative': style === 'tile',
               },
             )}
@@ -57,12 +58,11 @@ export default function ImageCard({
               {
                 '--vignette-opacity': 0.2,
                 '--vignette-spread': '4rem',
-                flexBasis: imgBasis,
               } as CSSProperties
             }
           >
             <img
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover duration-[inherit] group-hover:scale-105"
               src={image}
               alt={alt}
               loading="lazy"
@@ -78,10 +78,10 @@ export default function ImageCard({
           )}
         >
           <div
-            className={clsx('relative border-amber-300 bg-white', {
+            className={clsx('relative border-amber-300', {
               'w-full': style === 'card',
               'border-t-4': style === 'card' && image,
-              'm-auto border-4 drop-shadow-xl': style === 'tile',
+              'm-auto border-4 bg-white drop-shadow-xl': style === 'tile',
               '@2xl:m-0 @2xl:mr-0 @2xl:h-full @2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0':
                 image,
             })}

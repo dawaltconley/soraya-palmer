@@ -126,8 +126,13 @@ export const QuoteTile = ({
   image,
   url,
 }: WithRequired<QuoteProps, 'citation'>) => (
-  <ImageCard style="tile" image={image} url={url}>
-    <figure className="flex max-w-prose flex-col justify-center px-8 py-6 font-serif">
+  <ImageCard
+    style="tile"
+    url={url}
+    image={image}
+    imgClass="shrink-0 basis-[40%]"
+  >
+    <figure className="flex h-full max-w-prose flex-col justify-center px-8 py-6 font-serif">
       <blockquote cite={url?.toString()} className="m-auto text-xl">
         {quote}
       </blockquote>
