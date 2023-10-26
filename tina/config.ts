@@ -136,6 +136,7 @@ const writing: Collection = {
       type: 'datetime',
       name: 'date',
       label: 'Date',
+      required: true,
     },
     {
       type: 'string',
@@ -228,6 +229,7 @@ const press: Collection = {
       type: 'datetime',
       name: 'date',
       label: 'Date',
+      required: true,
     },
     {
       type: 'string',
