@@ -43,7 +43,7 @@ export default function ImageCard({
       href={url?.toString()}
       className="group relative block h-full @container/image-card"
     >
-      <div className="flex h-full w-full flex-col overflow-hidden @2xl:flex-row">
+      <div className="flex h-full w-full flex-col items-stretch overflow-hidden @2xl:flex-row">
         {image && (
           <div
             className={clsx(
@@ -74,7 +74,7 @@ export default function ImageCard({
           className={clsx(
             'flex w-full min-w-[50%]',
             { 'h-full p-8': style === 'tile' },
-            image ? '@2xl:h-full @2xl:w-auto @2xl:p-0' : 'bg-amber-300',
+            image ? '@2xl:w-auto @2xl:p-0' : 'bg-amber-300',
           )}
         >
           <div
