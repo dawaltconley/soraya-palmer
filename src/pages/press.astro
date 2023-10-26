@@ -2,11 +2,13 @@
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import PressGrid from '@components/PressGrid.tsx'
+import PressList from '@components/PressList.tsx'
 import Footer from '@components/Footer.astro'
 
 import { client } from '@tina/__generated__/client'
 
 const page = await client.queries.pressPage({ relativePath: 'press.yaml' })
+const press = await client.queries.pressConnection()
 ---
 
 <Base title="Press – Soraya Palmer">
@@ -18,6 +20,10 @@ const page = await client.queries.pressPage({ relativePath: 'press.yaml' })
       >
     </h1>
     <PressGrid client:tina query={page} />
+    <h2 class="my-8 font-display text-5xl font-bold capitalize">All Press</h2>
+    <div>
+      <PressList client:tina data={press} exclude={page} />
+    </div>
   </main>
   <Footer />
 </Base>
