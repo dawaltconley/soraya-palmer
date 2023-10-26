@@ -29,7 +29,7 @@ export default function ArticlePreview({
       image={image}
       imgClass="aspect-video grow-0 shrink-0"
     >
-      <div className="font-serif text-base">
+      <div className="font-serif @2xl/image-card:pl-8">
         <H className="mt-2 font-display text-2xl font-bold">{title}</H>
         {publisher && <p className="italic text-gray-500">{publisher}</p>}
         {desc && <div className="mt-2 max-w-prose">{desc}</div>}
