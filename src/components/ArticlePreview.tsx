@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import ImageCard from './ImageCard'
 import dayjs from 'dayjs'
+import clsx from 'clsx'
 
 const ArticlePreviewStyle = ['card', 'tile'] as const
 const ArticlePreviewLayout = ['basic', 'date'] as const
@@ -17,7 +18,7 @@ export const isArticleLayout = (str: string): str is ArticlePreviewLayout =>
 export interface ArticlePreviewProps {
   url: string | URL
   title: string
-  image: string
+  image?: string | null
   date?: string | Date | null
   description?: ReactNode | null
   children?: ReactNode | null
@@ -31,16 +32,29 @@ export interface ArticlePreviewProps {
 export default function ArticlePreview({
   url,
   image,
+  style = 'card',
   ...props
 }: ArticlePreviewProps) {
+  if (!image) style = 'tile'
   return (
     <ImageCard
       url={url}
-      style="card"
-      image={image}
-      imgClass="aspect-og grow-0 shrink-0"
+      style={style}
+      image={image || undefined}
+      imgClass={clsx({
+        'aspect-og grow-0 shrink-0': style === 'card',
+        'aspect-og grow shrink-0 w-full': style === 'tile',
+      })}
     >
-      <ArticleLayout {...props} />
+      <div
+        className={clsx('h-full', {
+          // '@2xl/image-card:pl-8': style === 'card',
+          'px-8 py-4': style === 'card',
+          'px-8 py-6': style === 'tile',
+        })}
+      >
+        <ArticleLayout {...props} />
+      </div>
     </ImageCard>
   )
 }
@@ -67,11 +81,13 @@ function ArticleLayoutBasic({
 }: ArticleLayoutProps) {
   const H = hLevel || 'p'
   return (
-    <div className="h-full max-w-prose font-serif @container/article-preview @2xl/image-card:pl-8">
+    <div className="h-full max-w-prose font-serif @container/article-preview">
       <H className="mt-2 font-display text-2xl font-bold @2xl/image-card:mt-0">
         {title}
       </H>
-      {publisher && <p className="italic text-gray-500">{publisher}</p>}
+      {publisher && (
+        <p className="text-base italic text-gray-500">{publisher}</p>
+      )}
       {description && <div className="mt-2">{description}</div>}
     </div>
   )
@@ -89,24 +105,30 @@ function ArticleLayoutDate({
   const H = hLevel || 'p'
 
   return (
-    <div className="flex h-full max-w-prose flex-col font-serif">
-      <H className="font-display text-2xl font-bold leading-tight">{title}</H>
+    <div className="h-full max-w-prose flex-col font-serif">
+      <H className="w-full font-display text-3xl font-bold leading-none @container">
+        {title}
+      </H>
       {(date || publisher) && (
-        <div className="-order-1 flex leading-tight">
+        <div className="mt-1 flex leading-tight text-gray-500">
           {date && (
-            <time dateTime={date.toISOString()}>
+            <time className="shrink-0" dateTime={date.toISOString()}>
               {date.format('MMM D, YYYY')}
             </time>
           )}
           {publisher && (
-            <span className="ml-1 italic before:content-['\20\2014\20']">
+            <span className="ml-1 flex italic before:mr-1 before:content-['\20\2014\20']">
               {publisher}
             </span>
           )}
         </div>
       )}
       {description && (
-        <div className="mt-2 hidden @2xl/image-card:block">{description}</div>
+        <>
+          <div className="separator hidden @2xl/image-card:block">
+            {description}
+          </div>
+        </>
       )}
     </div>
   )

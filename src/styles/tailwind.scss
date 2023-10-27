@@ -78,6 +78,21 @@
       @apply pointer-events-auto opacity-100;
     }
   }
+
+  .separator {
+    position: relative;
+    margin-top: theme('spacing.4');
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: -1 * theme('spacing.2');
+      border-top: solid 4px theme('colors.amber.300');
+      width: 4rem;
+      max-width: 100%;
+    }
+  }
 }
 
 @layer utilities {
