@@ -6,17 +6,17 @@ import clsx from 'clsx'
  * 1. tile in middle of image
  * 2. text below image (requires image?)
  *
- * Small preview text
+ * TODO Small preview text
  * 1. use title block
  * 2. use description block
  *
- * Large versions (only difference whether title is present)
+ * TODO Large versions (only difference whether title is present)
  * 0. no image, text in middle
  * 1. all text right of image
  * 2. title below image, description to right
  */
 
-interface ImageCardProps {
+export interface ImageCardProps {
   image?: string
   alt?: string
   url?: string | URL
