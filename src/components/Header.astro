@@ -33,9 +33,11 @@ const H = useAsTitle ? 'h1' : 'h4'
 <header
   id="header"
   class:list={['header w-full', className]}
-  style={{
-    '--text-color': textColor,
-  }}
+  style={textColor
+    ? {
+        '--text-color': textColor,
+      }
+    : {}}
 >
   <nav class="container mx-auto flex h-14 items-end justify-between py-2">
     <H class="font-display text-2xl">
@@ -65,6 +67,7 @@ const H = useAsTitle ? 'h1' : 'h4'
 
 <style lang="scss">
   .header {
+    --text-color: theme('colors.gray.900');
     color: var(--text-color, inherit);
   }
 
@@ -72,7 +75,7 @@ const H = useAsTitle ? 'h1' : 'h4'
     &,
     &::before,
     &::after {
-      background-color: var(--text-color);
+      background-color: var(--text-color) !important;
       transition-property: background-color, transform, opacity;
     }
   }
