@@ -28,6 +28,9 @@ module.exports = {
       inset: {
         'almost-full': 'calc(100% - 1px)',
       },
+      aspectRatio: {
+        og: '1200 / 630',
+      },
     },
   },
   plugins: [
