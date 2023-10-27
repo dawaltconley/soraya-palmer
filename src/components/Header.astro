@@ -87,6 +87,7 @@ const H = useAsTitle ? 'h1' : 'h4'
   @media screen and (max-width: theme('screens.sm') - 1) {
     .header__links {
       @apply fixed right-0 top-0 z-20 h-screen translate-x-full justify-center bg-gray-50 px-4 pt-24 text-xl text-gray-900 duration-300;
+      min-width: 45%;
 
       &--open {
         @apply translate-x-0;
