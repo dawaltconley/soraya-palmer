@@ -80,14 +80,15 @@
   }
 
   .separator {
+    $default: theme('spacing.4');
     position: relative;
-    margin-top: theme('spacing.4');
+    margin-top: $default;
 
     &::before {
       content: '';
       position: absolute;
       left: 0;
-      top: -1 * theme('spacing.2');
+      top: $default * -0.5;
       border-top: solid 4px theme('colors.amber.300');
       width: 4rem;
       max-width: 100%;
