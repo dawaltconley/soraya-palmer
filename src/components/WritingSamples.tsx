@@ -18,7 +18,7 @@ export default withTinaWrapper<WritingSamplesQuery>(({ data }) => {
           {title}
         </h2>
         {articles && (
-          <div className="grid gap-8 md:grid-cols-3">
+          <div className="grid gap-8 lg:grid-cols-3">
             {articles.slice(0, 3).map((article) => (
               <ArticlePreview key={article.url} {...article} />
             ))}
