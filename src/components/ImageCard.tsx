@@ -16,15 +16,18 @@ import clsx from 'clsx'
  * 2. title below image, description to right
  */
 
+type CardStyle = 'card' | 'tile'
+
 export interface ImageCardProps {
   image?: string
   alt?: string
   url?: string | URL
   children: ReactNode
   title?: ReactNode
-  style?: 'card' | 'tile'
-  styleLarge?: 'card' | 'tile'
+  style?: CardStyle
+  styleLarge?: CardStyle
   imgClass?: string
+  borderColor?: string
 }
 
 export default function ImageCard({
@@ -35,6 +38,7 @@ export default function ImageCard({
   style = 'card',
   // styleLarge = style,
   imgClass,
+  borderColor,
   children,
 }: ImageCardProps) {
   const Wrapper = url ? 'a' : 'div'
@@ -78,13 +82,16 @@ export default function ImageCard({
           )}
         >
           <div
-            className={clsx('relative border-amber-300', {
+            className={clsx('relative', {
               'w-full': style === 'card',
-              'border-t-4': style === 'card' && image,
-              'm-auto border-4 bg-white drop-shadow-xl': style === 'tile',
-              '@2xl:m-0 @2xl:mr-0 @2xl:h-full @2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0':
-                image,
+              'border-t-4': style === 'card' && image && borderColor,
+              'm-auto bg-white drop-shadow-xl': style === 'tile',
+              'border-4 ': style === 'tile' && borderColor,
+              '@2xl:m-0 @2xl:mr-0 @2xl:h-full': image,
+              ' @2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0':
+                image && borderColor,
             })}
+            style={{ borderColor }}
           >
             {children}
           </div>
