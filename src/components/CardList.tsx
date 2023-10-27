@@ -2,6 +2,7 @@ import type {
   WritingConnectionQuery,
   PressConnectionQuery,
 } from '@tina/__generated__/types'
+import type { ArticlePreviewProps } from './ArticlePreview'
 import ArticlePreview from './ArticlePreview'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import { isNotEmpty } from '@lib/utils'
@@ -10,12 +11,13 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
 interface CardListProps {
   exclude?: string[]
+  hLevel?: ArticlePreviewProps['hLevel']
 }
 
 export default withTinaWrapper<
   PressConnectionQuery | WritingConnectionQuery,
   CardListProps
->(({ data, exclude = [] }) => {
+>(({ data, exclude = [], hLevel }) => {
   const connection =
     'pressConnection' in data ? data.pressConnection : data.writingConnection
   const cards =
@@ -32,7 +34,7 @@ export default withTinaWrapper<
         if (!image) return null
         return (
           <li key={id} data-tina-field={tinaField(card, 'title')}>
-            <ArticlePreview image={image} {...props}>
+            <ArticlePreview hLevel={hLevel} image={image} {...props}>
               {description && typeof description === 'string' ? (
                 description
               ) : (
