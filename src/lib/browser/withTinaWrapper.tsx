@@ -1,7 +1,9 @@
 import type { FunctionComponent } from 'react'
 import { useTina } from 'tinacms/dist/react'
 
-type TinaData<T extends object = object> = Parameters<typeof useTina<T>>[0]
+export type TinaData<T extends object = object> = Parameters<
+  typeof useTina<T>
+>[0]
 
 export function withTinaWrapper<
   Query extends object,
