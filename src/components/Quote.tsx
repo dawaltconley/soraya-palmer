@@ -1,6 +1,5 @@
 import type { WithRequired } from '@lib/utils'
 import type { ReactNode } from 'react'
-import ImageCard from './ImageCard'
 import { hasProps } from '@lib/utils'
 
 const QuoteStyle = ['basic', 'headshot', 'background', 'tile'] as const
@@ -14,12 +13,13 @@ export interface QuoteProps {
   children: ReactNode
   citation?: ReactNode
   style?: QuoteStyle
-  url?: string | URL
+  url?: string | URL // separate from blockquote citation?
   image?: string
 }
 
 export default function Quote({ style = 'basic', ...props }: QuoteProps) {
   if (props.url && style !== 'tile')
+    // TODO don't specify tile
     props.citation = (
       <a
         href={props.url.toString()}
@@ -123,24 +123,16 @@ export const QuoteBackground = ({
 export const QuoteTile = ({
   children: quote,
   citation,
-  image,
   url,
 }: WithRequired<QuoteProps, 'citation'>) => (
-  <ImageCard
-    style="tile"
-    url={url}
-    image={image}
-    imgClass="shrink-0 basis-[40%]"
-  >
-    <figure className="flex h-full max-w-prose flex-col justify-center px-8 py-6 font-serif">
-      <blockquote cite={url?.toString()} className="m-auto text-xl">
-        {quote}
-      </blockquote>
-      <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">
-        <span className="ml-auto">{citation}</span>
-      </figcaption>
-    </figure>
-  </ImageCard>
+  <figure className="flex h-full max-w-prose flex-col justify-center font-serif">
+    <blockquote cite={url?.toString()} className="m-auto text-xl">
+      {quote}
+    </blockquote>
+    <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">
+      <span className="ml-auto">{citation}</span>
+    </figcaption>
+  </figure>
 )
 
 export interface AuthorQuoteProps extends QuoteProps {
