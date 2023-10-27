@@ -22,6 +22,10 @@ module.exports = {
         // serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
         display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
       },
+      fontSize: {
+        smaller: 'smaller',
+        larger: 'larger',
+      },
       colors: {
         gray: colors.neutral,
       },

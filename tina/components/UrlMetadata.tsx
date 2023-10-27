@@ -55,7 +55,12 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
             const { values } = form.getState()
             form.batch(() => {
               Object.entries(field.metadataFields)
-                .filter(([f]) => field.overwriteFields || !values[f])
+                .filter(
+                  ([f]) =>
+                    field.overwriteFields ||
+                    !values[f] ||
+                    values[f].children.length === 0,
+                )
                 .forEach(([field, property]) => {
                   const value: string =
                     typeof property === 'function'

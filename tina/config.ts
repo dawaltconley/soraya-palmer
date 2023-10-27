@@ -105,7 +105,7 @@ const writing: Collection = {
           title: 'title',
           image: 'image.url',
           date: (data: any) => data.publishedDate || data.date,
-          description: 'description',
+          description: (data: any) => toRichText(data.description),
           publisher: 'publisher',
         },
         mqlOptions: {
@@ -144,12 +144,10 @@ const writing: Collection = {
       label: 'Publisher',
     },
     {
-      type: 'string',
+      type: 'rich-text',
       name: 'description',
       label: 'Description',
-      ui: {
-        component: 'textarea',
-      },
+      isBody: true,
     },
   ],
 }
@@ -196,10 +194,7 @@ const press: Collection = {
           title: 'title',
           image: 'image.url',
           date: (data: any) => data.publishedDate || data.date,
-          quote: (data: any) => {
-            console.log(data)
-            return toRichText(data.description)
-          },
+          quote: (data: any) => toRichText(data.description), // TODO this isn't working
           source: 'publisher',
           author: 'author',
         },

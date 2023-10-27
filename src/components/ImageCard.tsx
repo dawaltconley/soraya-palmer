@@ -76,13 +76,13 @@ export default function ImageCard({
         )}
         <div
           className={clsx(
-            'flex w-full min-w-[50%]',
+            'flex w-full',
             { 'h-full p-8': style === 'tile' },
-            image ? '@2xl:w-auto @2xl:p-0' : 'bg-amber-300',
+            image ? 'w-[65ch] max-w-full @2xl:p-0' : 'bg-amber-300',
           )}
         >
           <div
-            className={clsx('relative', {
+            className={clsx('relative w-full max-w-prose', {
               'w-full': style === 'card',
               'border-t-4': style === 'card' && image && borderColor,
               'm-auto bg-white drop-shadow-xl': style === 'tile',
@@ -101,3 +101,29 @@ export default function ImageCard({
     </Wrapper>
   )
 }
+
+// interface ImageCardTileWrapperProps {
+//   style?: CardStyle
+//   hasImage?: boolean
+//   children: ReactNode
+// }
+//
+// export function ImageCardTileWrapper({
+//   style = 'card',
+//   hasImage,
+//   children,
+// }: ImageCardTileWrapperProps) {
+//   return (
+//     <div
+//       className={clsx('relative border-amber-300', {
+//         'w-full': style === 'card',
+//         'border-t-4': style === 'card' && hasImage,
+//         'm-auto border-4 bg-white drop-shadow-xl': style === 'tile',
+//         '@2xl:m-0 @2xl:mr-0 @2xl:h-full @2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0':
+//           hasImage,
+//       })}
+//     >
+//       {children}
+//     </div>
+//   )
+// }

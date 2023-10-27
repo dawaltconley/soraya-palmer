@@ -25,21 +25,42 @@ export default withTinaWrapper<
       ?.map((e) => e?.node)
       .filter((p) => p?.date && exclude.every((id) => id !== p?.id))
       .filter(isNotEmpty) || []
-  cards.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  cards.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   return (
-    <ul className="grid gap-4 text-lg md:grid-cols-2 lg:grid-cols-1">
+    <ul className="grid gap-4 lg:grid-cols-1">
       {cards.map((card) => {
-        const { id, image, description, ...props } = card
-        if (!image) return null
+        let { id, image, description, ...props } = card
+        const source =
+          card.__typename === 'Writing' ? card.publisher : card.source // TODO make consistent
+
+        // if (!image) return null
+        // console.log({ title: props.title, description })
+        if (typeof description === 'string') {
+          description = description.trim()
+        } else if ('children' in description) {
+          if (description.children.length) {
+            description = <TinaMarkdown content={description} />
+          } else {
+            description = null
+          }
+        }
+
         return (
-          <li key={id} data-tina-field={tinaField(card, 'title')}>
-            <ArticlePreview hLevel={hLevel} image={image} {...props}>
-              {description && typeof description === 'string' ? (
-                description
-              ) : (
-                <TinaMarkdown content={description} />
-              )}
+          <li
+            key={id}
+            className="bg-white drop-shadow"
+            data-tina-field={tinaField(card, 'title')}
+          >
+            <ArticlePreview
+              style="card"
+              layout="date"
+              hLevel={hLevel}
+              image={image}
+              {...props}
+              publisher={source}
+            >
+              {description}
             </ArticlePreview>
           </li>
         )
