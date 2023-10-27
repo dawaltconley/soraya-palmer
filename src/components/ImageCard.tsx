@@ -51,7 +51,7 @@ export default function ImageCard({
         {image && (
           <div
             className={clsx(
-              'overlay-before overlay-after before:vignette grow overflow-hidden duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2',
+              'overlay-before overlay-after before:vignette grow overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2',
               imgClass,
               {
                 relative: style === 'card',
@@ -88,6 +88,7 @@ export default function ImageCard({
               'm-auto bg-white drop-shadow-xl': style === 'tile',
               'border-4 ': style === 'tile' && borderColor,
               '@2xl:m-0 @2xl:mr-0 @2xl:h-full': image,
+              '@2xl:drop-shadow-none': image && style === 'tile',
               ' @2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0':
                 image && borderColor,
             })}
