@@ -5,7 +5,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import ImageCard from './ImageCard'
 import { ArticleLayout } from './ArticlePreview'
 import { AuthorQuote, ReviewQuote, isQuoteStyle } from './Quote'
-import { amber } from 'tailwindcss/colors'
+import colors from 'tailwindcss/colors' // TODO avoid this
 
 export interface PressGridProps {
   query: Parameters<typeof useTina<PressPageQuery>>[0]
@@ -87,7 +87,7 @@ export default function PressGrid({ query }: PressGridProps) {
               url={url || undefined}
               image={image || undefined}
               imgClass="shrink-0 basis-[40%]"
-              borderColor={amber['300']}
+              borderColor={colors.amber['300']}
             >
               <div className="h-full px-8 py-6">{content}</div>
             </ImageCard>
