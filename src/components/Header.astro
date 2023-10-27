@@ -7,6 +7,26 @@ interface Props {
 
 const { class: className, useAsTitle, textColor } = Astro.props
 
+interface Link {
+  text: string
+  href: string
+}
+
+const links: Link[] = [
+  {
+    text: 'Writing',
+    href: '/writing',
+  },
+  {
+    text: 'Press',
+    href: '/press',
+  },
+  // {
+  //   text: 'Work with me',
+  //   href: '/work-with-me',
+  // },
+]
+
 const H = useAsTitle ? 'h1' : 'h4'
 ---
 
@@ -32,9 +52,13 @@ const H = useAsTitle ? 'h1' : 'h4'
     </button>
 
     <ul class="header__links sm:flex sm:items-end">
-      <li class="-mb-4 p-4">Writing</li>
-      <li class="-mb-4 p-4">Press</li>
-      <li class="-mb-4 p-4">Work with me</li>
+      {
+        links.map(({ text, href }) => (
+          <li class="-mb-4 p-4">
+            <a href={href}>{text}</a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </header>
