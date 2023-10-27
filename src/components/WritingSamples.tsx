@@ -1,5 +1,6 @@
 import type { WritingSamplesQuery } from '@tina/__generated__/types'
 import { tinaField } from 'tinacms/dist/react'
+import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { withTinaWrapper } from '@browser/withTinaWrapper'
 import ArticlePreview from './ArticlePreview'
 import { isNotEmpty } from '@lib/utils'
@@ -19,9 +20,19 @@ export default withTinaWrapper<WritingSamplesQuery>(({ data }) => {
         </h2>
         {articles && (
           <div className="grid gap-8 lg:grid-cols-3">
-            {articles.slice(0, 3).map((article) => (
-              <ArticlePreview key={article.url} {...article} />
-            ))}
+            {articles.slice(0, 3).map(({ description, ...article }) => {
+              description = description?.children?.length ? (
+                <TinaMarkdown content={description} />
+              ) : null
+              return (
+                <ArticlePreview
+                  key={article.url}
+                  style="inline"
+                  description={description}
+                  {...article}
+                />
+              )
+            })}
           </div>
         )}
       </div>

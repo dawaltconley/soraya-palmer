@@ -3,7 +3,7 @@ import ImageCard from './ImageCard'
 import dayjs from 'dayjs'
 import clsx from 'clsx'
 
-const ArticlePreviewStyle = ['card', 'tile'] as const
+const ArticlePreviewStyle = ['card', 'tile', 'inline'] as const
 const ArticlePreviewLayout = ['basic', 'date'] as const
 
 export type ArticlePreviewStyle = (typeof ArticlePreviewStyle)[number]
@@ -36,21 +36,22 @@ export default function ArticlePreview({
   ...props
 }: ArticlePreviewProps) {
   if (!image) style = 'tile'
+  const cardStyle = style === 'tile' ? 'tile' : 'card'
   return (
     <ImageCard
       url={url}
-      style={style}
+      style={cardStyle}
       image={image || undefined}
       imgClass={clsx({
-        'aspect-og grow-0 shrink-0': style === 'card',
-        'aspect-og grow shrink-0 w-full': style === 'tile',
+        'aspect-og grow-0 shrink-0': cardStyle === 'card',
+        'aspect-og grow shrink-0 w-full': cardStyle === 'tile',
       })}
     >
       <div
         className={clsx('h-full', {
-          // '@2xl/image-card:pl-8': style === 'card',
           'px-8 py-4': style === 'card',
           'px-8 py-6': style === 'tile',
+          '@2xl/image-card:pl-8': style === 'inline',
         })}
       >
         <ArticleLayout {...props} />
@@ -110,10 +111,10 @@ function ArticleLayoutDate({
         {title}
       </H>
       {(date || publisher) && (
-        <div className="mt-1 flex leading-tight text-gray-500">
+        <div className="mt-1 flex text-base leading-tight text-gray-500">
           {date && (
             <time className="shrink-0" dateTime={date.toISOString()}>
-              {date.format('MMM D, YYYY')}
+              {date.format('MMM, YYYY')}
             </time>
           )}
           {publisher && (
