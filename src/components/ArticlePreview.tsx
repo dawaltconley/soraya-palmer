@@ -125,7 +125,7 @@ function ArticleLayoutDate({
       )}
       {description && (
         <>
-          <div className="separator hidden @2xl/image-card:block">
+          <div className="separator mt-6 hidden before:-top-4 @2xl/image-card:block">
             {description}
           </div>
         </>
