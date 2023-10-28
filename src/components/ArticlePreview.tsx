@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
+import type { ImageCardProps } from './ImageCard'
 import ImageCard from './ImageCard'
+import pick from 'lodash/pick'
 import dayjs from 'dayjs'
 import clsx from 'clsx'
 
@@ -15,7 +17,10 @@ export const isArticleStyle = (str: string): str is ArticlePreviewStyle =>
 export const isArticleLayout = (str: string): str is ArticlePreviewLayout =>
   ArticlePreviewLayout.some((s) => s === str)
 
-export interface ArticlePreviewProps {
+const passthroughProps = ['linkText', 'linkLocation', 'borderColor'] as const
+
+export interface ArticlePreviewProps
+  extends Pick<ImageCardProps, (typeof passthroughProps)[number]> {
   url: string | URL
   title: string
   image?: string | null
@@ -37,6 +42,7 @@ export default function ArticlePreview({
 }: ArticlePreviewProps) {
   if (!image) style = 'tile'
   const cardStyle = style === 'tile' ? 'tile' : 'card'
+  const imageCardProps = pick(props, passthroughProps)
   return (
     <ImageCard
       url={url}
@@ -46,12 +52,13 @@ export default function ArticlePreview({
         'aspect-og grow-0 shrink-0': cardStyle === 'card',
         'aspect-og grow shrink-0 w-full': cardStyle === 'tile',
       })}
+      {...imageCardProps}
     >
       <div
         className={clsx('h-full', {
           'px-8 py-4': style === 'card',
           'px-8 py-6': style === 'tile',
-          '@2xl/image-card:pl-8': style === 'inline',
+          'mb-4 @2xl/image-card:pl-8': style === 'inline',
         })}
       >
         <ArticleLayout {...props} />
