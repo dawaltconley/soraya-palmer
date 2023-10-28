@@ -96,6 +96,3 @@ export default function PressGrid({ query }: PressGridProps) {
     </div>
   )
 }
-
-// overlay-before overlay-after before:vignette grow overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2 shrink-0 basis-[40%] relative
-// overlay-before overlay-after before:vignette grow overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2 shrink-0 basis-[40%] absolute inset-0 z-0 h-full @2xl:relative
