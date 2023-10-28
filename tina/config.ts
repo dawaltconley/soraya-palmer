@@ -371,6 +371,11 @@ const pressPage: Collection = {
               const label = [item._template, item.article].join(': ')
               return { label }
             },
+            defaultItem: {
+              style: 'quote-tile',
+              rows: 1,
+              cols: 1,
+            },
           },
           fields: [
             {
@@ -405,6 +410,11 @@ const pressPage: Collection = {
             itemProps: (item) => {
               const label = [item._template, item.quote].join(': ')
               return { label }
+            },
+            defaultItem: {
+              style: 'tile',
+              rows: 1,
+              cols: 1,
             },
           },
           fields: [
