@@ -28,7 +28,7 @@ export interface ImageCardProps {
   styleLarge?: CardStyle
   imgClass?: string
   borderColor?: string
-  linkText?: string
+  linkText?: string | null
   linkLocation?: 'description' | 'image'
 }
 
@@ -47,6 +47,8 @@ export default function ImageCard({
 }: ImageCardProps) {
   const Wrapper = url ? 'a' : 'div'
   if (!image) linkLocation = 'description'
+  const hasDescLink = linkLocation === 'description' && url && linkText
+  const hasImgLink = linkLocation === 'image' && url && linkText
   return (
     <Wrapper
       href={url?.toString()}
@@ -77,7 +79,7 @@ export default function ImageCard({
               loading="lazy"
               decoding="async"
             />
-            {linkLocation === 'image' && url && (
+            {hasImgLink && (
               <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-800 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
                 {linkText}
               </div>
@@ -93,7 +95,8 @@ export default function ImageCard({
         >
           <div
             className={clsx('relative w-full max-w-prose overflow-hidden', {
-              'pb-4': linkLocation === 'description' && url, // add padding for Read More button
+              'pb-4': style === 'card' && image && hasDescLink, // add padding for Read More button
+              '@2xl:pb-4': style === 'tile' && image && hasDescLink, // add padding for Read More button
               'w-full': style === 'card',
               'border-t-4': style === 'card' && image && borderColor,
               'm-auto bg-white drop-shadow-xl': style === 'tile',
@@ -106,12 +109,12 @@ export default function ImageCard({
             style={{ borderColor }}
           >
             {children}
-            {linkLocation === 'description' && url && (
-              <div className="slant-edge-l absolute -right-px bottom-0 z-50 bg-gray-900 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
-                {linkText}
-              </div>
-            )}
           </div>
+          {hasDescLink && (
+            <div className="slant-edge-l absolute -right-px bottom-0 z-50 bg-gray-900 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
+              {linkText}
+            </div>
+          )}
         </div>
       </div>
     </Wrapper>
