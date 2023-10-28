@@ -61,8 +61,9 @@ export default function ImageCard({
         {image && (
           <div
             className={clsx(
-              'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2 @2xl:grow',
+              'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2 @2xl:grow',
               {
+                'group-hover:after:bg-gray-800/20 ': url,
                 relative: style === 'card',
                 'absolute inset-0 z-0 h-full @2xl:relative': style === 'tile',
               },
@@ -75,7 +76,12 @@ export default function ImageCard({
             }
           >
             <img
-              className="aspect-og h-full w-full object-cover duration-[inherit] group-hover:scale-105"
+              className={clsx(
+                'aspect-og h-full w-full object-cover duration-[inherit]',
+                {
+                  'group-hover:scale-105': url,
+                },
+              )}
               src={image}
               alt={alt}
               loading="lazy"
