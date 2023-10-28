@@ -1,77 +1,88 @@
 press:
   - article: >-
       content/press/Oprah-Daily__Caribbean-Writers-You-Need-to-Read-This-Summer.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 3
     _template: article
   - article: >-
       content/press/The-New-York-Times-Book-Review__For-This-Brooklyn-Family-Myth-and-Reality-Are-One-and-the-Same.md
-    style: quote-tile
+    display: quote
+    layout: card
     rows: 2
     cols: 1
     _template: article
   - article: >-
       content/press/Shondaland__The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 2
     _template: article
   - article: >-
       content/press/Elle__Our-Favorite-and-Most-Anticipated-Books-of-2023-So-Far.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 2
     _template: article
   - quote: content/quotes/Daphne-Palasi-Andreades.md
-    style: tile
+    layout: tile
     rows: 1
     cols: 2
     _template: quote
   - article: content/press/Financial-Times__A-Round-Up-of-Debut-Novels.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 1
     _template: article
   - article: content/press/New-York-Amsterdam-News__In-Books.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 3
     _template: article
   - article: >-
       content/press/publishersweekly-com__The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 1
     _template: article
   - quote: content/quotes/Mina-Sekin.md
-    style: tile
+    layout: tile
     rows: 1
     cols: 2
     _template: quote
   - article: >-
       content/press/Chicago-Review-of-Books__Afro-Caribbean-Folklore-s-Unanswered-Questions.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 3
     _template: article
+  - article: content/press/Shelf-Awareness__Friday-March-3-2023.md
+    display: quote
+    layout: tile
+    rows: 2
+    cols: 1
+    _template: article
   - article: content/press/Today__45-new-books-we-can-t-wait-to-read-in-2023.md
-    style: article-tile-title
+    display: title
+    layout: tile
     rows: 1
     cols: 1
     _template: article
   - article: content/press/Booklist__Booklist-Review.md
-    style: quote-tile
+    display: quote
+    layout: tile
     rows: 1
     cols: 1
     _template: article
   - quote: content/quotes/Gabriella-Burnham.md
-    style: tile
+    layout: tile
     rows: 1
     cols: 2
     _template: quote
-  - article: content/press/Shelf-Awareness__Friday-March-3-2023.md
-    style: quote-tile
-    rows: 2
-    cols: 1
-    _template: article
