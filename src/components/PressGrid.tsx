@@ -86,7 +86,6 @@ export default function PressGrid({ query }: PressGridProps) {
               style="tile"
               url={url || undefined}
               image={image || undefined}
-              imgClass="shrink-0 basis-[40%]"
               borderColor={colors.amber['300']}
             >
               <div className="h-full px-8 py-6">{content}</div>
