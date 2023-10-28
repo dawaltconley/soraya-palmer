@@ -5,7 +5,7 @@ title: >-
   Afro-Caribbean Folklore’s Unanswered Questions in “The Human Origins of
   Beatrice Porter and Other Essential Ghosts”
 image: >-
-  https://i0.wp.com/chireviewofbooks.com/wp-content/uploads/2023/03/TheHumanOriginsOfBeatrice_1920x675.jpg?fit=1200%2C422&ssl=1
+  https://i0.wp.com/chireviewofbooks.com/wp-content/uploads/2023/03/TheHumanOriginsOfBeatrice_1920x675.jpg
 date: 2023-04-06T10:00:00.000Z
 author: Gianni Washington
 source: Chicago Review of Books
