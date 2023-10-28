@@ -17,9 +17,9 @@ export default function PressGrid({ query }: PressGridProps) {
   return (
     <div
       className="press-grid"
-      data-tina-field={tinaField(data.pressPage.press)}
+      data-tina-field={tinaField(data.pressPage, 'press')}
     >
-      {press.map((p) => {
+      {press.map((p, i) => {
         let content: ReactNode
         let id: string
         let url: string | null | undefined
@@ -80,7 +80,7 @@ export default function PressGrid({ query }: PressGridProps) {
                 '--cols': p.cols || 1,
               } as CSSProperties
             }
-            data-tina-field={tinaField(p)}
+            data-tina-field={tinaField(data.pressPage, 'press', i)}
           >
             <ImageCard
               style="tile"
