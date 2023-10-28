@@ -26,7 +26,6 @@ export interface ImageCardProps {
   title?: ReactNode
   style?: CardStyle
   styleLarge?: CardStyle
-  imgClass?: string
   borderColor?: string
   linkText?: string
   linkLocation?: 'description' | 'image'
@@ -39,7 +38,6 @@ export default function ImageCard({
   // title,
   style = 'card',
   // styleLarge = style,
-  imgClass,
   borderColor,
   linkText = 'Read More',
   linkLocation = 'description',
@@ -56,8 +54,7 @@ export default function ImageCard({
         {image && (
           <div
             className={clsx(
-              'overlay-before overlay-after before:vignette grow overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2',
-              imgClass,
+              'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] group-hover:after:bg-gray-800/20 @2xl:w-1/2 @2xl:grow',
               {
                 relative: style === 'card',
                 'absolute inset-0 z-0 h-full @2xl:relative': style === 'tile',
@@ -71,7 +68,7 @@ export default function ImageCard({
             }
           >
             <img
-              className="h-full w-full object-cover duration-[inherit] group-hover:scale-105"
+              className="aspect-og h-full w-full object-cover duration-[inherit] group-hover:scale-105"
               src={image}
               alt={alt}
               loading="lazy"
@@ -86,15 +83,16 @@ export default function ImageCard({
         )}
         <div
           className={clsx(
-            'flex w-full',
+            'flex w-full grow @2xl:grow-0',
             { 'h-full p-8': style === 'tile' },
-            image ? 'w-[65ch] max-w-full @2xl:p-0' : 'bg-amber-300',
+            image ? '@2xl:w-3/5 @2xl:max-w-prose @2xl:p-0' : 'bg-amber-300',
           )}
         >
           <div
-            className={clsx('relative w-full max-w-prose overflow-hidden', {
-              'pb-4': linkLocation === 'description' && url, // add padding for Read More button
-              'w-full': style === 'card',
+            className={clsx('relative w-full overflow-hidden', {
+              '@2xl:max-w-prose': style === 'card', // needed to keep 'Read More' link in corner
+              'max-w-prose': style === 'tile',
+              'pb-[1em]': linkLocation === 'description' && url, // add padding for Read More button
               'border-t-4': style === 'card' && image && borderColor,
               'm-auto bg-white drop-shadow-xl': style === 'tile',
               'border-4 ': style === 'tile' && borderColor,
