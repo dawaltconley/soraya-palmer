@@ -94,6 +94,10 @@
       max-width: 100%;
     }
   }
+
+  .slant-edge-l {
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 5% 0%);
+  }
 }
 
 @layer utilities {
