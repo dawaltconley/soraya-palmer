@@ -48,10 +48,6 @@ export default function ArticlePreview({
       url={url}
       style={cardStyle}
       image={image || undefined}
-      imgClass={clsx({
-        'aspect-og grow-0 shrink-0': cardStyle === 'card',
-        'aspect-og grow shrink-0 w-full': cardStyle === 'tile',
-      })}
       {...imageCardProps}
     >
       <div
