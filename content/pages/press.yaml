@@ -28,7 +28,7 @@ press:
     cols: 2
     _template: article
   - quote: content/quotes/Daphne-Palasi-Andreades.md
-    layout: tile
+    layout: card
     rows: 1
     cols: 2
     _template: quote
@@ -82,7 +82,7 @@ press:
     cols: 1
     _template: article
   - quote: content/quotes/Gabriella-Burnham.md
-    layout: tile
+    layout: card
     rows: 1
     cols: 2
     _template: quote
