@@ -33,28 +33,7 @@ press:
     rows: 1
     cols: 1
     _template: article
-  - quote: content/quotes/Mina-Sekin.md
-    style: tile
-    rows: 2
-    cols: 1
-    _template: quote
-  - article: content/press/Booklist__Booklist-Review.md
-    style: quote-tile
-    rows: 1
-    cols: 1
-    _template: article
   - article: content/press/New-York-Amsterdam-News__In-Books.md
-    style: quote-tile
-    rows: 2
-    cols: 1
-    _template: article
-  - article: content/press/Today__45-new-books-we-can-t-wait-to-read-in-2023.md
-    style: article-tile-title
-    rows: 1
-    cols: 1
-    _template: article
-  - article: >-
-      content/press/Chicago-Review-of-Books__Afro-Caribbean-Folklore-s-Unanswered-Questions.md
     style: quote-tile
     rows: 1
     cols: 3
@@ -65,13 +44,34 @@ press:
     rows: 1
     cols: 1
     _template: article
-  - article: content/press/Shelf-Awareness__Friday-March-3-2023.md
+  - quote: content/quotes/Mina-Sekin.md
+    style: tile
+    rows: 1
+    cols: 2
+    _template: quote
+  - article: >-
+      content/press/Chicago-Review-of-Books__Afro-Caribbean-Folklore-s-Unanswered-Questions.md
     style: quote-tile
-    rows: 2
+    rows: 1
+    cols: 3
+    _template: article
+  - article: content/press/Today__45-new-books-we-can-t-wait-to-read-in-2023.md
+    style: article-tile-title
+    rows: 1
+    cols: 1
+    _template: article
+  - article: content/press/Booklist__Booklist-Review.md
+    style: quote-tile
+    rows: 1
     cols: 1
     _template: article
   - quote: content/quotes/Gabriella-Burnham.md
     style: tile
     rows: 1
-    cols: 1
+    cols: 2
     _template: quote
+  - article: content/press/Shelf-Awareness__Friday-March-3-2023.md
+    style: quote-tile
+    rows: 2
+    cols: 1
+    _template: article
