@@ -28,7 +28,7 @@ export default withTinaWrapper<
   cards.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
   return (
-    <ul className="grid gap-4 lg:grid-cols-1">
+    <ul className="grid gap-4 lg:grid-cols-3">
       {cards.map((card) => {
         let { id, image, description, ...props } = card
         const source =
