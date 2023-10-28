@@ -1,6 +1,5 @@
 import type { Collection } from 'tinacms'
-import type { ArticlePreviewStyle } from '@components/ArticleQuote'
-import type { QuoteStyle } from '@components/Quote'
+import type { CardStyle } from '@components/ImageCard'
 import { defineConfig } from 'tinacms'
 import { UrlMetadata } from './components/UrlMetadata'
 import { toUrl } from '../src/lib/utils'
@@ -269,72 +268,49 @@ const quotes: Collection = {
       name: 'book',
       label: 'Book',
     },
+    {
+      type: 'image',
+      name: 'image',
+      label: 'Headshot',
+    },
   ],
 }
 
-interface ArticleStyleOptions {
-  value: ArticlePreviewStyle
+interface CardLayoutOptions {
+  value: CardStyle
   label: string
 }
 
-const articleStyleOptions: ArticleStyleOptions[] = [
+const cardLayoutOptions: CardLayoutOptions[] = [
   {
-    value: 'article',
-    label: 'Article Basic',
-  },
-  {
-    value: 'article-bg-title',
-    label: 'Article Background',
-  },
-  {
-    value: 'article-bold-title',
-    label: 'Article Bold',
-  },
-  {
-    value: 'article-tile-title',
-    label: 'Article Tile',
-  },
-  {
-    value: 'quote',
-    label: 'Quote Basic',
-  },
-  {
-    value: 'quote-background',
-    label: 'Quote Background',
-  },
-  {
-    value: 'quote-headshot',
-    label: 'Quote Headshot',
-  },
-  {
-    value: 'quote-tile',
-    label: 'Quote Tile',
-  },
-]
-
-interface QuoteStyleOptions {
-  value: QuoteStyle
-  label: string
-}
-
-const quoteStyleOptions: QuoteStyleOptions[] = [
-  {
-    value: 'basic',
-    label: 'Quote Basic',
-  },
-  {
-    value: 'background',
-    label: 'Quote Background',
-  },
-  {
-    value: 'headshot',
-    label: 'Quote Headshot',
+    value: 'card',
+    label: 'Card',
   },
   {
     value: 'tile',
-    label: 'Quote Tile',
+    label: 'Tile',
   },
 ]
+
+const gridControls = [
+  {
+    type: 'string',
+    name: 'layout',
+    label: 'Layout',
+    required: true,
+    options: cardLayoutOptions,
+  },
+  {
+    type: 'number',
+    name: 'rows',
+    label: 'Rows',
+  },
+  {
+    type: 'number',
+    name: 'cols',
+    label: 'Cols',
+  },
+] as const
 
 const pressPage: Collection = {
   name: 'pressPage',
@@ -372,7 +348,8 @@ const pressPage: Collection = {
               return { label }
             },
             defaultItem: {
-              style: 'quote-tile',
+              display: 'quote',
+              layout: 'tile',
               rows: 1,
               cols: 1,
             },
@@ -386,21 +363,21 @@ const pressPage: Collection = {
             },
             {
               type: 'string',
-              name: 'style',
-              label: 'Style',
+              name: 'display',
+              label: 'Display',
               required: true,
-              options: articleStyleOptions,
+              options: [
+                {
+                  value: 'title',
+                  label: 'Article Title',
+                },
+                {
+                  value: 'quote',
+                  label: 'Quote',
+                },
+              ],
             },
-            {
-              type: 'number',
-              name: 'rows',
-              label: 'Rows',
-            },
-            {
-              type: 'number',
-              name: 'cols',
-              label: 'Cols',
-            },
+            ...gridControls,
           ],
         },
         {
@@ -412,7 +389,7 @@ const pressPage: Collection = {
               return { label }
             },
             defaultItem: {
-              style: 'tile',
+              layout: 'tile',
               rows: 1,
               cols: 1,
             },
@@ -424,23 +401,7 @@ const pressPage: Collection = {
               name: 'quote',
               label: 'Quote',
             },
-            {
-              type: 'string',
-              name: 'style',
-              label: 'Style',
-              required: true,
-              options: quoteStyleOptions,
-            },
-            {
-              type: 'number',
-              name: 'rows',
-              label: 'Rows',
-            },
-            {
-              type: 'number',
-              name: 'cols',
-              label: 'Cols',
-            },
+            ...gridControls,
           ],
         },
       ],

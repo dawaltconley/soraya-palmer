@@ -16,7 +16,12 @@ import clsx from 'clsx'
  * 2. title below image, description to right
  */
 
-type CardStyle = 'card' | 'tile'
+const CardStyle = ['card', 'tile']
+
+export type CardStyle = (typeof CardStyle)[number]
+
+export const isCardStyle = (str: string): str is CardStyle =>
+  CardStyle.some((s) => s === str)
 
 export interface ImageCardProps {
   image?: string

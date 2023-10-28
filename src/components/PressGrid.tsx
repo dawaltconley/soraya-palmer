@@ -2,9 +2,9 @@ import type { ReactNode, CSSProperties } from 'react'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
-import ImageCard from './ImageCard'
+import ImageCard, { isCardStyle } from './ImageCard'
 import { ArticleLayout } from './ArticlePreview'
-import { AuthorQuote, ReviewQuote, isQuoteStyle } from './Quote'
+import { AuthorQuote, ReviewQuote } from './Quote'
 import colors from 'tailwindcss/colors' // TODO avoid this
 
 export interface PressGridProps {
@@ -24,6 +24,7 @@ export default function PressGrid({ query }: PressGridProps) {
         let id: string
         let url: string | null | undefined
         let image: string | null | undefined
+        const { layout } = p
 
         if (p.__typename === 'PressPagePressArticle' && p.article) {
           id = p.article._sys.filename
@@ -33,7 +34,7 @@ export default function PressGrid({ query }: PressGridProps) {
             <TinaMarkdown content={p.article.description} />
           ) : undefined
           content =
-            p.style && p.style === 'quote-tile' && source ? (
+            p.display === 'quote' && source ? (
               <ReviewQuote
                 key={id}
                 style="tile"
@@ -57,10 +58,11 @@ export default function PressGrid({ query }: PressGridProps) {
         } else if (p.__typename === 'PressPagePressQuote' && p.quote) {
           id = p.quote._sys.filename
           const { author, book, quote } = p.quote
+          image = p.quote.image
           content = (
             <AuthorQuote
               key={id}
-              style={p.style && isQuoteStyle(p.style) ? p.style : 'basic'}
+              style="tile"
               author={author}
               book={book || undefined}
             >
@@ -73,7 +75,7 @@ export default function PressGrid({ query }: PressGridProps) {
         return (
           <div
             key={id}
-            className="press-grid__item drop-shadow"
+            className="press-grid__item bg-white drop-shadow"
             style={
               {
                 '--rows': p.rows || 1,
@@ -83,7 +85,7 @@ export default function PressGrid({ query }: PressGridProps) {
             data-tina-field={tinaField(data.pressPage, 'press', i)}
           >
             <ImageCard
-              style="tile"
+              style={isCardStyle(layout) ? layout : 'tile'}
               url={url || undefined}
               image={image || undefined}
               borderColor={colors.amber['300']}
