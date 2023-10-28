@@ -24,7 +24,7 @@ export default function PressGrid({ query }: PressGridProps) {
         let id: string
         let url: string | null | undefined
         let image: string | null | undefined
-        const { layout } = p
+        let layout = p.layout
 
         if (p.__typename === 'PressPagePressArticle' && p.article) {
           id = p.article._sys.filename
@@ -72,6 +72,9 @@ export default function PressGrid({ query }: PressGridProps) {
         } else {
           return null
         }
+
+        if (!image) layout = 'tile'
+
         return (
           <div
             key={id}
