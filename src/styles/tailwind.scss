@@ -91,6 +91,7 @@
       top: $default * -0.5;
       border-top: solid 4px theme('colors.amber.300');
       width: 4rem;
+      width: max(4rem, 20%);
       max-width: 100%;
     }
   }
