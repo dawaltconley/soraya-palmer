@@ -114,7 +114,11 @@ function ArticleLayoutDate({
         {title}
       </H>
       {(date || publisher) && (
-        <div className="mt-1 flex text-base leading-tight text-gray-500">
+        <div
+          className={clsx('mt-1 flex text-base leading-tight text-gray-500', {
+            '@2xl/image-card:separator': description,
+          })}
+        >
           {date && (
             <time className="shrink-0" dateTime={date.toISOString()}>
               {date.format('MMM, YYYY')}
@@ -129,7 +133,7 @@ function ArticleLayoutDate({
       )}
       {description && (
         <>
-          <div className="separator mt-6 hidden before:-top-4 @2xl/image-card:block">
+          <div className="mt-6 hidden before:-top-4 @2xl/image-card:block">
             {description}
           </div>
         </>
