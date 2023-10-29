@@ -19,7 +19,7 @@ press:
     layout: tile
     rows: 1
     cols: 2
-    imageSide: left
+    imageSide: right
     _template: article
   - article: >-
       content/press/Elle__Our-Favorite-and-Most-Anticipated-Books-of-2023-So-Far.md
@@ -29,26 +29,27 @@ press:
     cols: 2
     imageSide: left
     _template: article
+  - article: content/press/New-York-Amsterdam-News__In-Books.md
+    display: quote
+    layout: tile
+    rows: 1
+    cols: 3
+    imageSide: right
+    _template: article
   - quote: content/quotes/Daphne-Palasi-Andreades.md
     layout: card
     rows: 1
     cols: 2
     imageSide: left
     _template: quote
-  - article: content/press/Financial-Times__A-Round-Up-of-Debut-Novels.md
+  - article: >-
+      content/press/publishersweekly-com__The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts.md
     display: quote
     layout: tile
     rows: 1
     cols: 1
     _template: article
-  - article: content/press/New-York-Amsterdam-News__In-Books.md
-    display: quote
-    layout: tile
-    rows: 1
-    cols: 3
-    _template: article
-  - article: >-
-      content/press/publishersweekly-com__The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts.md
+  - article: content/press/Financial-Times__A-Round-Up-of-Debut-Novels.md
     display: quote
     layout: tile
     rows: 1
