@@ -11,9 +11,13 @@ import colors from 'tailwindcss/colors' // TODO avoid this
 
 export interface PressGridProps {
   query: Parameters<typeof useTina<PressPageQuery>>[0]
+  accentColor?: string
 }
 
-export default function PressGrid({ query }: PressGridProps) {
+export default function PressGrid({
+  query,
+  accentColor = colors.amber['300'],
+}: PressGridProps) {
   const { data } = useTina(query)
   const { press } = data.pressPage
   return (
@@ -96,7 +100,7 @@ export default function PressGrid({ query }: PressGridProps) {
               style={isCardStyle(layout) ? layout : 'tile'}
               url={url || undefined}
               image={image || undefined}
-              borderColor={colors.amber['300']}
+              borderColor={accentColor}
             >
               <div className="h-full px-8 py-6">{content}</div>
             </Card>
