@@ -19,6 +19,7 @@ press:
     layout: tile
     rows: 1
     cols: 2
+    imageSide: left
     _template: article
   - article: >-
       content/press/Elle__Our-Favorite-and-Most-Anticipated-Books-of-2023-So-Far.md
@@ -26,11 +27,13 @@ press:
     layout: tile
     rows: 1
     cols: 2
+    imageSide: left
     _template: article
   - quote: content/quotes/Daphne-Palasi-Andreades.md
     layout: card
     rows: 1
     cols: 2
+    imageSide: left
     _template: quote
   - article: content/press/Financial-Times__A-Round-Up-of-Debut-Novels.md
     display: quote
@@ -55,6 +58,7 @@ press:
     layout: tile
     rows: 1
     cols: 2
+    imageSide: right
     _template: quote
   - article: >-
       content/press/Chicago-Review-of-Books__Afro-Caribbean-Folklore-s-Unanswered-Questions.md
@@ -62,6 +66,7 @@ press:
     layout: tile
     rows: 1
     cols: 3
+    imageSide: left
     _template: article
   - article: content/press/Shelf-Awareness__Friday-March-3-2023.md
     display: quote
@@ -85,4 +90,5 @@ press:
     layout: card
     rows: 1
     cols: 2
+    imageSide: right
     _template: quote

@@ -30,7 +30,7 @@ export default function PressGrid({
         let id: string
         let url: string | null | undefined
         let image: string | null | undefined
-        const { layout } = p
+        const { layout, imageSide } = p
 
         if (p.__typename === 'PressPagePressArticle' && p.article) {
           id = p.article._sys.filename
@@ -101,6 +101,7 @@ export default function PressGrid({
               url={url || undefined}
               image={image || undefined}
               borderColor={accentColor}
+              imageSide={imageSide === 'right' ? 'right' : 'left'}
             >
               <div className="h-full px-8 py-6">{content}</div>
             </Card>
