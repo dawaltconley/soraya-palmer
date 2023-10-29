@@ -1,0 +1,24 @@
+---
+import Base from '@layouts/Base.astro'
+import Header from '@components/Header.astro'
+import TinaContent from '@components/TinaContent'
+import Footer from '@components/Footer.astro'
+
+import { client } from '@tina/__generated__/client'
+const page = await client.queries.workWithMePage({
+  relativePath: 'services.md',
+})
+---
+
+<Base title={`${page.data.workWithMePage.title} – Soraya Palmer`}>
+  <Header />
+  <main class="container mx-auto py-16">
+    <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
+      <TinaContent client:tina data={page} path="workWithMePage.title" />
+    </h1>
+    <div class="prose font-serif text-lg">
+      <TinaContent client:tina data={page} path="workWithMePage.body" />
+    </div>
+  </main>
+  <Footer />
+</Base>
