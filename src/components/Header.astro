@@ -56,8 +56,10 @@ const H = useAsTitle ? 'h1' : 'h4'
     <ul class="header__links sm:flex sm:items-end">
       {
         links.map(({ text, href }) => (
-          <li class="-mb-4 p-4">
-            <a href={href}>{text}</a>
+          <li>
+            <a class="header__link -mb-4 inline-block p-4" href={href}>
+              {text}
+            </a>
           </li>
         ))
       }
@@ -92,6 +94,18 @@ const H = useAsTitle ? 'h1' : 'h4'
       &--open {
         @apply translate-x-0;
       }
+    }
+  }
+
+  .header__link {
+    @apply relative;
+
+    &::before {
+      @apply absolute inset-3 right-full border-b-4 border-transparent duration-300 content-[''] sm:border-b-2;
+    }
+
+    &:hover::before {
+      @apply right-3 border-amber-400;
     }
   }
 
