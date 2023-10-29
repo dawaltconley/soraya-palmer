@@ -1,4 +1,8 @@
-import type { ComponentPropsWithoutRef, SyntheticEvent } from 'react'
+import type {
+  ComponentPropsWithoutRef,
+  SyntheticEvent,
+  CSSProperties,
+} from 'react'
 import { useState, useEffect, useRef } from 'react'
 import Icon from './Icon'
 import Spinner from './Spinner'
@@ -101,7 +105,14 @@ export default function BookSplash({
       )}
       {...divProps}
     >
-      <div className="container mx-auto h-full justify-center py-16 md:flex">
+      <div
+        className="feathered-blur-before container mx-auto h-full justify-center py-16 md:flex"
+        style={
+          {
+            '--feather-size': '6rem',
+          } as CSSProperties
+        }
+      >
         <div
           className={clsx(
             'absolute inset-0 flex w-full duration-1000',
