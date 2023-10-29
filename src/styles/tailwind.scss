@@ -79,7 +79,7 @@
     }
   }
 
-  .separator {
+  .separator-t {
     $default: theme('spacing.4');
     position: relative;
     margin-top: $default;
@@ -90,6 +90,23 @@
       left: 0;
       top: $default * -0.5;
       border-top: solid 4px theme('colors.amber.300');
+      width: 4rem;
+      width: max(4rem, 20%);
+      max-width: 100%;
+    }
+  }
+
+  .separator {
+    $default: theme('spacing.4');
+    position: relative;
+    margin-bottom: $default;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: calc(4px - $default);
+      border-bottom: solid 4px theme('colors.amber.300');
       width: 4rem;
       width: max(4rem, 20%);
       max-width: 100%;

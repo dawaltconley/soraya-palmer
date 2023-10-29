@@ -14,18 +14,16 @@ const press = await client.queries.pressConnection()
 <Base title="Press – Soraya Palmer">
   <Header />
   <main class="container mx-auto py-16">
-    <h1 class="mb-8 font-display text-5xl font-bold capitalize">
+    <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
       Praise for <span class="italic"
         >The Human Origins of Beatrice Porter and other Essential Ghosts</span
       >
     </h1>
     <PressGrid client:tina query={page} />
-    <h2 class="mb-8 mt-16 font-display text-5xl font-bold capitalize">
+    <h2 class="separator mb-8 mt-16 font-display text-5xl font-bold capitalize">
       More Press
     </h2>
-    <div>
-      <PressList client:tina data={press} exclude={page} hLevel="h3" />
-    </div>
+    <PressList client:tina data={press} exclude={page} hLevel="h3" />
   </main>
   <Footer />
 </Base>
