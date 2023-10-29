@@ -49,11 +49,28 @@
   }
 
   .form-label {
-    @apply relative col-span-2 leading-[0];
+    @apply relative col-span-2 text-base leading-[0];
   }
 
   .form-label__text {
-    @apply absolute -top-2 left-2.5 bg-white px-2 text-xs leading-none;
+    position: absolute;
+    top: theme('spacing.2') * -1;
+    left: #{"theme('spacing.2')"};
+    padding: 0 theme('spacing.2');
+    font-size: theme('fontSize.xs');
+    line-height: 1;
+    z-index: 1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.46rem;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: theme('colors.white');
+      z-index: -1;
+    }
   }
 
   .form-button {
