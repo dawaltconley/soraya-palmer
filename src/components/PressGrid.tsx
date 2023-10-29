@@ -6,6 +6,7 @@ import Card from './Card'
 import { isCardStyle } from './ImageCard'
 import { ArticleLayout } from './ArticlePreview'
 import { AuthorQuote, ReviewQuote } from './Quote'
+import clsx from 'clsx'
 import colors from 'tailwindcss/colors' // TODO avoid this
 
 export interface PressGridProps {
@@ -77,7 +78,12 @@ export default function PressGrid({ query }: PressGridProps) {
         return (
           <div
             key={id}
-            className="press-grid__item bg-white drop-shadow"
+            className={clsx(
+              'press-grid__item overflow-hidden rounded-sm bg-white drop-shadow',
+              {
+                'duration-200 hover:drop-shadow-md': url,
+              },
+            )}
             style={
               {
                 '--rows': p.rows || 1,
