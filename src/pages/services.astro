@@ -13,10 +13,12 @@ const page = await client.queries.workWithMePage({
 <Base title={`${page.data.workWithMePage.title} – Soraya Palmer`}>
   <Header />
   <main class="container mx-auto py-16">
-    <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
-      <TinaContent client:tina data={page} path="workWithMePage.title" />
-    </h1>
-    <div class="prose font-serif text-lg">
+    <div
+      class="prose prose-lg mx-auto font-serif text-lg prose-headings:font-display prose-li:marker:text-amber-300"
+    >
+      <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
+        <TinaContent client:tina data={page} path="workWithMePage.title" />
+      </h1>
       <TinaContent client:tina data={page} path="workWithMePage.body" />
     </div>
   </main>
