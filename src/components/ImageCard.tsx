@@ -24,6 +24,7 @@ export const isCardStyle = (str: string): str is CardStyle =>
 
 export interface ImageCardProps {
   image: string
+  imageSide: 'left' | 'right'
   alt?: string
   url?: string | URL
   children: ReactNode
@@ -42,6 +43,7 @@ export default function ImageCard({
   // title,
   style = 'card',
   // styleLarge = style,
+  imageSide = 'left',
   borderColor,
   linkText = 'Read More',
   linkLocation = 'description',
@@ -60,6 +62,7 @@ export default function ImageCard({
           className={clsx(
             'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2 @2xl:grow',
             {
+              '@2xl:order-1': imageSide === 'right',
               'group-hover:after:bg-gray-800/20 ': url,
               relative: style === 'card',
               'absolute inset-0 z-0 h-full @2xl:relative': style === 'tile',
@@ -107,8 +110,9 @@ export default function ImageCard({
                   style === 'tile',
                 '@2xl:pb-[1em]': style === 'tile' && hasDescLink, // add padding for Read More button
                 'border-4 ': style === 'tile' && borderColor,
-                '@2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0': borderColor,
+                '@2xl:border-0': borderColor,
               },
+              imageSide === 'left' ? '@2xl:border-l-4' : '@2xl:border-r-4',
             )}
             style={{ borderColor }}
           >

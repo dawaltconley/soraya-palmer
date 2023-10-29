@@ -276,9 +276,13 @@ const quotes: Collection = {
   ],
 }
 
-interface CardLayoutOptions {
-  value: CardStyle
+interface Option {
+  value: string
   label: string
+}
+
+interface CardLayoutOptions extends Option {
+  value: CardStyle
 }
 
 const cardLayoutOptions: CardLayoutOptions[] = [
@@ -309,6 +313,15 @@ const gridControls = [
     type: 'number',
     name: 'cols',
     label: 'Cols',
+  },
+  {
+    type: 'string',
+    name: 'imageSide',
+    label: 'Image',
+    options: [
+      { value: 'left', label: 'on left' },
+      { value: 'right', label: 'on right' },
+    ] as Option[],
   },
 ] as const
 
@@ -352,6 +365,7 @@ const pressPage: Collection = {
               layout: 'tile',
               rows: 1,
               cols: 1,
+              imageSide: 'left',
             },
           },
           fields: [
@@ -392,6 +406,7 @@ const pressPage: Collection = {
               layout: 'tile',
               rows: 1,
               cols: 1,
+              imageSide: 'left',
             },
           },
           fields: [
