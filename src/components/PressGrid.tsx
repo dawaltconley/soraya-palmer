@@ -2,7 +2,8 @@ import type { ReactNode, CSSProperties } from 'react'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
-import ImageCard, { isCardStyle } from './ImageCard'
+import Card from './Card'
+import { isCardStyle } from './ImageCard'
 import { ArticleLayout } from './ArticlePreview'
 import { AuthorQuote, ReviewQuote } from './Quote'
 import colors from 'tailwindcss/colors' // TODO avoid this
@@ -24,7 +25,7 @@ export default function PressGrid({ query }: PressGridProps) {
         let id: string
         let url: string | null | undefined
         let image: string | null | undefined
-        let layout = p.layout
+        const { layout } = p
 
         if (p.__typename === 'PressPagePressArticle' && p.article) {
           id = p.article._sys.filename
@@ -73,8 +74,6 @@ export default function PressGrid({ query }: PressGridProps) {
           return null
         }
 
-        if (!image) layout = 'tile'
-
         return (
           <div
             key={id}
@@ -87,14 +86,14 @@ export default function PressGrid({ query }: PressGridProps) {
             }
             data-tina-field={tinaField(data.pressPage, 'press', i)}
           >
-            <ImageCard
+            <Card
               style={isCardStyle(layout) ? layout : 'tile'}
               url={url || undefined}
               image={image || undefined}
               borderColor={colors.amber['300']}
             >
               <div className="h-full px-8 py-6">{content}</div>
-            </ImageCard>
+            </Card>
           </div>
         )
       })}

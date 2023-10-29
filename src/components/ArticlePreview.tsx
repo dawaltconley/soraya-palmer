@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { ImageCardProps } from './ImageCard'
-import ImageCard from './ImageCard'
+import Card from './Card'
 import pick from 'lodash/pick'
 import dayjs from 'dayjs'
 import clsx from 'clsx'
@@ -44,7 +44,7 @@ export default function ArticlePreview({
   const cardStyle = style === 'tile' ? 'tile' : 'card'
   const imageCardProps = pick(props, passthroughProps)
   return (
-    <ImageCard
+    <Card
       url={url}
       style={cardStyle}
       image={image || undefined}
@@ -59,7 +59,7 @@ export default function ArticlePreview({
       >
         <ArticleLayout {...props} />
       </div>
-    </ImageCard>
+    </Card>
   )
 }
 
