@@ -34,8 +34,6 @@ export default withTinaWrapper<
         const source =
           card.__typename === 'Writing' ? card.publisher : card.source // TODO make consistent
 
-        // if (!image) return null
-        // console.log({ title: props.title, description })
         if (typeof description === 'string') {
           description = description.trim()
         } else if ('children' in description) {

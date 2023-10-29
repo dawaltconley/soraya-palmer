@@ -4,14 +4,13 @@ import clsx from 'clsx'
 /*
  * Small versions
  * 1. tile in middle of image
- * 2. text below image (requires image?)
+ * 2. text below image
  *
  * TODO Small preview text
  * 1. use title block
  * 2. use description block
  *
  * TODO Large versions (only difference whether title is present)
- * 0. no image, text in middle
  * 1. all text right of image
  * 2. title below image, description to right
  */
@@ -24,7 +23,7 @@ export const isCardStyle = (str: string): str is CardStyle =>
   CardStyle.some((s) => s === str)
 
 export interface ImageCardProps {
-  image?: string
+  image: string
   alt?: string
   url?: string | URL
   children: ReactNode
@@ -49,7 +48,6 @@ export default function ImageCard({
   children,
 }: ImageCardProps) {
   const Wrapper = url ? 'a' : 'div'
-  if (!image) linkLocation = 'description'
   const hasDescLink = linkLocation === 'description' && url && linkText
   const hasImgLink = linkLocation === 'image' && url && linkText
   return (
@@ -58,63 +56,60 @@ export default function ImageCard({
       className="group relative block h-full @container/image-card"
     >
       <div className="flex h-full w-full flex-col items-stretch overflow-hidden @2xl:flex-row">
-        {image && (
-          <div
-            className={clsx(
-              'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2 @2xl:grow',
-              {
-                'group-hover:after:bg-gray-800/20 ': url,
-                relative: style === 'card',
-                'absolute inset-0 z-0 h-full @2xl:relative': style === 'tile',
-              },
-            )}
-            style={
-              {
-                '--vignette-opacity': 0.2,
-                '--vignette-spread': '4rem',
-              } as CSSProperties
-            }
-          >
-            <img
-              className={clsx(
-                'aspect-og h-full w-full object-cover duration-[inherit]',
-                {
-                  'group-hover:scale-105': url,
-                },
-              )}
-              src={image}
-              alt={alt}
-              loading="lazy"
-              decoding="async"
-            />
-            {hasImgLink && (
-              <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-800 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
-                {linkText}
-              </div>
-            )}
-          </div>
-        )}
         <div
           className={clsx(
-            'flex w-full grow @2xl:grow-0',
+            'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2 @2xl:grow',
+            {
+              'group-hover:after:bg-gray-800/20 ': url,
+              relative: style === 'card',
+              'absolute inset-0 z-0 h-full @2xl:relative': style === 'tile',
+            },
+          )}
+          style={
+            {
+              '--vignette-opacity': 0.2,
+              '--vignette-spread': '4rem',
+            } as CSSProperties
+          }
+        >
+          <img
+            className={clsx(
+              'aspect-og h-full w-full object-cover duration-[inherit]',
+              {
+                'group-hover:scale-105': url,
+              },
+            )}
+            src={image}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+          />
+          {hasImgLink && (
+            <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-800 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
+              {linkText}
+            </div>
+          )}
+        </div>
+        <div
+          className={clsx(
+            'flex w-full grow @2xl:w-3/5 @2xl:max-w-prose @2xl:grow-0 @2xl:p-0',
             { 'h-full p-8': style === 'tile' },
-            image ? '@2xl:w-3/5 @2xl:max-w-prose @2xl:p-0' : 'bg-amber-300',
           )}
         >
           <div
-            className={clsx('relative w-full overflow-hidden', {
-              '@2xl:max-w-prose': style === 'card', // needed to keep 'Read More' link in corner
-              'max-w-prose': style === 'tile',
-              'pb-[1em]': style === 'card' && image && hasDescLink, // add padding for Read More button
-              '@2xl:pb-[1em]': style === 'tile' && image && hasDescLink, // add padding for Read More button
-              'border-t-4': style === 'card' && image && borderColor,
-              'm-auto bg-white drop-shadow-xl': style === 'tile',
-              'border-4 ': style === 'tile' && borderColor,
-              '@2xl:m-0 @2xl:mr-0 @2xl:h-full': image,
-              '@2xl:drop-shadow-none': image && style === 'tile',
-              ' @2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0':
-                image && borderColor,
-            })}
+            className={clsx(
+              'relative w-full overflow-hidden @2xl:m-0 @2xl:mr-0 @2xl:h-full',
+              {
+                '@2xl:max-w-prose': style === 'card', // needed to keep 'Read More' link in corner
+                'pb-[1em]': style === 'card' && hasDescLink, // add padding for Read More button
+                'border-t-4': style === 'card' && borderColor,
+                'm-auto max-w-prose bg-white drop-shadow-xl @2xl:drop-shadow-none':
+                  style === 'tile',
+                '@2xl:pb-[1em]': style === 'tile' && hasDescLink, // add padding for Read More button
+                'border-4 ': style === 'tile' && borderColor,
+                '@2xl:border-y-0 @2xl:border-l-4 @2xl:border-r-0': borderColor,
+              },
+            )}
             style={{ borderColor }}
           >
             {children}
