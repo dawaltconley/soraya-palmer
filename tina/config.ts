@@ -409,6 +409,43 @@ const pressPage: Collection = {
   ],
 }
 
+const workWithMePage: Collection = {
+  name: 'workWithMePage',
+  label: 'Work With Me Page',
+  path: 'content/pages',
+  match: {
+    include: 'services',
+  },
+  format: 'md',
+  ui: {
+    allowedActions: {
+      create: false,
+      delete: false,
+    },
+    router: async ({ document }) => {
+      console.log('router', document)
+      if (document._sys.filename === 'services') return '/services'
+      return undefined
+    },
+  },
+  fields: [
+    {
+      type: 'string',
+      name: 'title',
+      label: 'Title',
+      required: true,
+      isTitle: true,
+    },
+    {
+      type: 'rich-text',
+      name: 'body',
+      label: 'Content',
+      required: true,
+      isBody: true,
+    },
+  ],
+}
+
 export default defineConfig({
   branch,
   clientId: null, // Get this from tina.io
@@ -424,6 +461,6 @@ export default defineConfig({
     },
   },
   schema: {
-    collections: [homePage, pressPage, writing, press, quotes],
+    collections: [homePage, pressPage, workWithMePage, writing, press, quotes],
   },
 })
