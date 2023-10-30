@@ -142,6 +142,17 @@ export default function ContactForm({
               required
             />
           </label>
+          <label htmlFor="contact-fax" className="form-label special-input">
+            <span className="form-label__text">Fax number</span>
+            <input
+              id="contact-fax"
+              name="fax_number"
+              className="form-field w-full"
+              disabled={status === 'submitting'}
+              tabIndex={-1}
+              autoComplete="off"
+            ></input>
+          </label>
           <label htmlFor="contact-message" className="form-label">
             <span className="form-label__text">Message</span>
             <textarea
@@ -196,7 +207,11 @@ const FormMessage: FunctionComponent<FormMessageProps> = ({
 
   return (
     <>
-      <h2 className="mb-4 text-center font-display text-3xl font-bold capitalize">
+      <h2
+        className={clsx('mb-4 text-center font-display text-3xl font-bold', {
+          capitalize: status !== 'error',
+        })}
+      >
         {title[status]}
       </h2>
       {message && (
@@ -220,8 +235,5 @@ const ErrorMessage: FunctionComponent<{ message?: string }> = ({ message }) =>
   )
 
 const SuccessMessage = () => (
-  <>
-    <p>Thank you for contacting me.</p>
-    <p>I'll be in touch soon.</p>
-  </>
+  <p>I've received your message and will be in touch soon.</p>
 )

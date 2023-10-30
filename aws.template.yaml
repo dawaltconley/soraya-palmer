@@ -1,0 +1,15 @@
+# See https://github.com/dawaltconley/cfn-static-website
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: Resources for Soraya Palmer's website
+
+Resources:
+  ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./node_modules/@dawaltconley/contact-api/dist/build/template.yaml
+      Parameters:
+        Email: 'web@dylan.ac'
+        Required: 'name,email,subject,message'
+        Honeypot: 'fax_number'
+        AllowOrigin: '*'
