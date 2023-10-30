@@ -79,7 +79,7 @@ const bookstores: Location[] = [
     name: 'Chicago',
     stores: [
       {
-        name: 'Seminary Co-op / and 57th St Books',
+        name: 'Seminary Co-op / 57th St Books',
         link: new URL('http://www.semcoop.com'),
         tag: tags[1],
       },
