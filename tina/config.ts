@@ -403,7 +403,7 @@ const pressPage: Collection = {
               return { label }
             },
             defaultItem: {
-              layout: 'tile',
+              layout: 'card',
               rows: 1,
               cols: 1,
               imageSide: 'left',
