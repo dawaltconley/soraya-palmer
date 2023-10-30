@@ -73,14 +73,19 @@ const BuyTheBookLink = () => {
       >
         Buy the book
       </a>
-      <BookStoreSelect
-        onSelect={(store) => {
-          if (store) {
-            setLink(store.link.href)
-          }
-        }}
-        focusElement={button.current}
-      />
+      <div className="absolute left-0 top-full flex w-full pt-1 text-sm">
+        <span>from</span>
+        <div className="ml-1">
+          <BookStoreSelect
+            onSelect={(store) => {
+              if (store) {
+                setLink(store.link.href)
+              }
+            }}
+            focusElement={button.current}
+          />
+        </div>
+      </div>
     </div>
   )
 }
