@@ -54,7 +54,7 @@ export default function ArticlePreview({
         className={clsx('h-full @container/article-preview', {
           'px-8 py-4': style === 'card',
           'px-8 py-6': style === 'tile',
-          'mb-4 @2xl/image-card:pl-8': style === 'inline',
+          'mb-4 py-2 @2xl/image-card:pl-8': style === 'inline',
         })}
       >
         <ArticleLayout {...props} />
@@ -86,9 +86,7 @@ function ArticleLayoutBasic({
   const H = hLevel || 'p'
   return (
     <div className="h-full max-w-prose font-serif @container/article-preview">
-      <H className="mt-2 font-display text-2xl font-bold @2xl/image-card:mt-0">
-        {title}
-      </H>
+      <H className="font-display text-2xl font-bold">{title}</H>
       {publisher && (
         <p className="text-base italic text-gray-500">{publisher}</p>
       )}
@@ -112,7 +110,7 @@ function ArticleLayoutDate({
     <div className="flex h-full max-w-prose flex-col font-serif">
       <H
         className={clsx(
-          'w-full font-display text-xl font-bold leading-tight @xs:text-2xl @md:text-3xl',
+          'w-full font-display text-2xl font-bold leading-tight @md:text-3xl',
           description
             ? '@sm:separator @2xl/image-card:separator @sm:mb-8 @2xl/image-card:mb-8'
             : '@2xl/image-card:separator @2xl/image-card:mb-2',
@@ -121,18 +119,18 @@ function ArticleLayoutDate({
         {title}
       </H>
       {(date || publisher) && (
-        <div
-          className={clsx(
-            '-order-1 flex text-sm leading-none text-gray-500 @xs:text-base',
-          )}
-        >
+        <div className="-order-1 flex text-base leading-none text-gray-500">
           {date && (
             <time className="shrink-0" dateTime={date.toISOString()}>
               {date.format('MMM YYYY')}
             </time>
           )}
           {publisher && (
-            <span className="ml-1 flex italic before:mr-1 before:content-['\20\2014\20']">
+            <span
+              className={clsx('flex italic', {
+                [`ml-1 before:mr-1 before:content-["\\20\\2014\\20"]`]: date,
+              })}
+            >
               {publisher}
             </span>
           )}
