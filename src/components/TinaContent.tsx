@@ -1,7 +1,8 @@
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
-import { get, toPath } from 'lodash'
+import get from 'lodash/get'
+import toPath from 'lodash/toPath'
 
 export interface TinaContentProps {
   path: any
