@@ -112,15 +112,19 @@ function ArticleLayoutDate({
     <div className="flex h-full max-w-prose flex-col font-serif">
       <H
         className={clsx(
-          '@2xl/image-card:separator w-full font-display text-2xl font-bold leading-tight @md:text-3xl',
-          description ? '@2xl/image-card:mb-8' : ' @2xl/image-card:mb-2',
+          'w-full font-display text-xl font-bold leading-tight @xs:text-2xl @md:text-3xl',
+          description
+            ? '@sm:separator @2xl/image-card:separator @sm:mb-8 @2xl/image-card:mb-8'
+            : '@2xl/image-card:separator @2xl/image-card:mb-2',
         )}
       >
         {title}
       </H>
       {(date || publisher) && (
         <div
-          className={clsx('-order-1 flex text-base leading-none text-gray-500')}
+          className={clsx(
+            '-order-1 flex text-sm leading-none text-gray-500 @xs:text-base',
+          )}
         >
           {date && (
             <time className="shrink-0" dateTime={date.toISOString()}>
@@ -135,7 +139,7 @@ function ArticleLayoutDate({
         </div>
       )}
       {description && (
-        <div className="hidden text-base before:-top-4 @md:text-lg @2xl/image-card:block">
+        <div className="hidden text-base before:-top-4 @sm:block @md:text-lg @2xl/image-card:block">
           {description}
         </div>
       )}
