@@ -24,7 +24,7 @@ export const isCardStyle = (str: string): str is CardStyle =>
 
 export interface ImageCardProps {
   image: string
-  imageSide: 'left' | 'right'
+  imageSide?: 'left' | 'right'
   alt?: string
   url?: string | URL
   children: ReactNode
@@ -112,7 +112,8 @@ export default function ImageCard({
                 'border-4 ': style === 'tile' && borderColor,
                 '@2xl:border-0': borderColor,
               },
-              imageSide === 'left' ? '@2xl:border-l-4' : '@2xl:border-r-4',
+              borderColor &&
+                (imageSide === 'left' ? '@2xl:border-l-4' : '@2xl:border-r-4'),
             )}
             style={{ borderColor }}
           >
