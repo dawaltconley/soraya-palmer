@@ -1,14 +1,7 @@
 import type { Bookstore } from '@data/bookstores'
 import bookstores from '@data/bookstores'
 import { useState } from 'react'
-import {
-  Root,
-  Trigger,
-  Content,
-  Group,
-  Label,
-  Item,
-} from '@radix-ui/react-dropdown-menu'
+import * as Dropdown from '@radix-ui/react-dropdown-menu'
 
 const bookstoreMap = new Map<string, Bookstore>(
   bookstores
@@ -32,11 +25,11 @@ export default function BookStoreSelect({
     <div className="absolute left-0 top-full flex w-full pt-1 text-sm">
       <span>from</span>
       <div className="ml-1">
-        <Root>
-          <Trigger className="text-amber-300 hover:underline">
+        <Dropdown.Root>
+          <Dropdown.Trigger className="text-amber-300 hover:underline">
             {bookstoreMap.get(selected)?.name || 'Select'}
-          </Trigger>
-          <Content
+          </Dropdown.Trigger>
+          <Dropdown.Content
             className="z-50 max-h-96 overflow-y-scroll rounded-sm border border-gray-900 bg-white text-left font-sans text-gray-900 drop-shadow"
             onCloseAutoFocus={(e) => {
               if (!focusElement) return
@@ -47,16 +40,19 @@ export default function BookStoreSelect({
             {bookstores.map(
               (loc, i) =>
                 loc.stores.length > 0 && (
-                  <Group key={loc.name} className="divide-y divide-gray-100">
+                  <Dropdown.Group
+                    key={loc.name}
+                    className="divide-y divide-gray-100"
+                  >
                     {loc.name && (
-                      <Label className="bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-600">
+                      <Dropdown.Label className="bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-600">
                         {loc.name}
-                      </Label>
+                      </Dropdown.Label>
                     )}
                     {loc.stores.map(({ name, tag }, j) => {
                       const id = `${i},${j}`
                       return (
-                        <Item
+                        <Dropdown.Item
                           key={id}
                           className="cursor-pointer px-4 py-2 outline-none hover:bg-amber-50 focus:bg-amber-50"
                           textValue={name}
@@ -71,14 +67,14 @@ export default function BookStoreSelect({
                               {tag}
                             </div>
                           )}
-                        </Item>
+                        </Dropdown.Item>
                       )
                     })}
-                  </Group>
+                  </Dropdown.Group>
                 ),
             )}
-          </Content>
-        </Root>
+          </Dropdown.Content>
+        </Dropdown.Root>
       </div>
     </div>
   )
