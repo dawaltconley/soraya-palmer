@@ -27,66 +27,63 @@ export default function BookStoreSelect({
   const [selected, setSelected] = useState(Array.from(bookstoreMap.keys())[0])
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="absolute left-0 top-full flex w-full pt-1 text-sm">
-      <span>from</span>
-      <div className="ml-1">
-        <Dropdown.Root onOpenChange={setIsOpen}>
-          <Dropdown.Trigger className="text-amber-300 hover:underline">
-            <Icon
-              icon={faCaretDown}
-              className={clsx('fa-inline mr-0.5 duration-200', {
-                'rotate-180': isOpen,
-              })}
-            />
-            {bookstoreMap.get(selected)?.name || 'Select'}
-          </Dropdown.Trigger>
-          <Dropdown.Content
-            className="z-50 max-h-96 overflow-y-scroll rounded-sm border border-gray-900 bg-white text-left font-sans text-gray-900 drop-shadow"
-            onCloseAutoFocus={(e) => {
-              if (!focusElement) return
-              e.preventDefault()
-              focusElement.focus()
-            }}
-          >
-            {bookstores.map(
-              (loc, i) =>
-                loc.stores.length > 0 && (
-                  <Dropdown.Group
-                    key={loc.name}
-                    className="divide-y divide-gray-100"
-                  >
-                    {loc.name && (
-                      <Dropdown.Label className="bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-600">
-                        {loc.name}
-                      </Dropdown.Label>
-                    )}
-                    {loc.stores.map(({ name, tag }, j) => {
-                      const id = `${i},${j}`
-                      return (
-                        <Dropdown.Item
-                          key={id}
-                          className="cursor-pointer px-4 py-2 outline-none hover:bg-amber-50 focus:bg-amber-50"
-                          textValue={name}
-                          onSelect={() => {
-                            setSelected(id)
-                            onSelect(bookstoreMap.get(id))
-                          }}
-                        >
-                          <div>{name}</div>
-                          {tag && (
-                            <div className="ml-2 text-xs italic text-gray-400">
-                              {tag}
-                            </div>
-                          )}
-                        </Dropdown.Item>
-                      )
-                    })}
-                  </Dropdown.Group>
-                ),
-            )}
-          </Dropdown.Content>
-        </Dropdown.Root>
-      </div>
-    </div>
+    <Dropdown.Root onOpenChange={setIsOpen}>
+      <Dropdown.Trigger className="text-amber-300 hover:underline">
+        <Icon
+          icon={faCaretDown}
+          className={clsx('fa-inline mr-0.5 duration-200', {
+            'rotate-180': isOpen,
+          })}
+        />
+        {bookstoreMap.get(selected)?.name || 'Select'}
+      </Dropdown.Trigger>
+      <Dropdown.Content
+        className="z-50 max-h-96 overflow-y-scroll rounded-sm border border-gray-900 bg-white text-left font-sans text-gray-900 drop-shadow"
+        onCloseAutoFocus={(e) => {
+          if (!focusElement) return
+          e.preventDefault()
+          focusElement.focus()
+        }}
+        align="start"
+        loop
+      >
+        {bookstores.map(
+          (loc, i) =>
+            loc.stores.length > 0 && (
+              <Dropdown.Group
+                key={loc.name}
+                className="divide-y divide-gray-100"
+              >
+                {loc.name && (
+                  <Dropdown.Label className="bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-600">
+                    {loc.name}
+                  </Dropdown.Label>
+                )}
+                {loc.stores.map(({ name, tag }, j) => {
+                  const id = `${i},${j}`
+                  return (
+                    <Dropdown.Item
+                      key={id}
+                      className="cursor-pointer px-4 py-2 outline-none hover:bg-amber-50 focus:bg-amber-50"
+                      textValue={name}
+                      onSelect={() => {
+                        setSelected(id)
+                        onSelect(bookstoreMap.get(id))
+                      }}
+                    >
+                      <div>{name}</div>
+                      {tag && (
+                        <div className="ml-2 text-xs italic text-gray-400">
+                          {tag}
+                        </div>
+                      )}
+                    </Dropdown.Item>
+                  )
+                })}
+              </Dropdown.Group>
+            ),
+        )}
+      </Dropdown.Content>
+    </Dropdown.Root>
   )
 }
