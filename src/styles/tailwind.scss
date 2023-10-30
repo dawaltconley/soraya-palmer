@@ -29,7 +29,7 @@
 
   input,
   textarea {
-    @apply border border-gray-900 px-4 py-2 leading-normal;
+    @apply border border-gray-900 bg-white px-4 py-2 leading-normal;
   }
 
   %relative,
@@ -71,9 +71,14 @@
       top: 0.46rem;
       left: 0;
       right: 0;
-      height: 2px;
+      height: 3px;
       background: theme('colors.white');
       z-index: -1;
+    }
+
+    @at-root label:focus-within &::before {
+      top: 0.34rem;
+      height: 5px;
     }
   }
 
