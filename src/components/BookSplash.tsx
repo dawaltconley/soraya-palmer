@@ -57,6 +57,91 @@ const Trailer = ({
   )
 }
 
+const bookstoreTags = [
+  'Black owned',
+  'worker or customer owned',
+  'Black women owned',
+] as const
+
+interface Bookstore {
+  name: string
+  link: URL
+  location?: string
+  tag?: 0 | 1 | 2
+}
+
+const bookstores: Bookstore[] = [
+  {
+    name: 'Bookshop.org',
+    link: new URL('https://www.thelitbar.com/'),
+  },
+  {
+    name: 'The Lit. Bar',
+    link: new URL(
+      'https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932',
+    ),
+    location: 'NYC',
+    tag: 2,
+  },
+  {
+    name: 'Cafe con Libros',
+    link: new URL('https://www.cafeconlibrosbk.com/'),
+    location: 'NYC',
+    tag: 2,
+  },
+  {
+    name: 'Bluestockings',
+    link: new URL('https://bluestockings.com/about-us/about-us'),
+    location: 'NYC',
+    tag: 1,
+  },
+  {
+    name: 'Taylor & CO',
+    link: new URL('https://www.taylorcobooks.com/'),
+    location: 'NYC',
+    tag: 0,
+  },
+  {
+    name: 'Seminary Co-op and 57th St Books',
+    link: new URL('http://www.semcoop.com'),
+    location: 'Chicago',
+    tag: 1,
+  },
+]
+
+// const bookstoreOptions = new Map<string, URL>(
+//   []
+// )
+
+const BuyTheBookLink = () => {
+  return (
+    <div className="relative mr-2 inline-block">
+      <a
+        href="https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932"
+        className="inline-block border-2 border-gray-500 px-4 py-3 font-sans"
+        target="_blank"
+      >
+        Buy the book
+      </a>
+      <div className="absolute left-0 top-full flex w-full pt-1 text-sm">
+        <span>from</span>
+        <select
+          name="bookstore"
+          id="bookstore-select"
+          className="ml-1 w-full cursor-pointer bg-transparent"
+        >
+          {bookstores.map(({ name, link, location, tag }) => (
+            <option value={link.href}>
+              <span>{name}</span>
+              {tag && <span> ({bookstoreTags[tag]})</span>}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+  )
+}
+
 type SplashState = 'initial' | 'video'
 
 export interface BookSplashProps extends ComponentPropsWithoutRef<'div'> {
@@ -180,13 +265,7 @@ export default function BookSplash({
             and the truth of their family's past…
           </p>
           <div className="mt-6 whitespace-nowrap text-center md:text-left">
-            <a
-              href="https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932"
-              className="mr-2 inline-block border-2 border-gray-500 px-4 py-3 font-sans"
-              target="_blank"
-            >
-              Buy the book
-            </a>
+            <BuyTheBookLink />
             <button
               className="inline-block px-4 py-3 font-sans"
               onClick={() => setState('video')}
