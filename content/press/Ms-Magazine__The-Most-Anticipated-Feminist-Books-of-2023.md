@@ -8,4 +8,4 @@ author: Karla J. Strand
 source: Ms. Magazine
 ---
 
-2023’s most anticipated books by feminist writers, women, LGBTQ writers, trans and nonbinary writers, LGBTQ writers, Native, Black and AAPI women.
+2023’s most anticipated books by feminist writers, women, LGBTQ writers, trans and nonbinary writers, Native, Black and AAPI women.

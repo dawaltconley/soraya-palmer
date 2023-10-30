@@ -8,4 +8,4 @@ author: R.O. Kwon
 source: Electric Literature
 ---
 
-In 2016, I compiled a list of books I’m anticipating by women writers of color because, as a reader, writer, and occasional critic, I couldn’t find many such titles. If I was having trouble, I thought, then others surely were, too. Perhaps they’d also find the list useful. The first list was one of…
+Some of the 2023 books that I, personally, am anticipating.
