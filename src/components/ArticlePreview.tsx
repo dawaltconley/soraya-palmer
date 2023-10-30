@@ -51,7 +51,7 @@ export default function ArticlePreview({
       {...imageCardProps}
     >
       <div
-        className={clsx('h-full', {
+        className={clsx('h-full @container/article-preview', {
           'px-8 py-4': style === 'card',
           'px-8 py-6': style === 'tile',
           'mb-4 @2xl/image-card:pl-8': style === 'inline',
@@ -109,19 +109,22 @@ function ArticleLayoutDate({
   const H = hLevel || 'p'
 
   return (
-    <div className="h-full max-w-prose flex-col font-serif">
-      <H className="w-full font-display text-3xl font-bold leading-none @container">
+    <div className="flex h-full max-w-prose flex-col font-serif">
+      <H
+        className={clsx(
+          '@2xl/image-card:separator w-full font-display text-2xl font-bold leading-tight @md:text-3xl',
+          description ? '@2xl/image-card:mb-8' : ' @2xl/image-card:mb-2',
+        )}
+      >
         {title}
       </H>
       {(date || publisher) && (
         <div
-          className={clsx('mt-1 flex text-base leading-tight text-gray-500', {
-            '@2xl/image-card:separator': description,
-          })}
+          className={clsx('-order-1 flex text-base leading-none text-gray-500')}
         >
           {date && (
             <time className="shrink-0" dateTime={date.toISOString()}>
-              {date.format('MMM, YYYY')}
+              {date.format('MMM YYYY')}
             </time>
           )}
           {publisher && (
@@ -132,11 +135,9 @@ function ArticleLayoutDate({
         </div>
       )}
       {description && (
-        <>
-          <div className="mt-6 hidden before:-top-4 @2xl/image-card:block">
-            {description}
-          </div>
-        </>
+        <div className="hidden text-base before:-top-4 @md:text-lg @2xl/image-card:block">
+          {description}
+        </div>
       )}
     </div>
   )
