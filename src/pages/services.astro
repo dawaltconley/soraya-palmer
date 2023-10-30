@@ -2,6 +2,7 @@
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import TinaContent from '@components/TinaContent'
+import ContactForm from '@components/ContactForm'
 import Footer from '@components/Footer.astro'
 
 import { client } from '@tina/__generated__/client'
@@ -12,15 +13,25 @@ const page = await client.queries.workWithMePage({
 
 <Base title={`${page.data.workWithMePage.title} – Soraya Palmer`}>
   <Header />
-  <main class="container mx-auto py-16">
-    <div
-      class="prose prose-lg mx-auto font-serif text-lg prose-headings:font-display prose-li:marker:text-amber-300"
+  <div
+    class="container mx-auto py-16 xl:flex xl:items-start xl:justify-between"
+  >
+    <main
+      class="prose prose-lg mx-auto font-serif prose-headings:font-display prose-li:marker:text-amber-300 xl:ml-0"
     >
       <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
         <TinaContent client:tina data={page} path="workWithMePage.title" />
       </h1>
       <TinaContent client:tina data={page} path="workWithMePage.body" />
+    </main>
+    <div
+      class="relative mt-16 shrink-[0.5] basis-[36rem] text-lg xl:sticky xl:top-8 xl:ml-8 xl:mt-0 xl:pl-8"
+    >
+      <ContactForm
+        client:visible
+        action="https://knyawz3heb.execute-api.us-east-1.amazonaws.com/Prod/contact/"
+      />
     </div>
-  </main>
+  </div>
   <Footer />
 </Base>
