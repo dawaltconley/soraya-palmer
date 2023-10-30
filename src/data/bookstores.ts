@@ -65,7 +65,6 @@ const bookstores: Location[] = [
       },
     ],
   },
-  // missing NYC stores without links
   {
     name: 'NJ',
     stores: [
@@ -160,38 +159,3 @@ const bookstores: Location[] = [
 ]
 
 export default bookstores
-
-// interface GroupedOption {
-//   readonly label: string
-//   readonly options: Bookstore[]
-// }
-
-// export const groupedOptions = [
-//   {
-//     value: bookstores[0].link.href,
-//     label: bookstores[0].name,
-//   },
-//   {
-//     label: 'NYC',
-//     options: bookstores
-//       .filter((b) => b.location === 'NYC')
-//       .map(({ name, link, ...data }) => ({
-//         value: link.href,
-//         label: name,
-//         ...data,
-//       })),
-//   },
-//   {
-//     label: 'Chicago',
-//     options: bookstores
-//       .filter((b) => b.location === 'Chicago')
-//       .map(({ name, link, ...data }) => ({
-//         value: link.href,
-//         label: name,
-//         ...data,
-//       })),
-//   },
-// ]
-//
-// // type GroupedOption = (typeof groupedOptions)[number]
-// // type StoreOption = (typeof groupedOptions)[number]['options'][number]

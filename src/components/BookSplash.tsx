@@ -4,7 +4,6 @@ import type {
   CSSProperties,
 } from 'react'
 import { useState, useEffect, useRef } from 'react'
-// import Select from 'react-select'
 import * as Dropdown from '@radix-ui/react-dropdown-menu'
 import Icon from './Icon'
 import Spinner from './Spinner'
@@ -60,12 +59,6 @@ const Trailer = ({
     </video>
   )
 }
-
-// const formatGroupLabel = (data: GroupedOption) => (
-//   <div className="text-gray-600">
-//     <span>{data.label}</span> <span>{data.options.length}</span>
-//   </div>
-// )
 
 const bookstoreMap = new Map<string, Bookstore>(
   bookstores
