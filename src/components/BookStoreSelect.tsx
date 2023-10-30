@@ -2,6 +2,10 @@ import type { Bookstore } from '@data/bookstores'
 import bookstores from '@data/bookstores'
 import { useState } from 'react'
 import * as Dropdown from '@radix-ui/react-dropdown-menu'
+import Icon from './Icon'
+import clsx from 'clsx'
+
+import { faCaretDown } from '@fortawesome/pro-solid-svg-icons'
 
 const bookstoreMap = new Map<string, Bookstore>(
   bookstores
@@ -21,12 +25,19 @@ export default function BookStoreSelect({
   focusElement,
 }: StoreSelectProps) {
   const [selected, setSelected] = useState(Array.from(bookstoreMap.keys())[0])
+  const [isOpen, setIsOpen] = useState(false)
   return (
     <div className="absolute left-0 top-full flex w-full pt-1 text-sm">
       <span>from</span>
       <div className="ml-1">
-        <Dropdown.Root>
+        <Dropdown.Root onOpenChange={setIsOpen}>
           <Dropdown.Trigger className="text-amber-300 hover:underline">
+            <Icon
+              icon={faCaretDown}
+              className={clsx('fa-inline mr-0.5 duration-200', {
+                'rotate-180': isOpen,
+              })}
+            />
             {bookstoreMap.get(selected)?.name || 'Select'}
           </Dropdown.Trigger>
           <Dropdown.Content
