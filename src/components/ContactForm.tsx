@@ -108,6 +108,7 @@ export default function ContactForm({
           onSubmit={handleSubmit}
         >
           <label htmlFor="contact-name" className="form-label @md:col-span-1">
+            <span className="form-label__text">Name</span>
             <input
               id="contact-name"
               name="name"
@@ -117,9 +118,9 @@ export default function ContactForm({
               disabled={status === 'submitting'}
               required
             />
-            <span className="form-label__text">Name</span>
           </label>
           <label htmlFor="contact-email" className="form-label @md:col-span-1">
+            <span className="form-label__text">Email</span>
             <input
               id="contact-email"
               name="email"
@@ -129,9 +130,9 @@ export default function ContactForm({
               disabled={status === 'submitting'}
               required
             />
-            <span className="form-label__text">Email</span>
           </label>
           <label htmlFor="contact-subject" className="form-label">
+            <span className="form-label__text">Subject</span>
             <input
               id="contact-subject"
               name="subject"
@@ -140,9 +141,9 @@ export default function ContactForm({
               disabled={status === 'submitting'}
               required
             />
-            <span className="form-label__text">Subject</span>
           </label>
           <label htmlFor="contact-message" className="form-label">
+            <span className="form-label__text">Message</span>
             <textarea
               id="contact-message"
               name="message"
@@ -150,7 +151,6 @@ export default function ContactForm({
               disabled={status === 'submitting'}
               required
             ></textarea>
-            <span className="form-label__text">Message</span>
           </label>
           <button
             type="submit"
