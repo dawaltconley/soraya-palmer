@@ -111,9 +111,21 @@ export default function BookSplash({
   ...divProps
 }: BookSplashProps) {
   const splash = useRef<HTMLDivElement>(null)
+  const image = useRef<HTMLImageElement>(null)
+
   const [state, setState] = useState<SplashState>(init)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const isPlaying = isVideoLoaded && state === 'video'
+
+  const [imageAspect, setImageAspect] = useState<{ x: number; y: number }>()
+
+  useEffect(() => {
+    if (!image.current) return
+    setImageAspect({
+      x: image.current.clientWidth,
+      y: image.current.clientHeight,
+    })
+  }, [])
 
   useEffect(() => {
     if (!splash.current) return
@@ -188,8 +200,12 @@ export default function BookSplash({
               ? 'delay-300'
               : 'pointer-events-none -translate-x-16 opacity-0',
           )}
+          style={{
+            aspectRatio: imageAspect && `${imageAspect.x} / ${imageAspect.y}`,
+          }}
         >
           <img
+            ref={image}
             className={clsx('h-full w-full object-contain drop-shadow-2xl ')}
             src="/media/The+Human+Originas+of+Beatrice+Porter.jpg"
             alt="Book cover of The Human Origins of Beatrice Porter"
