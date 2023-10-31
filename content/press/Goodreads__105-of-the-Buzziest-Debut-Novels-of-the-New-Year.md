@@ -8,4 +8,4 @@ author: ''
 source: Goodreads
 ---
 
-For dedicated readers, the new year brings the opportunity to discover new writers. It’s one of the underrated pleasures of a serious book habit. An…
+We’ve sorted through the stacks to produce this month-by-month list of some of the buzziest debuts of the new year.
