@@ -11,15 +11,15 @@ export default withTinaWrapper<WritingSamplesQuery>(({ data }) => {
   return (
     <div
       id="writing"
-      className="my-8 bg-gray-50"
+      className="bg-gray-50 py-16"
       data-tina-field={tinaField(data.home.writing)}
     >
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto">
         <h2 className="mb-8 text-center font-display text-3xl font-bold">
           {title}
         </h2>
         {articles && (
-          <div className="grid gap-8 lg:grid-cols-3">
+          <div className="grid gap-8 xl:grid-cols-3">
             {articles.slice(0, 3).map(({ description, ...article }) => {
               description = description?.children?.length ? (
                 <TinaMarkdown content={description} />
@@ -28,6 +28,7 @@ export default withTinaWrapper<WritingSamplesQuery>(({ data }) => {
                 <ArticlePreview
                   key={article.url}
                   style="inline"
+                  layout="date"
                   description={description}
                   {...article}
                 />
