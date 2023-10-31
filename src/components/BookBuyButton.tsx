@@ -27,6 +27,7 @@ export default function BookBuyButton() {
             }
           }}
           focusElement={button.current}
+          isDark
         />
       </div>
     </div>

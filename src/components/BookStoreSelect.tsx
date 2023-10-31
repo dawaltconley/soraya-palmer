@@ -18,11 +18,13 @@ const bookstoreMap = new Map<string, Bookstore>(
 interface StoreSelectProps {
   onSelect: (store?: Bookstore) => void
   focusElement?: HTMLElement | null
+  isDark?: boolean
 }
 
 export default function BookStoreSelect({
   onSelect,
   focusElement,
+  isDark,
 }: StoreSelectProps) {
   const [selected, setSelected] = useState(Array.from(bookstoreMap.keys())[0])
   const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +41,12 @@ export default function BookStoreSelect({
       </Dropdown.Trigger>
       <Dropdown.Portal>
         <Dropdown.Content
-          className="z-50 max-h-96 overflow-y-scroll rounded-sm border border-gray-900 bg-white text-left font-sans text-gray-900 drop-shadow"
+          className={clsx(
+            'z-50 max-h-96 overflow-y-scroll rounded border border-gray-400 bg-white text-left font-sans text-gray-900 drop-shadow-lg dark:border-gray-950 dark:bg-gray-900 dark:text-white',
+            {
+              dark: isDark,
+            },
+          )}
           onCloseAutoFocus={(e) => {
             if (!focusElement) return
             e.preventDefault()
@@ -53,10 +60,10 @@ export default function BookStoreSelect({
               loc.stores.length > 0 && (
                 <Dropdown.Group
                   key={loc.name}
-                  className="divide-y divide-gray-100"
+                  className="divide-y divide-gray-100 dark:divide-gray-700"
                 >
                   {loc.name && (
-                    <Dropdown.Label className="bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-600">
+                    <Dropdown.Label className="bg-gray-100 px-2 py-1 text-xs font-semibold uppercase text-gray-600 dark:bg-gray-700 dark:text-gray-300">
                       {loc.name}
                     </Dropdown.Label>
                   )}
@@ -65,7 +72,7 @@ export default function BookStoreSelect({
                     return (
                       <Dropdown.Item
                         key={id}
-                        className="cursor-pointer px-4 py-2 outline-none hover:bg-amber-50 focus:bg-amber-50"
+                        className="cursor-pointer px-4 py-2 outline-none hover:bg-amber-50 focus:bg-amber-50 dark:hover:bg-gray-800 dark:focus:bg-gray-800 dark:active:bg-orange-900"
                         textValue={name}
                         onSelect={() => {
                           setSelected(id)
@@ -74,7 +81,7 @@ export default function BookStoreSelect({
                       >
                         <div>{name}</div>
                         {tag && (
-                          <div className="ml-2 text-xs italic text-gray-400">
+                          <div className="ml-2 text-xs italic text-gray-400 dark:text-amber-200">
                             {tag}
                           </div>
                         )}
