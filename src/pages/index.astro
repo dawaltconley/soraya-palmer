@@ -3,22 +3,33 @@ import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import BookSplash from '@components/BookSplash.tsx'
 import { ReviewQuote } from '@components/Quote.tsx'
+import Bio from '@components/Bio.tsx'
 import WritingSamples from '@components/WritingSamples.tsx'
 import ContactForm from '@components/ContactForm'
 import Footer from '@components/Footer.astro'
+import { makeResponsive } from '@lib/build/images'
 
 import { client } from '@tina/__generated__/client'
 
+const page = await client.queries.home({ relativePath: 'home.yaml' })
 const writingSamples = await client.queries.writingSamples()
+
+const bioHeadshot = await makeResponsive([
+  {
+    path: page.data.home.about.image,
+    sizes: '(min-width: 1536px) 432px, (min-width: 450px) 384px, 100vw',
+    // this should be cropped to a square for sizes to be accurate
+  },
+])
 ---
 
 <Base title="Soraya Palmer">
   <Header useAsTitle class="relative z-10 -mb-14" textColor="white" />
   <main class="text-lg">
     <BookSplash client:load className="pt-14" />
-    <div id="pull-quotes" class="mb-8 bg-gray-50">
+    <div id="pull-quotes" class="bg-gray-50 py-16">
       <div
-        class="container mx-auto grid justify-items-center gap-16 py-16 sm:grid-cols-3 sm:gap-8 lg:gap-16"
+        class="container mx-auto grid justify-items-center gap-16 sm:grid-cols-3 sm:gap-8 lg:gap-16"
       >
         <ReviewQuote
           author="Ingrid Rojas Contreras"
@@ -47,33 +58,7 @@ const writingSamples = await client.queries.writingSamples()
       </div>
     </div>
 
-    <div id="about" class="container mx-auto my-16 justify-center lg:flex">
-      <div
-        class="layer-children mx-auto mb-8 aspect-square max-w-sm shrink-0 self-start lg:mx-0 lg:mb-0 lg:w-1/2"
-      >
-        <img
-          src="/media/headshot.jpeg"
-          alt="Headshot of Soraya Palmer"
-          class="rounded-full object-cover"
-        />
-      </div>
-      <div
-        class="mx-auto max-w-prose self-center font-serif lg:ml-16 lg:mr-0 lg:w-1/2"
-      >
-        <p>
-          <span
-            class="mr-1 inline font-display text-3xl font-bold underline decoration-gray-300 decoration-4"
-            >Soraya Palmer</span
-          >
-           is a Flatbush-born-and-raised writer and licensed social worker who
-          advocates for survivors of gender-based violence who are facing
-          criminal charges related to their abuse. She has been awarded a
-          residency at Blue Mountain Center and interviewed for her work against
-          police brutality, gentrification, and violence in The New York Times
-          and BuzzFeed News. She lives in Brooklyn.
-        </p>
-      </div>
-    </div>
+    <Bio client:tina data={page} images={bioHeadshot} />
 
     <WritingSamples client:tina data={writingSamples} />
 

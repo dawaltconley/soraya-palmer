@@ -42,6 +42,33 @@ const homePage: Collection = {
   fields: [
     {
       type: 'object',
+      name: 'about',
+      label: 'About Me',
+      required: true,
+      fields: [
+        {
+          type: 'image',
+          name: 'image',
+          label: 'Headshot',
+          required: true,
+        },
+        {
+          type: 'string',
+          name: 'title',
+          label: 'Section title',
+          required: true,
+          isTitle: true,
+        },
+        {
+          type: 'rich-text',
+          name: 'bio',
+          label: 'Bio',
+          required: true,
+        },
+      ],
+    },
+    {
+      type: 'object',
       name: 'writing',
       label: 'Writing',
       required: true,

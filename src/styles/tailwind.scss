@@ -263,4 +263,8 @@
       mask-composite: intersect;
     }
   }
+
+  .inline-next-p + p {
+    display: inline;
+  }
 }
