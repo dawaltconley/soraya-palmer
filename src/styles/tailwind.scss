@@ -232,6 +232,7 @@
     &-before,
     &-after {
       @extend %relative;
+      @apply transform-gpu;
     }
 
     &-before::before,
