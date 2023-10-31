@@ -42,7 +42,7 @@ export default function BookStoreSelect({
       <Dropdown.Portal>
         <Dropdown.Content
           className={clsx(
-            'z-50 max-h-96 overflow-y-scroll rounded border border-gray-400 bg-white text-left font-sans text-gray-900 drop-shadow-lg dark:border-gray-950 dark:bg-gray-900 dark:text-white',
+            'z-50 max-h-96 overflow-y-scroll rounded border border-gray-400 bg-white text-left font-sans text-gray-900 drop-shadow-lg dark:border-gray-950 dark:bg-gray-900 dark:text-gray-100',
             {
               dark: isDark,
             },
@@ -53,6 +53,7 @@ export default function BookStoreSelect({
             focusElement.focus()
           }}
           align="start"
+          collisionPadding={16}
           loop
         >
           {bookstores.map(
@@ -60,7 +61,7 @@ export default function BookStoreSelect({
               loc.stores.length > 0 && (
                 <Dropdown.Group
                   key={loc.name}
-                  className="divide-y divide-gray-100 dark:divide-gray-700"
+                  className="divide-y divide-gray-100 dark:divide-gray-800"
                 >
                   {loc.name && (
                     <Dropdown.Label className="bg-gray-100 px-2 py-1 text-xs font-semibold uppercase text-gray-600 dark:bg-gray-700 dark:text-gray-300">
