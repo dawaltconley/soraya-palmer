@@ -21,7 +21,9 @@ const bookstores: Location[] = [
     stores: [
       {
         name: 'Bookshop.org',
-        link: new URL('https://www.thelitbar.com/'),
+        link: new URL(
+          'https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932',
+        ),
       },
     ],
   },
@@ -35,9 +37,7 @@ const bookstores: Location[] = [
       },
       {
         name: 'The Lit. Bar',
-        link: new URL(
-          'https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932',
-        ),
+        link: new URL('https://www.thelitbar.com/'),
         tag: tags[2],
       },
       {
