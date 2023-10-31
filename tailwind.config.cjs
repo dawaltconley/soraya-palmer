@@ -35,6 +35,7 @@ module.exports = {
       },
       aspectRatio: {
         og: '1200 / 630',
+        cover: '794 / 1199',
       },
     },
   },

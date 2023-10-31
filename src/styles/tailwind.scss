@@ -142,6 +142,19 @@
   .slant-edge-l {
     clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 5% 0%);
   }
+
+  .underline-link {
+    @apply relative;
+
+    &::before {
+      @apply absolute inset-1 -bottom-0.5 right-full border-b-4 border-transparent duration-300 content-[''] sm:border-b-2;
+    }
+
+    &:hover::before,
+    &--active::before {
+      @apply right-1 border-amber-300;
+    }
+  }
 }
 
 @layer utilities {
