@@ -8,6 +8,7 @@ import Icon from './Icon'
 import Spinner from './Spinner'
 import clsx from 'clsx'
 import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
+import { faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons/faArrowUpRightFromSquare'
 import { faXmark } from '@fortawesome/pro-regular-svg-icons/faXmark'
 import BookStoreSelect from './BookStoreSelect'
 
@@ -64,27 +65,27 @@ const BuyTheBookLink = () => {
     'https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932',
   )
   return (
-    <div className="relative mr-2 inline-block">
+    <div className="relative items-center justify-stretch font-sans @md:flex">
       <a
         ref={button}
         href={link}
-        className="inline-block border-2 border-gray-500 px-4 py-3 font-sans"
+        className="group inline-block border-2 border-amber-300/80 bg-gray-950/60 px-4 py-3 font-sans duration-300 hover:border-amber-300 hover:bg-gray-950 focus-visible:border-amber-300 focus-visible:bg-gray-950"
         target="_blank"
       >
-        Buy the book
+        <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active whitespace-nowrap font-semibold">
+          Buy the book
+        </span>
       </a>
-      <div className="absolute left-0 top-full flex w-full pt-1 text-sm">
+      <div className="flex h-full w-full items-baseline border-transparent @md:ml-4">
         <span>from</span>
-        <div className="ml-1">
-          <BookStoreSelect
-            onSelect={(store) => {
-              if (store) {
-                setLink(store.link.href)
-              }
-            }}
-            focusElement={button.current}
-          />
-        </div>
+        <BookStoreSelect
+          onSelect={(store) => {
+            if (store) {
+              setLink(store.link.href)
+            }
+          }}
+          focusElement={button.current}
+        />
       </div>
     </div>
   )
@@ -179,48 +180,75 @@ export default function BookSplash({
             </button>
           </div>
         </div>
-        <img
+        <div
           className={clsx(
-            'mx-auto h-full min-h-[32rem] object-contain drop-shadow-2xl duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',
+            'mx-auto aspect-cover h-full min-h-[32rem] transition-[opacity,transform] duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',
+
             state === 'initial'
               ? 'delay-300'
               : 'pointer-events-none -translate-x-16 opacity-0',
           )}
-          src="/media/The+Human+Originas+of+Beatrice+Porter.jpg"
-          alt="Book cover of The Human Origins of Beatrice Porter"
-        />
+        >
+          <img
+            className={clsx('h-full w-full object-contain drop-shadow-2xl ')}
+            src="/media/The+Human+Originas+of+Beatrice+Porter.jpg"
+            alt="Book cover of The Human Origins of Beatrice Porter"
+          />
+        </div>
         <div
           className={clsx(
-            'relative mt-8 max-w-prose font-serif text-white duration-1000 md:ml-12 md:mt-0',
+            'relative mt-8 flex max-w-prose grow flex-col font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text md:ml-12 md:mt-0',
             state === 'initial'
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',
           )}
         >
-          <h2 className="font-display text-3xl font-bold">
-            The Human Origins of Beatrice Porter and other Essential Ghosts
-          </h2>
-          <p className="underline decoration-gray-500 decoration-2">
-            a novel by Soraya Palmer
-          </p>
-          <p className="my-4 italic">
-            “Mothers never die. Children love to resurrect us in they stories.”
-          </p>
-          <p className="my-4">
-            Folktales and spirits animate this lively and unforgettable
-            coming-of-age tale of two Jamaican-Trinidadian sisters in Brooklyn
-            grappling with their mother’s illness, their father's infidelity,
-            and the truth of their family's past…
-          </p>
-          <div className="mt-6 whitespace-nowrap text-center md:text-left">
-            <BuyTheBookLink />
+          <div className="mb-0">
+            <h2 className="font-display text-3xl font-bold">
+              The Human Origins of Beatrice Porter and other Essential Ghosts
+            </h2>
+            <p className="underline decoration-amber-300/80 decoration-2">
+              a novel by Soraya Palmer
+            </p>
+            <p className="my-4 italic">
+              “Mothers never die. Children love to resurrect us in they
+              stories.”
+            </p>
+            <p className="my-4">
+              Folktales and spirits animate this lively and unforgettable
+              coming-of-age tale of two Jamaican-Trinidadian sisters in Brooklyn
+              grappling with their mother’s illness, their father's infidelity,
+              and the truth of their family's past…
+            </p>
+          </div>
+          <div className="mt-4 text-center md:text-left">
+            <div className="inline-block">
+              <BuyTheBookLink />
+            </div>
+          </div>
+          <div className="mt-6 w-full text-center text-base md:text-left">
             <button
-              className="inline-block px-4 py-3 font-sans"
+              className="group mr-4 whitespace-nowrap font-sans sm:mr-8"
               onClick={() => setState('video')}
             >
-              <Icon icon={faCirclePlay} className="fa-inline" /> Watch the
-              trailer
+              <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />{' '}
+              <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
+                Watch the trailer
+              </span>
             </button>
+            <a
+              href="https://www.opinionstage.com/page/6abbaf30-f4cd-48fe-add5-09178f832c0c"
+              className="group whitespace-nowrap font-sans"
+              target="_blank"
+            >
+              <Icon
+                icon={faArrowUpRightFromSquare}
+                className="fa-inline mr-0.5"
+              />{' '}
+              <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
+                Take the quiz
+              </span>
+            </a>
           </div>
         </div>
       </div>
