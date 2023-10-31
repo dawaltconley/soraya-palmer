@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "npx tinacms dev -c 'astro dev'",
+    "host": "npx tinacms dev -c 'astro dev --host'",
     "start": "astro dev",
     "build": "npx tinacms build --local --skip-cloud-checks -c 'astro build'",
     "preview": "astro preview",
