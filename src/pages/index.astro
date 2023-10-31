@@ -14,7 +14,7 @@ import { client } from '@tina/__generated__/client'
 const page = await client.queries.home({ relativePath: 'home.yaml' })
 const writingSamples = await client.queries.writingSamples()
 
-const bookCover = '/media/The+Human+Originas+of+Beatrice+Porter.jpg'
+const bookCover = '/media/beatrice-porter-cover.jpg'
 
 const images = await makeResponsive([
   {

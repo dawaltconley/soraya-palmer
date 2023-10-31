@@ -1,7 +1,7 @@
 ---
 url: 'https://www.shelf-awareness.com/issue.html?issue=4428'
 title: 'Shelf Awareness for Friday, March 3, 2023'
-image: /media/The+Human+Originas+of+Beatrice+Porter.jpg
+image: /media/beatrice-porter-cover.jpg
 date: 2023-03-03T05:00:00.000Z
 author: Julia Kastner
 source: shelf-awareness.com

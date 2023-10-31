@@ -3,7 +3,7 @@ url: 'https://www.publishersweekly.com/9781646220953'
 title: >-
   The Human Origins of Beatrice Porter and Other Essential Ghosts by Soraya
   Palmer
-image: /media/The+Human+Originas+of+Beatrice+Porter.jpg
+image: /media/beatrice-porter-cover.jpg
 date: 2023-09-28T00:47:04.000Z
 author: Olga Ravn
 source: publishersweekly.com
