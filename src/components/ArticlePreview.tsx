@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { ImageMetadata } from '@dawaltconley/responsive-images'
 import type { ImageCardProps } from './ImageCard'
 import Card from './Card'
 import pick from 'lodash/pick'
@@ -23,7 +24,8 @@ export interface ArticlePreviewProps
   extends Pick<ImageCardProps, (typeof passthroughProps)[number]> {
   url: string | URL
   title: string
-  image?: string | null
+  image?: string | ImageMetadata['metadata'] | null
+  alt?: string | null
   date?: string | Date | null
   description?: ReactNode | null
   children?: ReactNode | null
@@ -37,6 +39,7 @@ export interface ArticlePreviewProps
 export default function ArticlePreview({
   url,
   image,
+  alt,
   style = 'card',
   ...props
 }: ArticlePreviewProps) {
@@ -48,13 +51,15 @@ export default function ArticlePreview({
       url={url}
       style={cardStyle}
       image={image || undefined}
+      alt={alt || undefined}
       {...imageCardProps}
     >
       <div
         className={clsx('h-full @container/article-preview', {
           'px-8 py-4': style === 'card',
           'px-8 py-6': style === 'tile',
-          'mb-4 py-2 @2xl/image-card:pl-8': style === 'inline',
+          'mb-4 py-2 @2xl/image-card:pl-8 @2xl/image-card:pt-0':
+            style === 'inline',
         })}
       >
         <ArticleLayout {...props} />

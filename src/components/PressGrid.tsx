@@ -1,4 +1,5 @@
 import type { ReactNode, CSSProperties } from 'react'
+import type { ResponsiveImageData } from '@lib/build/images'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
@@ -11,11 +12,13 @@ import colors from 'tailwindcss/colors' // TODO avoid this
 
 export interface PressGridProps {
   query: Parameters<typeof useTina<PressPageQuery>>[0]
+  images?: ResponsiveImageData
   accentColor?: string
 }
 
 export default function PressGrid({
   query,
+  images = {},
   accentColor = colors.amber['300'],
 }: PressGridProps) {
   const { data } = useTina(query)
@@ -79,6 +82,10 @@ export default function PressGrid({
           return null
         }
 
+        const { metadata, alt } = (image && images[image]) || {
+          metadata: image,
+        }
+
         return (
           <div
             key={id}
@@ -99,7 +106,8 @@ export default function PressGrid({
             <Card
               style={isCardStyle(layout) ? layout : 'tile'}
               url={url || undefined}
-              image={image || undefined}
+              image={metadata}
+              alt={alt}
               borderColor={accentColor}
               imageSide={imageSide === 'right' ? 'right' : 'left'}
             >

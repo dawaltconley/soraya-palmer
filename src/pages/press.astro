@@ -1,14 +1,43 @@
 ---
+import type { ImageData } from '@build/images'
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import PressGrid from '@components/PressGrid.tsx'
 import PressList from '@components/PressList.tsx'
 import Footer from '@components/Footer.astro'
+import { makeResponsive } from '@build/images'
+import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'
 
 const page = await client.queries.pressPage({ relativePath: 'press.yaml' })
 const press = await client.queries.pressConnection()
+
+const gridImages = await makeResponsive(
+  page.data.pressPage.press
+    .map((p) =>
+      p.__typename === 'PressPagePressArticle'
+        ? p.article?.image
+        : p.quote?.image,
+    )
+    .filter(isNotEmpty)
+    .map<ImageData>((path) => ({
+      path,
+      sizes: '100vw', // complicated sizes, could maybe be more precise using grid row / col count
+    })),
+)
+
+const cardImages = await makeResponsive(
+  press.data.pressConnection.edges
+    ?.map((e) => e?.node?.image)
+    .filter(isNotEmpty)
+    .filter((path) => !(path in gridImages))
+    .map<ImageData>((path) => ({
+      path,
+      sizes:
+        '(min-width: 1536px) 476px, (min-width: 1280px) 396px, (min-width: 1024px) 438px, (min-width: 768px) 320px, (min-width: 640px) 576px, 100vw',
+    })) || [],
+)
 ---
 
 <Base title="Press – Soraya Palmer">
@@ -19,11 +48,17 @@ const press = await client.queries.pressConnection()
         >The Human Origins of Beatrice Porter and other Essential Ghosts</span
       >
     </h1>
-    <PressGrid client:tina query={page} />
+    <PressGrid client:tina query={page} images={gridImages} />
     <h2 class="separator mb-8 mt-16 font-display text-5xl font-bold capitalize">
       More Press
     </h2>
-    <PressList client:tina data={press} exclude={page} hLevel="h3" />
+    <PressList
+      client:tina
+      data={press}
+      exclude={page}
+      images={cardImages}
+      hLevel="h3"
+    />
   </main>
   <Footer />
 </Base>

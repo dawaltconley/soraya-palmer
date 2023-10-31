@@ -2,6 +2,7 @@ import type {
   WritingConnectionQuery,
   PressConnectionQuery,
 } from '@tina/__generated__/types'
+import type { ResponsiveImageData } from '@lib/build/images'
 import type { ArticlePreviewProps } from './ArticlePreview'
 import ArticlePreview from './ArticlePreview'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
@@ -11,13 +12,14 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
 interface CardListProps {
   exclude?: string[]
+  images?: ResponsiveImageData
   hLevel?: ArticlePreviewProps['hLevel']
 }
 
 export default withTinaWrapper<
   PressConnectionQuery | WritingConnectionQuery,
   CardListProps
->(({ data, exclude = [], hLevel }) => {
+>(({ data, exclude = [], images = {}, hLevel }) => {
   const connection =
     'pressConnection' in data ? data.pressConnection : data.writingConnection
   const cards =
@@ -44,6 +46,10 @@ export default withTinaWrapper<
           }
         }
 
+        const { metadata, alt } = (image && images[image]) || {
+          metadata: image,
+        }
+
         return (
           <li
             key={id}
@@ -54,7 +60,8 @@ export default withTinaWrapper<
               style="card"
               layout="date"
               hLevel={hLevel}
-              image={image}
+              image={metadata}
+              alt={alt}
               {...props}
               publisher={source}
             >

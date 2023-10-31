@@ -3,6 +3,7 @@ import type {
   PressConnectionQuery,
 } from '@tina/__generated__/types'
 import type { TinaData } from '@lib/browser/withTinaWrapper'
+import type { ResponsiveImageData } from '@lib/build/images'
 import type { ArticlePreviewProps } from './ArticlePreview'
 import { useTina } from 'tinacms/dist/react'
 import { isNotEmpty } from '@lib/utils'
@@ -10,6 +11,7 @@ import CardList from './CardList'
 
 export interface PressListProps {
   data: TinaData<PressConnectionQuery>
+  images?: ResponsiveImageData
   exclude: TinaData<PressPageQuery>
   hLevel?: ArticlePreviewProps['hLevel']
 }
@@ -17,7 +19,7 @@ export interface PressListProps {
 export default function PressList({
   data,
   exclude: excludeQuery,
-  hLevel,
+  ...props
 }: PressListProps) {
   const exclude = useTina(excludeQuery)
     .data.pressPage.press.map((p) =>
@@ -25,5 +27,5 @@ export default function PressList({
     )
     .filter(isNotEmpty)
 
-  return <CardList data={data} exclude={exclude} hLevel={hLevel} />
+  return <CardList data={data} exclude={exclude} {...props} />
 }

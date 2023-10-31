@@ -1,4 +1,6 @@
 import type { ReactNode, CSSProperties } from 'react'
+import type { ImageMetadata } from '@dawaltconley/responsive-images'
+import Image from './Image'
 import clsx from 'clsx'
 
 /*
@@ -23,7 +25,7 @@ export const isCardStyle = (str: string): str is CardStyle =>
   CardStyle.some((s) => s === str)
 
 export interface ImageCardProps {
-  image: string
+  image: string | ImageMetadata['metadata']
   imageSide?: 'left' | 'right'
   alt?: string
   url?: string | URL
@@ -75,17 +77,18 @@ export default function ImageCard({
             } as CSSProperties
           }
         >
-          <img
-            className={clsx(
-              'aspect-og h-full w-full object-cover duration-[inherit]',
-              {
-                'group-hover:scale-105': url,
-              },
-            )}
-            src={image}
+          <Image
+            className="duration-[inherit]"
+            metadata={image}
             alt={alt}
-            loading="lazy"
-            decoding="async"
+            imgProps={{
+              className: clsx(
+                'aspect-og h-full w-full object-cover duration-[inherit]',
+                {
+                  'group-hover:scale-105': url,
+                },
+              ),
+            }}
           />
           {hasImgLink && (
             <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-800 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
