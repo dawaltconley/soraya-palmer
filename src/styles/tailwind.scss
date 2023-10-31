@@ -147,7 +147,7 @@
     @apply relative;
 
     &::before {
-      @apply absolute inset-1 -bottom-0.5 right-full border-b-4 border-transparent duration-300 content-[''] sm:border-b-2;
+      @apply absolute inset-1 -bottom-0.5 right-full border-b-2 border-transparent duration-300 content-[''];
     }
 
     &:hover::before,
