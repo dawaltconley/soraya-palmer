@@ -1,0 +1,44 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: production
+  parameter-store:
+    FA_PRO_TOKEN: FontAwesomeProToken
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Updating npm and node_modules"
+      - npm config set "@fortawesome:registry" https://npm.fontawesome.com/
+      - npm config set "//npm.fontawesome.com/:_authToken" $FA_PRO_TOKEN
+      - npm install --cache .npm
+  build:
+    on-failure: ABORT
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - |
+        aws s3 sync --delete dist s3://$SITE_BUCKET \
+          --cache-control 'max-age=31536000' \
+          --exclude="*" \
+          --include="_astro/*" \
+          --include="_responsive-images/*" \
+          --include="fonts/*" \
+          --size-only
+      - |
+        aws s3 sync --delete dist s3://$SITE_BUCKET \
+          --cache-control 'no-cache' \
+          --exclude="_astro/*" \
+          --exclude="_responsive-images/*" \
+          --exclude="fonts/*"
+
+cache:
+  paths:
+    - 'node_modules/**/*'
+    - '.npm/**/*'
+    - '.cache/**/*'
+    - 'dist/_responsive-images/*'
