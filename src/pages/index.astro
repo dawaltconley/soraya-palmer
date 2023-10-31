@@ -14,11 +14,19 @@ import { client } from '@tina/__generated__/client'
 const page = await client.queries.home({ relativePath: 'home.yaml' })
 const writingSamples = await client.queries.writingSamples()
 
-const bioHeadshot = await makeResponsive([
+const bookCover = '/media/The+Human+Originas+of+Beatrice+Porter.jpg'
+
+const images = await makeResponsive([
   {
     path: page.data.home.about.image,
     sizes: '(min-width: 1536px) 432px, (min-width: 450px) 384px, 100vw',
     // this should be cropped to a square for sizes to be accurate
+  },
+  {
+    path: bookCover,
+    sizes:
+      '(min-width: 1536px) 382px, (min-width: 768px) 340px, (min-width: 640px) 576px, 100vw',
+    alt: 'Book cover of The Human Origins of Beatrice Porter',
   },
 ])
 ---
@@ -26,7 +34,12 @@ const bioHeadshot = await makeResponsive([
 <Base title="Soraya Palmer">
   <Header useAsTitle class="relative z-10 -mb-14" textColor="white" />
   <main class="text-lg">
-    <BookSplash client:load className="pt-14" />
+    <BookSplash
+      client:load
+      className="pt-14"
+      cover={bookCover}
+      images={images}
+    />
     <div id="pull-quotes" class="bg-gray-50 py-16">
       <div
         class="container mx-auto grid justify-items-center gap-16 sm:grid-cols-3 sm:gap-8 lg:gap-16"
@@ -58,7 +71,7 @@ const bioHeadshot = await makeResponsive([
       </div>
     </div>
 
-    <Bio client:tina data={page} images={bioHeadshot} />
+    <Bio client:tina data={page} images={images} />
 
     <WritingSamples client:tina data={writingSamples} />
 

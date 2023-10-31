@@ -1,7 +1,9 @@
 import type { ComponentPropsWithoutRef, SyntheticEvent } from 'react'
+import type { ResponsiveImageData } from '@lib/build/images'
 import { useState, useEffect, useRef } from 'react'
 import Icon from './Icon'
 import Spinner from './Spinner'
+import Image from './Image'
 import clsx from 'clsx'
 import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
 import { faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons/faArrowUpRightFromSquare'
@@ -59,6 +61,8 @@ type SplashState = 'initial' | 'video'
 
 export interface BookSplashProps extends ComponentPropsWithoutRef<'div'> {
   init?: SplashState
+  cover: string
+  images?: ResponsiveImageData
 }
 
 export type SplashStateEvent = CustomEvent<{ state: SplashState }>
@@ -71,6 +75,8 @@ declare global {
 
 export default function BookSplash({
   init = 'initial',
+  cover,
+  images = {},
   className,
   ...divProps
 }: BookSplashProps) {
@@ -82,6 +88,7 @@ export default function BookSplash({
   const isPlaying = isVideoLoaded && state === 'video'
 
   const [imageAspect, setImageAspect] = useState<{ x: number; y: number }>()
+  const { metadata = cover } = images[cover] || {}
 
   useEffect(() => {
     if (!image.current) return
@@ -149,7 +156,9 @@ export default function BookSplash({
             </button>
           </div>
         </div>
-        <div
+        <Image
+          metadata={metadata}
+          alt="Book cover of The Human Origins of Beatrice Porter"
           className={clsx(
             'mx-auto aspect-cover h-full min-h-[32rem] transition-[opacity,transform] duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',
             state === 'initial'
@@ -159,14 +168,11 @@ export default function BookSplash({
           style={{
             aspectRatio: imageAspect && `${imageAspect.x} / ${imageAspect.y}`,
           }}
-        >
-          <img
-            ref={image}
-            className={clsx('h-full w-full object-contain drop-shadow-2xl ')}
-            src="/media/The+Human+Originas+of+Beatrice+Porter.jpg"
-            alt="Book cover of The Human Origins of Beatrice Porter"
-          />
-        </div>
+          imgRef={image}
+          imgProps={{
+            className: clsx('h-full w-full object-contain drop-shadow-2xl'),
+          }}
+        />
         <div
           className={clsx(
             'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
