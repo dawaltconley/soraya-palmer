@@ -1,8 +1,4 @@
-import type {
-  ComponentPropsWithoutRef,
-  SyntheticEvent,
-  CSSProperties,
-} from 'react'
+import type { ComponentPropsWithoutRef, SyntheticEvent } from 'react'
 import { useState, useEffect, useRef } from 'react'
 import Icon from './Icon'
 import Spinner from './Spinner'
@@ -111,22 +107,15 @@ export default function BookSplash({
       ref={splash}
       id="splash"
       className={clsx(
-        'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full duration-1000 before:delay-[inherit] before:duration-[inherit]',
+        'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full duration-1000 before:bg-gray-950 before:delay-[inherit] before:duration-[inherit]',
         state === 'initial'
-          ? 'max-h-[200vh] delay-300 before:bg-gray-950/80'
-          : 'max-h-screen before:bg-gray-950',
+          ? 'delay-300 before:opacity-[0.85]'
+          : 'max-h-screen before:opacity-100',
         className,
       )}
       {...divProps}
     >
-      <div
-        className="feathered-blur-before container mx-auto h-full justify-center py-16 md:flex"
-        style={
-          {
-            '--feather-size': '6rem',
-          } as CSSProperties
-        }
-      >
+      <div className="container mx-auto h-full justify-center py-16 md:flex">
         <div
           className={clsx(
             'absolute inset-0 flex w-full duration-1000',
@@ -163,7 +152,6 @@ export default function BookSplash({
         <div
           className={clsx(
             'mx-auto aspect-cover h-full min-h-[32rem] transition-[opacity,transform] duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',
-
             state === 'initial'
               ? 'delay-300'
               : 'pointer-events-none -translate-x-16 opacity-0',
@@ -181,7 +169,7 @@ export default function BookSplash({
         </div>
         <div
           className={clsx(
-            'relative mt-8 flex max-w-prose grow flex-col font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text md:ml-12 md:mt-0',
+            'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
             state === 'initial'
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',
@@ -213,7 +201,10 @@ export default function BookSplash({
           <div className="mt-6 w-full text-center text-base md:text-left">
             <button
               className="group mr-4 whitespace-nowrap font-sans sm:mr-8"
-              onClick={() => setState('video')}
+              onClick={() => {
+                splash.current?.scrollIntoView()
+                setState('video')
+              }}
             >
               <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />{' '}
               <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
