@@ -32,7 +32,7 @@ Resources:
       Parameters:
         SiteBucket: !GetAtt StaticWebsite.Outputs.SiteBucket
         SourceLocation: https://github.com/dawaltconley/soraya-palmer.git
-        SourceBranch: dev
+        SourceBranch: main
         EnvironmentImage: aws/codebuild/standard:7.0
         UseBuildArtifacts: 'false'
         CacheType: S3
