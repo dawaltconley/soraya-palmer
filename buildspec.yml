@@ -5,6 +5,9 @@ env:
     NODE_ENV: production
   parameter-store:
     FA_PRO_TOKEN: FontAwesomeProToken
+    TINA_CLIENT_ID: /SorayaPalmer/TinaClientId
+    TINA_CONTENT_TOKEN: /SorayaPalmer/TinaContentToken
+    TINA_SEARCH_TOKEN: /SorayaPalmer/TinaSearchToken
 
 phases:
   install:

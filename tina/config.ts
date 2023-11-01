@@ -490,8 +490,8 @@ const workWithMePage: Collection = {
 
 export default defineConfig({
   branch,
-  clientId: null, // Get this from tina.io
-  token: null, // Get this from tina.io
+  clientId: process.env.TINA_CLIENT_ID,
+  token: process.env.TINA_CONTENT_TOKEN,
   build: {
     outputFolder: 'admin',
     publicFolder: 'public',
@@ -500,6 +500,11 @@ export default defineConfig({
     tina: {
       mediaRoot: 'media',
       publicFolder: 'public',
+    },
+  },
+  search: {
+    tina: {
+      indexerToken: process.env.TINA_SEARCH_TOKEN,
     },
   },
   schema: {
