@@ -128,6 +128,7 @@ const H = useAsTitle ? 'h1' : 'h4'
     links?.classList.add('header__links--open')
     hamburger?.classList.add('is-active')
     lightbox.classList.add('lightbox--active')
+    document.documentElement?.classList.add('h-full', 'overflow-hidden')
   }
 
   const close = () => {
@@ -135,6 +136,7 @@ const H = useAsTitle ? 'h1' : 'h4'
     links?.classList.remove('header__links--open')
     hamburger?.classList.remove('is-active')
     lightbox.classList.remove('lightbox--active')
+    document.documentElement?.classList.remove('h-full', 'overflow-hidden')
   }
 
   const toggleOpen = () => {
