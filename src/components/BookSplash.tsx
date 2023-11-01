@@ -66,7 +66,10 @@ export interface BookSplashProps extends ComponentPropsWithoutRef<'div'> {
   images?: ResponsiveImageData
 }
 
-export type SplashStateEvent = CustomEvent<{ state: SplashState }>
+export type SplashStateEvent = CustomEvent<{
+  state: SplashState
+  isVideoLoaded: boolean
+}>
 
 declare global {
   interface WindowEventMap {
@@ -88,6 +91,8 @@ export default function BookSplash({
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
   const isPlaying = isVideoLoaded && state === 'video'
 
+  const showVideo = state === 'video' && isVideoLoaded
+
   const [imageAspect, setImageAspect] = useState<{ x: number; y: number }>()
   const metadata = getMetadata(cover, images)
 
@@ -105,10 +110,11 @@ export default function BookSplash({
       bubbles: true,
       detail: {
         state,
+        isVideoLoaded,
       },
     })
     splash.current.dispatchEvent(event)
-  }, [state])
+  }, [state, isVideoLoaded])
 
   return (
     <div
@@ -116,7 +122,7 @@ export default function BookSplash({
       id="splash"
       className={clsx(
         'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full duration-1000 before:bg-gray-950 before:delay-[inherit] before:duration-[inherit]',
-        state === 'initial'
+        !showVideo
           ? 'delay-300 before:opacity-[0.85]'
           : 'max-h-screen before:opacity-100',
         className,
@@ -127,7 +133,7 @@ export default function BookSplash({
         <div
           className={clsx(
             'absolute inset-0 flex w-full duration-1000',
-            state === 'initial' ? 'pointer-events-none opacity-0' : 'delay-300',
+            !showVideo ? 'pointer-events-none opacity-0' : 'delay-300',
           )}
         >
           <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
@@ -137,7 +143,9 @@ export default function BookSplash({
                 'duration-1000',
                 isPlaying ? 'delay-300' : 'scale-95 opacity-0',
               )}
-              onReady={() => setIsVideoLoaded(true)}
+              onReady={() =>
+                window.setTimeout(() => setIsVideoLoaded(true), 2000)
+              }
               onEnded={() => {
                 window.setTimeout(() => setState('initial'), 500)
               }}
@@ -162,7 +170,7 @@ export default function BookSplash({
           alt="Book cover of The Human Origins of Beatrice Porter"
           className={clsx(
             'mx-auto aspect-cover h-full min-h-[32rem] transition-[opacity,transform] duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',
-            state === 'initial'
+            !showVideo
               ? 'delay-300'
               : 'pointer-events-none -translate-x-16 opacity-0',
           )}
@@ -177,7 +185,7 @@ export default function BookSplash({
         <div
           className={clsx(
             'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
-            state === 'initial'
+            !showVideo
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',
           )}
@@ -213,7 +221,11 @@ export default function BookSplash({
                 setState('video')
               }}
             >
-              <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />{' '}
+              {state === 'video' ? (
+                <Spinner className="fa-inline mr-0.5" />
+              ) : (
+                <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />
+              )}{' '}
               <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
                 Watch the trailer
               </span>

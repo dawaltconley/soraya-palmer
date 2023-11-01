@@ -152,7 +152,7 @@ const H = useAsTitle ? 'h1' : 'h4'
 
   window.addEventListener('splashstate', (e) => {
     header.classList.add('header-transition')
-    if (e.detail.state === 'video') {
+    if (e.detail.state === 'video' && e.detail.isVideoLoaded) {
       header.classList.add('header-transition--hidden')
     } else {
       header.classList.remove('header-transition--hidden')
