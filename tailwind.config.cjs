@@ -30,6 +30,11 @@ module.exports = {
       inset: {
         'almost-full': 'calc(100% - 1px)',
       },
+      height: {
+        'screen-d': ['100vh', '100dvh'],
+        'screen-s': ['100vh', '100svh'],
+        'screen-l': ['100vh', '100lvh'],
+      },
       aspectRatio: {
         og: '1200 / 630',
         cover: '794 / 1199',

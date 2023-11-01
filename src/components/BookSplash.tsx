@@ -130,37 +130,39 @@ export default function BookSplash({
       <div className="container mx-auto h-full justify-center py-16 md:flex">
         <div
           className={clsx(
-            'absolute inset-0 flex w-full items-center justify-center duration-1000',
+            'absolute inset-0 w-full duration-1000',
             !showVideo ? 'pointer-events-none opacity-0' : 'delay-300',
           )}
         >
-          <div className="sticky-v-center sticky aspect-square w-full text-gray-600 md:h-full md:w-auto">
-            <Trailer
-              play={isPlaying}
-              className={clsx(
-                'duration-1000',
-                isPlaying ? 'delay-300' : 'scale-95 opacity-0',
-              )}
-              onReady={() =>
-                window.setTimeout(() => setIsVideoLoaded(true), 2000)
-              }
-              onEnded={() => {
-                window.setTimeout(() => setState('initial'), 500)
-              }}
-            />
-            <div className="absolute inset-0 flex">
-              <Spinner
-                className={clsx('m-auto text-4xl', {
-                  hidden: isVideoLoaded,
-                })}
+          <div className="sticky bottom-0 top-0 flex h-screen-s w-full">
+            <div className="m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
+              <Trailer
+                play={isPlaying}
+                className={clsx(
+                  'duration-1000',
+                  isPlaying ? 'delay-300' : 'scale-95 opacity-0',
+                )}
+                onReady={() =>
+                  window.setTimeout(() => setIsVideoLoaded(true), 2000)
+                }
+                onEnded={() => {
+                  window.setTimeout(() => setState('initial'), 500)
+                }}
               />
+              <div className="absolute inset-0 flex">
+                <Spinner
+                  className={clsx('m-auto text-4xl', {
+                    hidden: isVideoLoaded,
+                  })}
+                />
+              </div>
+              <button
+                className="absolute right-0 top-0 -translate-y-full p-4 text-xl duration-200 hover:text-amber-300 md:left-full md:right-auto md:translate-y-0"
+                onClick={() => setState('initial')}
+              >
+                <Icon icon={faXmark} />
+              </button>
             </div>
-            <button
-              className="absolute right-0 top-0 -translate-y-full p-4 text-xl duration-200 hover:text-amber-300 md:left-full md:right-auto md:translate-y-0"
-              onClick={() => setState('initial')}
-            >
-              <Icon icon={faXmark} />
-            </button>
           </div>
         </div>
         <Image
