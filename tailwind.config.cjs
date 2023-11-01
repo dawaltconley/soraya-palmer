@@ -27,9 +27,6 @@ module.exports = {
         smaller: 'smaller',
         larger: 'larger',
       },
-      colors: {
-        gray: colors.neutral,
-      },
       inset: {
         'almost-full': 'calc(100% - 1px)',
       },
