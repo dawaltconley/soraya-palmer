@@ -36,8 +36,11 @@ Resources:
         EnvironmentImage: aws/codebuild/standard:7.0
         UseBuildArtifacts: 'false'
         CacheType: S3
-        ParameterStoreArns: !Sub >-
-          arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/FontAwesomeProToken
+        ParameterStoreArns: !Sub "\
+          arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/FontAwesomeProToken,\
+          arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaClientId,\
+          arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaContentToken,\
+          arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaSearchToken"
   ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
     Type: AWS::CloudFormation::Stack
     Properties:
