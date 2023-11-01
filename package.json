@@ -6,7 +6,7 @@
     "dev": "npx tinacms dev -c 'astro dev'",
     "host": "npx tinacms dev -c 'astro dev --host'",
     "start": "astro dev",
-    "build": "npx tinacms build --local --skip-cloud-checks -c 'astro build'",
+    "build": "npx tinacms build --local -c 'astro build'",
     "preview": "astro preview",
     "astro": "astro",
     "cloudformation:package": "aws cloudformation package --template-file aws.template.yaml --s3-bucket cf-templates-m6s9n0rrcicj-us-east-1 --s3-prefix static-websites/soraya-palmer --output-template-file /tmp/soraya-palmer.template.yaml",
