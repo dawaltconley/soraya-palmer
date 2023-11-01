@@ -42,6 +42,15 @@ const canonicalUrl = Astro.site && new URL(Astro.url.pathname, Astro.site)
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&family=Playfair:ital,opsz,wght@0,5..1200,300;0,5..1200,400;0,5..1200,700;1,5..1200,300;1,5..1200,400;1,5..1200,700&display=swap"
       rel="stylesheet"
     />
+    {
+      import.meta.env.MODE === 'production' && (
+        <script
+          defer
+          data-domain="sorayapalmer.com"
+          src="https://plausible.io/js/script.js"
+        />
+      )
+    }
   </head>
   <body class={className}>
     <slot />
