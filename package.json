@@ -34,7 +34,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-transition-group": "^4.4.6",
     "astro": "^3.0.8",
-    "astro-tina": "github:dawaltconley/astro-tina",
+    "astro-tina": "^0.1.1",
     "autoprefixer": "^10.4.15",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
