@@ -7,6 +7,9 @@ import clsx from 'clsx'
 
 import { faCaretDown } from '@fortawesome/pro-solid-svg-icons'
 
+const truncate = (text: string, maxLen: number, append = '…') =>
+  text.length > maxLen ? text.slice(0, maxLen - append.length) + append : text
+
 const bookstoreMap = new Map<string, Bookstore>(
   bookstores
     .map<[string, Bookstore][]>((l, i) =>
@@ -37,7 +40,7 @@ export default function BookStoreSelect({
             'rotate-180': isOpen,
           })}
         />
-        {bookstoreMap.get(selected)?.name || 'Select'}
+        {truncate(bookstoreMap.get(selected)?.name || 'Select', 30)}
       </Dropdown.Trigger>
       <Dropdown.Portal>
         <Dropdown.Content
