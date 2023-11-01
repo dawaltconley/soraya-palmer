@@ -4,6 +4,7 @@ import * as sass from 'sass'
 import mkTwFunctions from 'sass-tailwind-functions/legacy'
 import react from '@astrojs/react'
 import tina from 'astro-tina'
+import responsiveImages from './src/lib/build/image-config'
 
 const { pathname: twConfig } = new URL('./tailwind.config.cjs', import.meta.url)
 
@@ -20,6 +21,7 @@ export default defineConfig({
           quietDeps: true,
           functions: {
             ...mkTwFunctions(sass, twConfig),
+            ...responsiveImages.sassLegacyFunctions,
           },
         },
       },
