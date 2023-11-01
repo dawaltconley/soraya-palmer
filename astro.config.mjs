@@ -9,6 +9,7 @@ const { pathname: twConfig } = new URL('./tailwind.config.cjs', import.meta.url)
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://sorayapalmer.com',
   output: 'static',
   integrations: [react(), tina()],
   vite: {
