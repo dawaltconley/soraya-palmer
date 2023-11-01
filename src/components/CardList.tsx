@@ -7,6 +7,7 @@ import type { ArticlePreviewProps } from './ArticlePreview'
 import ArticlePreview from './ArticlePreview'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import { isNotEmpty } from '@lib/utils'
+import { fixTinaMalformedPath } from '@lib/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
@@ -46,9 +47,8 @@ export default withTinaWrapper<
           }
         }
 
-        const { metadata, alt } = (image && images[image]) || {
-          metadata: image,
-        }
+        image = fixTinaMalformedPath(image || '')
+        const { metadata = image, alt } = images[image] || {}
 
         return (
           <li

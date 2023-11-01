@@ -4,6 +4,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { tinaField } from 'tinacms/dist/react'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import Image from './Image'
+import { getMetadata } from '@lib/images'
 
 export interface BioProps {
   images?: ResponsiveImageData
@@ -14,7 +15,7 @@ export default withTinaWrapper<HomeQuery, BioProps>(function Bio({
   images,
 }) {
   const { image, title, bio } = data.home.about
-  const { metadata = image } = (images && image && images[image]) || {}
+  const metadata = getMetadata(image, images)
 
   return (
     <div

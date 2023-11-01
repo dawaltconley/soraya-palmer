@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Icon from './Icon'
 import Spinner from './Spinner'
 import Image from './Image'
+import { getMetadata } from '@lib/images'
 import clsx from 'clsx'
 import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
 import { faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons/faArrowUpRightFromSquare'
@@ -88,7 +89,7 @@ export default function BookSplash({
   const isPlaying = isVideoLoaded && state === 'video'
 
   const [imageAspect, setImageAspect] = useState<{ x: number; y: number }>()
-  const { metadata = cover } = images[cover] || {}
+  const metadata = getMetadata(cover, images)
 
   useEffect(() => {
     if (!image.current) return

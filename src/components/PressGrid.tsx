@@ -7,6 +7,7 @@ import Card from './Card'
 import { isCardStyle } from './ImageCard'
 import { ArticleLayout } from './ArticlePreview'
 import { AuthorQuote, ReviewQuote } from './Quote'
+import { fixTinaMalformedPath } from '@lib/images'
 import clsx from 'clsx'
 import colors from 'tailwindcss/colors' // TODO avoid this
 
@@ -82,9 +83,8 @@ export default function PressGrid({
           return null
         }
 
-        const { metadata, alt } = (image && images[image]) || {
-          metadata: image,
-        }
+        image = fixTinaMalformedPath(image || '')
+        const { metadata = image, alt } = images[image] || {}
 
         return (
           <div
