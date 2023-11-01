@@ -134,8 +134,8 @@ export default function BookSplash({
             !showVideo ? 'pointer-events-none opacity-0' : 'delay-300',
           )}
         >
-          <div className="sticky bottom-0 top-0 flex h-screen-s w-full">
-            <div className="m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
+          <div className="sticky bottom-0 top-0 flex h-full max-h-screen-s w-full">
+            <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
               <Trailer
                 play={isPlaying}
                 className={clsx(

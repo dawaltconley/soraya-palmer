@@ -1,6 +1,11 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
-const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin')
+
+const dynamicViewports = {
+  'screen-d': ['100vh', '100dvh'],
+  'screen-s': ['100vh', '100svh'],
+  'screen-l': ['100vh', '100lvh'],
+}
 
 /** @type import('tailwindcss').Config */
 module.exports = {
@@ -30,11 +35,9 @@ module.exports = {
       inset: {
         'almost-full': 'calc(100% - 1px)',
       },
-      height: {
-        'screen-d': ['100vh', '100dvh'],
-        'screen-s': ['100vh', '100svh'],
-        'screen-l': ['100vh', '100lvh'],
-      },
+      height: dynamicViewports,
+      minHeight: dynamicViewports,
+      maxHeight: dynamicViewports,
       aspectRatio: {
         og: '1200 / 630',
         cover: '794 / 1199',
