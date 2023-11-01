@@ -4,6 +4,40 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Resources for Soraya Palmer's website
 
 Resources:
+  Domain:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./node_modules/@dawaltconley/cfn-static-website/domain.template.yaml
+      Parameters:
+        Domain: sorayapalmer.com
+  StaticWebsite:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./node_modules/@dawaltconley/cfn-static-website/static-website.template.yaml
+      Parameters:
+        Domain: sorayapalmer.com
+        Subdomain: www
+        Redirect: SubdomainToApex
+        TrailingSlash: 'false'
+        Route53Dns: 'true'
+        CertificateArn: !GetAtt Domain.Outputs.CertificateArn
+        CloudFrontPriceClass: PriceClass_100
+        CloudFrontSecurityPolicy: TLSv1.2_2021
+        CloudFrontCachePolicy: CachingOptimized
+        CloudFrontHtmlCachePolicy: CachingOptimized
+  GitHubDeployment:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./node_modules/@dawaltconley/cfn-static-website/git-pipeline.template.yaml
+      Parameters:
+        SiteBucket: !GetAtt StaticWebsite.Outputs.SiteBucket
+        SourceLocation: https://github.com/dawaltconley/soraya-palmer.git
+        SourceBranch: dev
+        EnvironmentImage: aws/codebuild/standard:7.0
+        UseBuildArtifacts: 'false'
+        CacheType: S3
+        ParameterStoreArns: !Sub >-
+          arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/FontAwesomeProToken
   ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -12,4 +46,4 @@ Resources:
         Email: 'soraya95@gmail.com'
         Required: 'name,email,subject,message'
         Honeypot: 'fax_number'
-        AllowOrigin: '*'
+        AllowOrigin: 'https://sorayapalmer.com'

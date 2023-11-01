@@ -52,6 +52,7 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@dawaltconley/cfn-static-website": "github:dawaltconley/cfn-static-website",
     "@dawaltconley/contact-api": "^0.1.1",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
