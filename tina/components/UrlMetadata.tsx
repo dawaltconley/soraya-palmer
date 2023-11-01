@@ -1,9 +1,10 @@
 import type { MqlResponse, MicrolinkApiOptions } from '@microlink/mql'
 import mql from '@microlink/mql'
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import type { InputProps } from 'tinacms'
 import { wrapFieldsWithMeta, Input, LoadingDots } from 'tinacms'
 import { get, memoize } from 'lodash'
+import { fixTinaMalformedPath } from '../../src/lib/images'
 
 const getMetadata = memoize(
   async (
@@ -43,8 +44,11 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
+    ;(window as any).form = form
+
     const debounce = useRef<number>()
     const onUrlChange = (url: string): void => {
+      console.log('url change')
       setIsLoading(true)
       window.clearTimeout(debounce.current)
       debounce.current = window.setTimeout(() => {
@@ -74,6 +78,19 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
           .finally(() => setIsLoading(false))
       }, 1200)
     }
+
+    useEffect(() => {
+      const { values } = form.getState()
+
+      for (let [field, value] of Object.entries(values)) {
+        if (typeof value === 'string') {
+          const fixed = fixTinaMalformedPath(value)
+          if (fixed !== value) {
+            form.change(field, fixed)
+          }
+        }
+      }
+    }, [])
 
     return (
       <>
