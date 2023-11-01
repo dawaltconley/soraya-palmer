@@ -121,7 +121,7 @@ export default function BookSplash({
       ref={splash}
       id="splash"
       className={clsx(
-        'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full duration-1000 before:bg-gray-950 before:delay-[inherit] before:duration-[inherit]',
+        'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full bg-gray-950 duration-1000 before:bg-gray-950 before:delay-[inherit] before:duration-[inherit]',
         !showVideo
           ? 'delay-300 before:opacity-[0.85]'
           : 'max-h-screen before:opacity-100',
