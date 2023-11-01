@@ -266,4 +266,11 @@
   .inline-next-p + p {
     display: inline;
   }
+
+  .sticky-v-center {
+    top: calc(50vh - 50vw);
+    top: calc(50svh - 50svw);
+    bottom: calc(50vh - 50vw);
+    bottom: calc(50svh - 50svw);
+  }
 }

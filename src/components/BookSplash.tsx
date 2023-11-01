@@ -122,9 +122,7 @@ export default function BookSplash({
       id="splash"
       className={clsx(
         'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full bg-gray-950 duration-1000 before:bg-gray-950 before:delay-[inherit] before:duration-[inherit]',
-        !showVideo
-          ? 'delay-300 before:opacity-[0.85]'
-          : 'max-h-screen before:opacity-100',
+        !showVideo ? 'delay-300 before:opacity-[0.85]' : 'before:opacity-100',
         className,
       )}
       {...divProps}
@@ -132,11 +130,11 @@ export default function BookSplash({
       <div className="container mx-auto h-full justify-center py-16 md:flex">
         <div
           className={clsx(
-            'absolute inset-0 flex w-full duration-1000',
+            'absolute inset-0 flex w-full items-center justify-center duration-1000',
             !showVideo ? 'pointer-events-none opacity-0' : 'delay-300',
           )}
         >
-          <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
+          <div className="sticky-v-center sticky aspect-square w-full text-gray-600 md:h-full md:w-auto">
             <Trailer
               play={isPlaying}
               className={clsx(
@@ -179,7 +177,7 @@ export default function BookSplash({
           }}
           imgRef={image}
           imgProps={{
-            className: clsx('h-full w-full object-contain drop-shadow-2xl'),
+            className: 'h-full w-full object-contain drop-shadow-2xl',
           }}
         />
         <div
@@ -216,10 +214,7 @@ export default function BookSplash({
           <div className="mt-6 w-full text-center text-base md:text-left">
             <button
               className="group mr-4 whitespace-nowrap font-sans sm:mr-8"
-              onClick={() => {
-                splash.current?.scrollIntoView()
-                setState('video')
-              }}
+              onClick={() => setState('video')}
             >
               {state === 'video' ? (
                 <Spinner className="fa-inline mr-0.5" />
