@@ -32,12 +32,15 @@ const H = useAsTitle ? 'h1' : 'h4'
 
 <header
   id="header"
-  class:list={['header w-full', className]}
+  class:list={['header z-50 w-full', className]}
   style={textColor
     ? {
         '--text-color': textColor,
       }
     : {}}
+  transition:name="header"
+  transition:animate="none"
+  transition:persist
 >
   <nav class="container mx-auto flex h-14 items-end justify-between py-2">
     <H class="font-display text-2xl">
@@ -71,15 +74,14 @@ const H = useAsTitle ? 'h1' : 'h4'
 
 <style lang="scss">
   .header {
-    --text-color: theme('colors.gray.900');
-    color: var(--text-color, inherit);
+    color: var(--text-color, theme('colors.gray.900'));
   }
 
   .hamburger-inner {
     &,
     &::before,
     &::after {
-      background-color: var(--text-color) !important;
+      background-color: var(--text-color, theme('colors.gray.900')) !important;
       transition-property: background-color, transform, opacity;
     }
   }
@@ -114,6 +116,7 @@ const H = useAsTitle ? 'h1' : 'h4'
 </style>
 
 <script>
+  // function setupHeader() {
   const header = document.getElementById('header') as HTMLDivElement
   const hamburger = header.querySelector('.hamburger')
   const links = header.querySelector('.header__links')
@@ -158,4 +161,9 @@ const H = useAsTitle ? 'h1' : 'h4'
       header.classList.remove('header-transition--hidden')
     }
   })
+  // }
+  //
+  // document.addEventListener('astro:page-load', setupHeader)
+
+  document.addEventListener('astro:page-load', close)
 </script>

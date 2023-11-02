@@ -33,7 +33,14 @@ const images = await makeResponsive([
 ---
 
 <Base title="Soraya Palmer">
-  <Header useAsTitle class="relative z-50 -mb-14" textColor="white" />
+  <div
+    class="relative z-50 -mb-14"
+    style={{
+      '--text-color': 'white',
+    }}
+  >
+    <Header useAsTitle />
+  </div>
   <main class="text-lg">
     <BookSplash
       client:load
