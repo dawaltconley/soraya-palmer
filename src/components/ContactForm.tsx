@@ -1,11 +1,27 @@
 import type { FunctionComponent, ReactNode } from 'react'
-import type { FormStatus, FormGetProps, FormPostProps } from '@browser/forms'
+import type { FormStatus } from '@browser/forms'
 import { useEffect, useRef } from 'react'
 import { useForm, restoreForm } from '@browser/forms'
 import clsx from 'clsx'
 import Spinner from './Spinner'
 
 const requiredFields = ['name', 'email', 'subject', 'message'] as const
+
+export interface FormProps {
+  action: string | URL
+  method?: 'GET' | 'POST'
+  encType?: 'application/x-www-form-urlencoded' | 'multipart/form-data'
+  requiredFields?: readonly string[]
+}
+
+export interface FormGetProps extends FormProps {
+  method?: 'GET'
+  encType?: 'application/x-www-form-urlencoded'
+}
+
+export interface FormPostProps extends FormProps {
+  method: 'POST'
+}
 
 export default function ContactForm({
   action,
@@ -16,9 +32,6 @@ export default function ContactForm({
   const formRef = useRef<HTMLFormElement>(null)
 
   const { status, data, errorMessage, handleSubmit } = useForm({
-    action,
-    method,
-    encType,
     requiredFields,
   })
 

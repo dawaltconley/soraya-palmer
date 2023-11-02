@@ -1,6 +1,15 @@
 import type { FormEvent } from 'react'
 import { useState, useRef } from 'react'
 
+type FormMethod = 'GET' | 'POST'
+type FormEncoding = 'application/x-www-form-urlencoded' | 'multipart/form-data'
+
+export const isFormMethod = (s: string): s is FormMethod =>
+  s === 'GET' || s === 'POST'
+
+export const isFormEncoding = (s: string): s is FormEncoding =>
+  s === 'application/x-www-form-urlencoded' || s === 'multipart/form-data'
+
 export const copyFormData = (data: FormData): FormData => {
   const copy = new FormData()
   for (const [key, value] of data.entries()) {
@@ -19,8 +28,8 @@ export const formDataToSearchParams = (formData: FormData): URLSearchParams => {
 
 export interface SubmitFormOps {
   action: string | URL
-  method?: 'GET' | 'POST'
-  encType?: 'application/x-www-form-urlencoded' | 'multipart/form-data'
+  method?: FormMethod
+  encType?: FormEncoding
 }
 
 export const submitForm = (
@@ -62,34 +71,13 @@ export const restoreForm = (form: HTMLFormElement, data: FormData): void => {
   }
 }
 
+export type FormStatus = 'initial' | 'submitting' | 'error' | 'success'
+
 export interface FormProps {
-  action: string | URL
-  method?: 'GET' | 'POST'
-  encType?: 'application/x-www-form-urlencoded' | 'multipart/form-data'
   requiredFields?: readonly string[]
 }
 
-export interface FormGetProps extends FormProps {
-  method?: 'GET'
-  encType?: 'application/x-www-form-urlencoded'
-}
-
-export interface FormPostProps extends FormProps {
-  method: 'POST'
-}
-
-export type FormStatus = 'initial' | 'submitting' | 'error' | 'success'
-
-export const useForm = ({
-  action,
-  method = 'GET',
-  encType = 'application/x-www-form-urlencoded',
-  requiredFields = [],
-}: FormProps) => {
-  if (method === 'GET' && encType === 'multipart/form-data') {
-    throw new Error('Unupported: GET method with multipart/form-data encoding')
-  }
-
+export const useForm = ({ requiredFields = [] }: FormProps) => {
   const formData = useRef(new FormData())
   const [status, setStatus] = useState<FormStatus>('initial')
   const [errorMessage, setErrorMessage] = useState<string>()
@@ -99,6 +87,21 @@ export const useForm = ({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
+
+    let { action, method, enctype: encType } = e.currentTarget
+    method = method.toUpperCase()
+
+    if (!isFormMethod(method)) {
+      throw new Error(`Invalid form method: ${method}`)
+    }
+    if (!isFormEncoding(encType)) {
+      throw new Error(`Invalid form encoding: ${encType}`)
+    }
+    if (method === 'GET' && encType === 'multipart/form-data') {
+      throw new Error(
+        'Unupported: GET method with multipart/form-data encoding',
+      )
+    }
 
     const data = new FormData(e.currentTarget)
     if (!isValid(data)) {
