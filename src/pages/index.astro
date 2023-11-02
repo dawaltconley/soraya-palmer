@@ -1,4 +1,5 @@
 ---
+import type { ImageData } from '@build/images'
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import BookSplash from '@components/BookSplash.tsx'
@@ -9,6 +10,7 @@ import EmailSignUp from '@components/EmailSignUp'
 import ContactForm from '@components/ContactForm'
 import Footer from '@components/Footer.astro'
 import { makeResponsive } from '@lib/build/images'
+import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'
 
@@ -16,6 +18,16 @@ const page = await client.queries.home({ relativePath: 'home.yaml' })
 const writingSamples = await client.queries.writingSamples()
 
 const bookCover = '/media/beatrice-porter-cover.jpg'
+
+const writingSampleImages =
+  writingSamples.data.home.writing.selections
+    ?.map((s) => s?.item.image)
+    .filter(isNotEmpty)
+    .map<ImageData>((path) => ({
+      path,
+      sizes:
+        '(min-width: 1536px) 476px, (min-width: 1280px) 396px, (min-width: 1024px) 438px, (min-width: 768px) 320px, (min-width: 640px) 576px, 100vw',
+    })) || []
 
 const images = await makeResponsive([
   {
@@ -29,6 +41,7 @@ const images = await makeResponsive([
       '(min-width: 1536px) 382px, (min-width: 768px) 340px, (min-width: 640px) 576px, 100vw',
     alt: 'Book cover of The Human Origins of Beatrice Porter',
   },
+  ...writingSampleImages,
 ])
 ---
 
@@ -74,7 +87,7 @@ const images = await makeResponsive([
 
     <Bio client:tina data={page} images={images} />
 
-    <WritingSamples client:tina data={writingSamples} />
+    <WritingSamples client:tina data={writingSamples} images={images} />
 
     <div id="contact-group" class="container mx-auto justify-around xl:flex">
       <div
