@@ -27,7 +27,7 @@
 
   input,
   textarea {
-    @apply border border-gray-900 bg-white px-4 py-2 leading-normal;
+    @apply border border-gray-900 bg-white px-4 py-2 leading-normal disabled:bg-gray-50 disabled:text-gray-600;
   }
 
   %relative,
@@ -81,7 +81,7 @@
   }
 
   .form-button {
-    @apply whitespace-nowrap bg-gray-900 px-4 py-2 text-white duration-150 hover:bg-gray-600;
+    @apply whitespace-nowrap bg-gray-900 px-4 py-2 text-center text-white duration-150 hover:bg-gray-600 disabled:bg-gray-600;
   }
 
   .vignette {

@@ -5,6 +5,7 @@ import BookSplash from '@components/BookSplash.tsx'
 import { ReviewQuote } from '@components/Quote.tsx'
 import Bio from '@components/Bio.tsx'
 import WritingSamples from '@components/WritingSamples.tsx'
+import EmailSignUp from '@components/EmailSignUp'
 import ContactForm from '@components/ContactForm'
 import Footer from '@components/Footer.astro'
 import { makeResponsive } from '@lib/build/images'
@@ -80,30 +81,7 @@ const images = await makeResponsive([
         id="mailing-list"
         class="order-last my-16 basis-1/2 border-gray-900 xl:mb-0 xl:ml-8 xl:border-l xl:pb-16 xl:pl-8"
       >
-        <div class="mx-auto w-auto space-y-4 text-center">
-          <h2 class="font-display text-3xl font-bold capitalize">
-            Join my mailing list
-          </h2>
-          <p class="font-serif">
-            Sign up to receive updates when I’m doing an event near you.
-          </p>
-          <form class="mx-auto flex max-w-xl text-lg">
-            <label for="sign-up-email" class="sr-only">Email</label>
-            <input
-              id="sign-up-email"
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              class="form-field w-full border-r-0"
-              autocomplete="email"
-            />
-            <button
-              type="submit"
-              class="whitespace-nowrap bg-gray-900 px-4 py-2 text-white duration-150 hover:bg-gray-600"
-              >Sign up</button
-            >
-          </form>
-        </div>
+        <EmailSignUp client:visible />
       </div>
       <div id="contact" class="my-16 basis-1/2">
         <ContactForm
