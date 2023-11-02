@@ -77,11 +77,11 @@ export default function EmailSignUp() {
             disabled={status === 'submitting'}
             required
           />
-          <label htmlFor="contact-fax" className="form-label special-input">
+          <label htmlFor="sign-up-fax" className="form-label special-input">
             Fax Number
           </label>
           <input
-            id="contact-fax"
+            id="sign-up-fax"
             name="fax_number"
             className="form-field special-input w-full"
             tabIndex={-1}
