@@ -180,6 +180,7 @@ export default function BookSplash({
           imgRef={image}
           imgProps={{
             className: 'h-full w-full object-contain drop-shadow-2xl',
+            loading: 'eager',
           }}
         />
         <div
