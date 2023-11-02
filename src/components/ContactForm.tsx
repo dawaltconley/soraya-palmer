@@ -1,98 +1,32 @@
-import type { FunctionComponent, ReactNode, FormEvent } from 'react'
-import { useState, useEffect, useRef } from 'react'
-import { submitForm } from '@browser/forms'
+import type { FunctionComponent, ReactNode } from 'react'
+import type { FormStatus, FormGetProps, FormPostProps } from '@browser/forms'
+import { useEffect, useRef } from 'react'
+import { useForm, restoreForm } from '@browser/forms'
 import clsx from 'clsx'
 import Spinner from './Spinner'
 
-type ContactFormStatus = 'initial' | 'submitting' | 'error' | 'success'
-
 const requiredFields = ['name', 'email', 'subject', 'message'] as const
-
-const isValid = (data: FormData): boolean =>
-  requiredFields.every((field) => data.get(field))
-
-interface ContactFormProps {
-  action: string | URL
-  method?: 'GET' | 'POST'
-  encType?: 'application/x-www-form-urlencoded' | 'multipart/form-data'
-}
-
-interface ContactFormGetProps extends ContactFormProps {
-  method?: 'GET'
-  encType?: 'application/x-www-form-urlencoded'
-}
-
-interface ContactFormPostProps extends ContactFormProps {
-  method: 'POST'
-}
 
 export default function ContactForm({
   action,
   method = 'GET',
   encType = 'application/x-www-form-urlencoded',
-}: ContactFormGetProps | ContactFormPostProps): ReactNode {
+}: FormGetProps | FormPostProps): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
-  const formData = useRef<FormData>()
 
-  const [status, setStatus] = useState<ContactFormStatus>('initial')
-  const [errorMessage, setErrorMessage] = useState<string>()
-
-  const handleSubmit = async (e: FormEvent): Promise<void> => {
-    e.preventDefault()
-    const container = containerRef.current
-    const form = formRef.current
-    if (!container || !form) return
-
-    container.style.minHeight = `${container.clientHeight.toString()}px`
-
-    const data = new FormData(form)
-    if (!isValid(data)) {
-      return handleError('Missing required fields in contact form')
-    }
-    formData.current = data
-
-    setStatus('submitting')
-    await new Promise((resolve) => window.setTimeout(resolve, 2000))
-
-    try {
-      const response = await submitForm(data, { action, method, encType })
-      if (response.status >= 400) {
-        const body = await response.json()
-        console.error(body)
-        if ('message' in body && typeof body.message === 'string') {
-          return handleError(`${response.status}: ${body.message}`)
-        }
-        return handleError(`Status code ${response.status}`)
-      }
-      return setStatus('success')
-    } catch (e) {
-      // NetworkError when attempting to fetch resource (bad CORS)
-      console.error(e)
-      return e instanceof Error
-        ? handleError(`${e.name}: ${e.message}`)
-        : handleError()
-    }
-  }
-
-  const handleError = (message?: string): void => {
-    setErrorMessage(message)
-    setStatus('error')
-  }
-
-  const restoreForm = (form: HTMLFormElement, data: FormData): void => {
-    for (const [name, value] of data.entries()) {
-      const field = form.querySelector(`[name=${name}]`)
-      if (field && 'value' in field) field.value = value
-    }
-  }
+  const { status, data, errorMessage, handleSubmit } = useForm({
+    action,
+    method,
+    encType,
+    requiredFields,
+  })
 
   const showForm = status !== 'success'
 
   useEffect(() => {
     const form = formRef.current
-    const data = formData.current
-    if (form && data && showForm) restoreForm(form, data)
+    if (form && showForm) restoreForm(form, data)
   }, [showForm])
 
   return (
@@ -105,7 +39,13 @@ export default function ContactForm({
           method={method.toLowerCase()}
           encType={encType}
           action={action.toString()}
-          onSubmit={handleSubmit}
+          onSubmit={(e) => {
+            const container = containerRef.current
+            if (container) {
+              container.style.minHeight = `${container.clientHeight.toString()}px`
+            }
+            handleSubmit(e)
+          }}
         >
           <label htmlFor="contact-name" className="form-label @md:col-span-1">
             <span className="form-label__text">Name</span>
@@ -183,7 +123,7 @@ export default function ContactForm({
 }
 
 interface FormMessageProps {
-  status: ContactFormStatus
+  status: FormStatus
   errorMessage?: string
 }
 
