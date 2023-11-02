@@ -42,6 +42,12 @@ export default function ContactForm({
     if (form && showForm) restoreForm(form, data)
   }, [showForm])
 
+  const lockHeight = () => {
+    const container = containerRef.current
+    if (!container) return
+    container.style.minHeight = `${container.clientHeight.toString()}px`
+  }
+
   return (
     <div ref={containerRef} className="text-center">
       <FormMessage status={status} errorMessage={errorMessage} />
@@ -53,10 +59,7 @@ export default function ContactForm({
           encType={encType}
           action={action.toString()}
           onSubmit={(e) => {
-            const container = containerRef.current
-            if (container) {
-              container.style.minHeight = `${container.clientHeight.toString()}px`
-            }
+            lockHeight()
             handleSubmit(e)
           }}
         >
@@ -123,7 +126,7 @@ export default function ContactForm({
           >
             {status === 'submitting' ? (
               <>
-                <Spinner /> Sending
+                <Spinner className="fa-inline" /> Sending
               </>
             ) : (
               'Send'
