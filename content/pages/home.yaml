@@ -4,12 +4,6 @@ bookstores:
     link: >-
       https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932,
   locations:
-    - name: Trinidad
-      stores:
-        - name: Tales n Treasures
-          link: >-
-            https://talesntreasures.com/products/7e08a296-6062-4454-b596-e2d968acc58f/
-          tag: Black owned
     - name: NYC
       stores:
         - name: Huemanbooks
@@ -77,6 +71,12 @@ bookstores:
         - name: Powell's City of Books
           link: >-
             https://www.powells.com/book/human-origins-of-beatrice-porter-other-essential-ghosts-a-novel-9781646220953
+          tag: Black owned
+    - name: Trinidad
+      stores:
+        - name: Tales n Treasures
+          link: >-
+            https://talesntreasures.com/products/7e08a296-6062-4454-b596-e2d968acc58f/
           tag: Black owned
 about:
   image: /media/headshot.jpeg
