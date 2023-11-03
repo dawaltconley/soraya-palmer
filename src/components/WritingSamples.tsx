@@ -22,9 +22,7 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
         data-tina-field={tinaField(data.home.writing)}
       >
         <div className="container mx-auto">
-          <h2 className="mb-8 text-center font-display text-3xl font-bold">
-            {title}
-          </h2>
+          <h2 className="heading-2 mb-8 text-center">{title}</h2>
           {articles && (
             <div className="grid gap-8 xl:grid-cols-3">
               {articles

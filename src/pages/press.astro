@@ -43,15 +43,13 @@ const cardImages = await makeResponsive(
 <Base title="Press – Soraya Palmer">
   <Header />
   <main class="container mx-auto py-16">
-    <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
+    <h1 class="separator heading-1 mb-8">
       Praise for <span class="italic"
         >The Human Origins of Beatrice Porter and other Essential Ghosts</span
       >
     </h1>
     <PressGrid client:tina query={page} images={gridImages} />
-    <h2 class="separator mb-8 mt-16 font-display text-5xl font-bold capitalize">
-      More Press
-    </h2>
+    <h2 class="separator heading-1 mb-8 mt-16">More Press</h2>
     <PressList
       client:tina
       data={press}

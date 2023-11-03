@@ -47,7 +47,7 @@ export default function EmailSignUp() {
 
   return (
     <div ref={containerRef} className="mx-auto w-auto space-y-4 text-center">
-      <h2 className="font-display text-3xl font-bold capitalize">{title}</h2>
+      <h2 className="heading-2">{title}</h2>
       {status === 'error' && errorMessage && (
         <pre className="my-2 inline-block border border-gray-900 bg-white px-4 py-2 text-sm text-red-900 drop-shadow">
           {errorMessage}

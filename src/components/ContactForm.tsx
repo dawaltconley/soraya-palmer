@@ -164,7 +164,7 @@ const FormMessage: FunctionComponent<FormMessageProps> = ({
   return (
     <>
       <h2
-        className={clsx('mb-4 text-center font-display text-3xl font-bold', {
+        className={clsx('heading-2 mb-4', {
           capitalize: status !== 'error',
         })}
       >
