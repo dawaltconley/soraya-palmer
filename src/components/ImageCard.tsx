@@ -37,6 +37,7 @@ export interface ImageCardProps {
   linkText?: string | null
   linkLocation?: 'description' | 'image'
   aspectRatio?: 'og' | 'square'
+  grow?: 'image' | 'text'
 }
 
 export default function ImageCard({
@@ -51,6 +52,7 @@ export default function ImageCard({
   linkText = 'Read more',
   linkLocation = 'description',
   aspectRatio = 'og',
+  grow = 'image',
   children,
 }: ImageCardProps) {
   const Wrapper = url ? 'a' : 'div'
@@ -66,7 +68,7 @@ export default function ImageCard({
           className={clsx(
             'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2',
             {
-              '@2xl:grow': aspectRatio === 'og',
+              '@2xl:grow': grow === 'image',
               '@2xl:order-1': imageSide === 'right',
               'group-hover:after:bg-gray-800/20 ': url,
               relative: style === 'card',
@@ -101,19 +103,16 @@ export default function ImageCard({
           )}
         </div>
         <div
-          className={clsx(
-            'flex w-full grow @2xl:w-3/5 @2xl:max-w-prose @2xl:p-0',
-            {
-              'h-full p-8': style === 'tile',
-              '@2xl:grow-0': aspectRatio === 'og',
-            },
-          )}
+          className={clsx('flex w-full grow @2xl:p-0', {
+            '@2xl:w-3/5 @2xl:max-w-prose @2xl:grow-0': grow === 'image',
+            'h-full p-8': style === 'tile',
+          })}
         >
           <div
             className={clsx(
               'relative w-full overflow-hidden @2xl:m-0 @2xl:mr-0 @2xl:h-full',
               {
-                '@2xl:max-w-prose': style === 'card', // needed to keep 'Read More' link in corner
+                '@2xl:max-w-prose': style === 'card' && grow === 'image', // needed to keep 'Read More' link in corner
                 'pb-[1em]': style === 'card' && hasDescLink, // add padding for Read More button
                 'border-t-4': style === 'card' && borderColor,
                 'm-auto max-w-prose bg-white drop-shadow-xl @2xl:drop-shadow-none':
