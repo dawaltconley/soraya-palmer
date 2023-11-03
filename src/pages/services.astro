@@ -1,9 +1,7 @@
 ---
-import Base from '@layouts/Base.astro'
-import Header from '@components/Header.astro'
+import Base from '@layouts/Page.astro'
 import TinaContent from '@components/TinaContent'
 import ContactForm from '@components/ContactForm'
-import Footer from '@components/Footer.astro'
 
 import { client } from '@tina/__generated__/client'
 const page = await client.queries.workWithMePage({
@@ -11,17 +9,22 @@ const page = await client.queries.workWithMePage({
 })
 ---
 
-<Base title={`${page.data.workWithMePage.title} – Soraya Palmer`}>
-  <Header />
+<Base
+  title={`${page.data.workWithMePage.title} – Soraya Palmer`}
+  headerClass="header-work-with-me"
+>
+  <TinaContent
+    client:tina
+    slot="header-title"
+    data={page}
+    path="workWithMePage.title"
+  />
   <div
     class="container mx-auto py-16 xl:flex xl:items-start xl:justify-between"
   >
     <main
-      class="prose prose-lg mx-auto font-serif prose-headings:font-display prose-li:marker:text-amber-300 xl:ml-0"
+      class="prose prose-lg mx-auto font-serif prose-headings:font-display prose-headings:first:mt-0 prose-li:marker:text-amber-300 xl:ml-0"
     >
-      <h1 class="separator mb-8 heading-1">
-        <TinaContent client:tina data={page} path="workWithMePage.title" />
-      </h1>
       <TinaContent client:tina data={page} path="workWithMePage.body" />
     </main>
     <div
@@ -33,5 +36,27 @@ const page = await client.queries.workWithMePage({
       />
     </div>
   </div>
-  <Footer />
 </Base>
+
+<style lang="scss" is:global>
+  .header-work-with-me {
+    position: relative;
+    background-color: #{"theme('colors.gray.900 / 30%')"};
+    background-image: none;
+
+    &::before {
+      content: '';
+      display: block;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-position: center 29%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url(/media/headshot.jpeg);
+      filter: contrast(70%);
+      z-index: -1;
+    }
+  }
+</style>

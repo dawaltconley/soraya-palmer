@@ -1,11 +1,13 @@
 @use '@dawaltconley/responsive-images';
 
-.bg-img-leaves {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+@layer components {
+  .bg-img-leaves {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 
-  @include responsive-images.bg(
-    $src: './public/media/backgrounds/shutterstock_2315154005.jpg'
-  );
+    @include responsive-images.bg(
+      $src: './public/media/backgrounds/shutterstock_2315154005.jpg'
+    );
+  }
 }
