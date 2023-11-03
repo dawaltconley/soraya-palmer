@@ -1,0 +1,29 @@
+---
+import Header from '@components/Header.astro'
+
+export interface Props {
+  class?: string // if I had a way to produce CSS for responsive images without sass this could work better
+}
+
+const { class: className } = Astro.props
+---
+
+<div
+  class:list={[
+    className,
+    'vignette overlay-before flex h-[40vh] w-full flex-col bg-cover bg-center bg-no-repeat before:bg-gray-950/80',
+  ]}
+>
+  <div class="relative z-50">
+    <Header textColor="white" class="text-shadow" />
+  </div>
+  {
+    Astro.slots.has('default') && (
+      <div class="container mx-auto mb-8 mt-auto">
+        <h1 class="separator text-shadow heading-1 mb-8 text-white">
+          <slot />
+        </h1>
+      </div>
+    )
+  }
+</div>

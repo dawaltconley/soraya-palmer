@@ -1,0 +1,27 @@
+---
+import type { Props as BaseProps } from '@layouts/Base.astro'
+import Base from '@layouts/Base.astro'
+import Header from '@components/Header.astro'
+import HeaderImage from '@components/HeaderImage.astro'
+import Footer from '@components/Footer.astro'
+
+export interface Props extends BaseProps {
+  headerClass?: string
+}
+
+const { headerClass, ...props } = Astro.props
+---
+
+<Base {...props}>
+  {
+    headerClass && Astro.slots.has('header-title') ? (
+      <HeaderImage class={headerClass}>
+        <slot name="header-title" />
+      </HeaderImage>
+    ) : (
+      <Header />
+    )
+  }
+  <slot />
+  <Footer />
+</Base>
