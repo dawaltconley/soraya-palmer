@@ -46,7 +46,7 @@ Resources:
     Properties:
       TemplateURL: ./node_modules/@dawaltconley/contact-api/dist/build/template.yaml
       Parameters:
-        Email: 'soraya95@gmail.com'
+        Email: 'sorayapalmerwrites@gmail.com'
         Required: 'name,email,subject,message'
         Honeypot: 'fax_number'
         AllowOrigin: 'https://sorayapalmer.com'
