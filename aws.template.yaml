@@ -49,4 +49,7 @@ Resources:
         Email: 'sorayapalmerwrites@gmail.com'
         Required: 'name,email,subject,message'
         Honeypot: 'fax_number'
+        ApiDomain: sorayapalmer.com
+        ApiSubdomain: api
+        CertificateArn: !GetAtt Domain.Outputs.CertificateArn
         AllowOrigin: 'https://sorayapalmer.com'

@@ -7,27 +7,7 @@ import Spinner from './Spinner'
 
 const requiredFields = ['name', 'email', 'subject', 'message'] as const
 
-export interface FormProps {
-  action: string | URL
-  method?: 'GET' | 'POST'
-  encType?: 'application/x-www-form-urlencoded' | 'multipart/form-data'
-  requiredFields?: readonly string[]
-}
-
-export interface FormGetProps extends FormProps {
-  method?: 'GET'
-  encType?: 'application/x-www-form-urlencoded'
-}
-
-export interface FormPostProps extends FormProps {
-  method: 'POST'
-}
-
-export default function ContactForm({
-  action,
-  method = 'GET',
-  encType = 'application/x-www-form-urlencoded',
-}: FormGetProps | FormPostProps): ReactNode {
+export default function ContactForm(): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -55,9 +35,7 @@ export default function ContactForm({
         <form
           ref={formRef}
           className="contact-form mx-auto mt-8 w-full max-w-xl grid-cols-2 text-lg @container/contact-form"
-          method={method.toLowerCase()}
-          encType={encType}
-          action={action.toString()}
+          action="https://api.sorayapalmer.com/contact/"
           onSubmit={(e) => {
             lockHeight()
             handleSubmit(e)
