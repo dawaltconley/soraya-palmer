@@ -5,7 +5,7 @@ import ContactForm from '@components/ContactForm'
 
 import { client } from '@tina/__generated__/client'
 const page = await client.queries.workWithMePage({
-  relativePath: 'services.md',
+  relativePath: 'services.mdx',
 })
 ---
 
@@ -23,11 +23,12 @@ const page = await client.queries.workWithMePage({
     class="container mx-auto py-16 xl:flex xl:items-start xl:justify-between"
   >
     <main
-      class="prose prose-lg mx-auto font-serif prose-headings:font-display prose-headings:first:mt-0 prose-li:marker:text-amber-300 xl:ml-0"
+      class="prose prose-lg mx-auto font-serif prose-headings:font-display first:prose-headings:mt-0 prose-li:marker:text-amber-300 xl:ml-0"
     >
       <TinaContent client:tina data={page} path="workWithMePage.body" />
     </main>
     <div
+      id="contact"
       class="relative mt-16 shrink-[0.5] basis-[36rem] text-lg xl:sticky xl:top-8 xl:ml-8 xl:mt-0 xl:pl-8"
     >
       <ContactForm

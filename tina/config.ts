@@ -531,7 +531,7 @@ const workWithMePage: Collection = {
   match: {
     include: 'services',
   },
-  format: 'md',
+  format: 'mdx',
   ui: {
     allowedActions: {
       create: false,
@@ -557,6 +557,19 @@ const workWithMePage: Collection = {
       label: 'Content',
       required: true,
       isBody: true,
+      templates: [
+        {
+          name: 'ContactButton',
+          label: 'Contact Me Button',
+          fields: [
+            {
+              type: 'string',
+              name: 'text',
+              label: 'Text',
+            },
+          ],
+        },
+      ],
     },
   ],
 }

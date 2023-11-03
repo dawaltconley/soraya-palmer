@@ -1,8 +1,24 @@
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
+import ContactButton from '@components/ContactButton'
 import get from 'lodash/get'
 import toPath from 'lodash/toPath'
+
+type Components = Parameters<typeof TinaMarkdown>[0]['components']
+
+const components: Components = {
+  ContactButton: (props) => (
+    <ContactButton
+      link="#contact"
+      text={
+        'text' in props && typeof props.text === 'string' && props.text
+          ? props.text
+          : undefined
+      }
+    />
+  ),
+}
 
 export interface TinaContentProps {
   path: any
@@ -21,7 +37,11 @@ export default withTinaWrapper<object, TinaContentProps>(({ data, path }) => {
 
   return (
     <Wrapper data-tina-field={tinaField(get(data, formPath), fieldName)}>
-      {isString ? content : <TinaMarkdown content={content} />}
+      {isString ? (
+        content
+      ) : (
+        <TinaMarkdown content={content} components={components} />
+      )}
     </Wrapper>
   )
 })
