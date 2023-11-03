@@ -97,7 +97,7 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
             Past events
           </h2>
           <ul
-            className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2"
+            className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-3"
             data-events="past"
           >
             {past.map((event) => {
