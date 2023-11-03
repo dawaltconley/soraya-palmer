@@ -44,11 +44,10 @@ const toEventProps = (
 interface EventListProps {
   exclude?: string[]
   images?: ResponsiveImageData
-  hLevel?: EventPreviewProps['hLevel']
 }
 
 export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
-  ({ data, exclude = [], images, hLevel }) => {
+  ({ data, exclude = [], images }) => {
     const events =
       data.eventsConnection.edges
         ?.map((e) => e?.node)
@@ -67,56 +66,52 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
     )
 
     return (
-      <div>
-        <div className="flex-grow">
-          <h1 className="separator mb-8 font-display text-5xl font-bold capitalize">
-            Upcoming events
-          </h1>
-          <ul
-            className="grid gap-4 md:grid-cols-2 lg:grid-cols-1"
-            data-events="upcoming"
-          >
-            {upcoming.map((event) => {
-              const props = toEventProps(event, images)
+      <>
+        <h1 className="separator mb-8 font-display text-5xl font-bold capitalize">
+          Upcoming events
+        </h1>
+        <ul
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-1"
+          data-events="upcoming"
+        >
+          {upcoming.map((event) => {
+            const props = toEventProps(event, images)
 
-              return (
-                <li
-                  key={event.id}
-                  className="overflow-hidden rounded-sm bg-white drop-shadow duration-200 odd:last:col-span-full hover:drop-shadow-md"
-                  data-tina-field={tinaField(event, 'title')}
-                  data-event-card={new Date(props.start).toISOString()}
-                >
-                  <EventPreview {...props} />
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-        <div>
-          <h2 className="separator mb-8 mt-16 font-display text-5xl font-bold capitalize">
-            Past events
-          </h2>
-          <ul
-            className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-3"
-            data-events="past"
-          >
-            {past.map((event) => {
-              const props = toEventProps(event, images)
+            return (
+              <li
+                key={event.id}
+                className="overflow-hidden rounded-sm bg-white drop-shadow duration-200 odd:last:col-span-full hover:drop-shadow-md"
+                data-tina-field={tinaField(event, 'title')}
+                data-event-card={new Date(props.start).toISOString()}
+              >
+                <EventPreview {...props} />
+              </li>
+            )
+          })}
+        </ul>
+        <h2 className="separator mb-8 mt-16 font-display text-5xl font-bold capitalize">
+          Past events
+        </h2>
+        <ul
+          className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-3"
+          data-events="past"
+        >
+          {past.map((event) => {
+            const props = toEventProps(event, images)
 
-              return (
-                <li
-                  key={event.id}
-                  className="overflow-hidden rounded-sm bg-white drop-shadow duration-200 hover:drop-shadow-md"
-                  data-tina-field={tinaField(event, 'title')}
-                  data-event-card={new Date(props.start).toISOString()}
-                >
-                  <EventPreview {...props} />
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      </div>
+            return (
+              <li
+                key={event.id}
+                className="overflow-hidden rounded-sm bg-white drop-shadow duration-200 hover:drop-shadow-md"
+                data-tina-field={tinaField(event, 'title')}
+                data-event-card={new Date(props.start).toISOString()}
+              >
+                <EventPreview {...props} />
+              </li>
+            )
+          })}
+        </ul>
+      </>
     )
   },
 )
