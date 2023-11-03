@@ -19,7 +19,7 @@ const page = await client.queries.workWithMePage({
     <main
       class="prose prose-lg mx-auto font-serif prose-headings:font-display prose-li:marker:text-amber-300 xl:ml-0"
     >
-      <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
+      <h1 class="separator mb-8 heading-1">
         <TinaContent client:tina data={page} path="workWithMePage.title" />
       </h1>
       <TinaContent client:tina data={page} path="workWithMePage.body" />
