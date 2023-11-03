@@ -18,14 +18,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        // sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
-        // sans: ['Helvetica Neue', 'serif'],
         sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
-        // sans: ['Lato', 'serif'],
-        // serif: ['Playfair', ...defaultTheme.fontFamily.serif],
-        serif: ['Georgia', ...defaultTheme.fontFamily.serif],
-        // serif: ['Lora', 'Georgia', ...defaultTheme.fontFamily.serif],
-        // serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
+        serif: ['Lora', 'Georgia', ...defaultTheme.fontFamily.serif],
         display: ['Playfair Display', ...defaultTheme.fontFamily.serif],
       },
       fontSize: {
