@@ -55,7 +55,6 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
         getMetadata(url, field.mqlOptions)
           .then((metadata) => {
             setError(null)
-            if (metadata.url) input.onChange(metadata.url)
             const { values } = form.getState()
             form.batch(() => {
               Object.entries(field.metadataFields)
