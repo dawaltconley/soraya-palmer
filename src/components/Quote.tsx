@@ -129,7 +129,7 @@ export const QuoteTile = ({
     <blockquote cite={url?.toString()} className="m-auto text-xl">
       {quote}
     </blockquote>
-    <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">
+    <figcaption className="mt-4 items-center text-right font-serif before:content-['\2014\20']">
       <span className="ml-auto">{citation}</span>
     </figcaption>
   </figure>
