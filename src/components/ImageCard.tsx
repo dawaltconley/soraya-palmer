@@ -36,6 +36,7 @@ export interface ImageCardProps {
   borderColor?: string
   linkText?: string | null
   linkLocation?: 'description' | 'image'
+  aspectRatio?: 'og' | 'square'
 }
 
 export default function ImageCard({
@@ -47,8 +48,9 @@ export default function ImageCard({
   // styleLarge = style,
   imageSide = 'left',
   borderColor,
-  linkText = 'Read More',
+  linkText = 'Read more',
   linkLocation = 'description',
+  aspectRatio = 'og',
   children,
 }: ImageCardProps) {
   const Wrapper = url ? 'a' : 'div'
@@ -62,8 +64,9 @@ export default function ImageCard({
       <div className="flex h-full w-full flex-col items-stretch overflow-hidden @2xl:flex-row">
         <div
           className={clsx(
-            'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2 @2xl:grow',
+            'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2',
             {
+              '@2xl:grow': aspectRatio === 'og',
               '@2xl:order-1': imageSide === 'right',
               'group-hover:after:bg-gray-800/20 ': url,
               relative: style === 'card',
@@ -83,7 +86,8 @@ export default function ImageCard({
             alt={alt}
             imgProps={{
               className: clsx(
-                'aspect-og h-full w-full object-cover duration-[inherit]',
+                'h-full w-full object-cover duration-[inherit]',
+                aspectRatio === 'square' ? 'aspect-square' : 'aspect-og',
                 {
                   'group-hover:scale-105': url,
                 },
@@ -91,15 +95,18 @@ export default function ImageCard({
             }}
           />
           {hasImgLink && (
-            <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-800 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
+            <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-800 py-1 pl-2.5 pr-2 font-sans text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
               {linkText}
             </div>
           )}
         </div>
         <div
           className={clsx(
-            'flex w-full grow @2xl:w-3/5 @2xl:max-w-prose @2xl:grow-0 @2xl:p-0',
-            { 'h-full p-8': style === 'tile' },
+            'flex w-full grow @2xl:w-3/5 @2xl:max-w-prose @2xl:p-0',
+            {
+              'h-full p-8': style === 'tile',
+              '@2xl:grow-0': aspectRatio === 'og',
+            },
           )}
         >
           <div
@@ -123,7 +130,7 @@ export default function ImageCard({
             {children}
           </div>
           {hasDescLink && (
-            <div className="slant-edge-l absolute -right-px bottom-0 z-50 bg-gray-900 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
+            <div className="slant-edge-l absolute -right-px bottom-0 z-50 bg-gray-900 py-1 pl-2.5 pr-2 font-sans text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
               {linkText}
             </div>
           )}

@@ -115,7 +115,7 @@ function ArticleLayoutDate({
     <div className="flex h-full max-w-prose flex-col font-serif">
       <H
         className={clsx(
-          'w-full font-display text-2xl font-bold leading-tight @md:text-3xl',
+          'w-full font-display text-2xl font-semibold leading-tight @md:text-3xl',
           description
             ? '@sm:separator @2xl/image-card:separator @sm:mb-8 @2xl/image-card:mb-8'
             : '@2xl/image-card:separator @2xl/image-card:mb-2',

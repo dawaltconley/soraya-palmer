@@ -303,6 +303,79 @@ const quotes: Collection = {
   ],
 }
 
+const events: Collection = {
+  name: 'events',
+  label: 'Events',
+  path: 'content/events',
+  ui: {
+    router: async () => '/events',
+  },
+  fields: [
+    {
+      type: 'string',
+      name: 'url',
+      label: 'URL',
+      required: true,
+      ui: {
+        // @ts-expect-error
+        component: UrlMetadata,
+        // @ts-expect-error
+        validate: validateUrl,
+        metadataFields: {
+          title: 'title',
+          image: 'image.url',
+          description: (data: any) => toRichText(data.description),
+        },
+      },
+    },
+    {
+      type: 'string',
+      name: 'title',
+      label: 'Title',
+      required: true,
+      isTitle: true,
+    },
+    {
+      type: 'image',
+      name: 'image',
+      label: 'Image',
+      required: true,
+      ui: {
+        description: 'Square images work best.',
+      },
+    },
+    {
+      type: 'datetime',
+      name: 'startTime',
+      label: 'Start time',
+      required: true,
+      ui: {
+        timeFormat: 'hh:mm A ZZ',
+      },
+    },
+    {
+      type: 'datetime',
+      name: 'endTime',
+      label: 'End time',
+      ui: {
+        timeFormat: 'hh:mm A ZZ',
+      },
+    },
+    {
+      type: 'string',
+      name: 'location',
+      label: 'Location',
+      required: true,
+    },
+    {
+      type: 'rich-text',
+      name: 'description',
+      label: 'Excerpt or description',
+      isBody: true,
+    },
+  ],
+}
+
 interface Option {
   value: string
   label: string
@@ -508,6 +581,14 @@ export default defineConfig({
     },
   },
   schema: {
-    collections: [homePage, pressPage, workWithMePage, writing, press, quotes],
+    collections: [
+      homePage,
+      pressPage,
+      workWithMePage,
+      writing,
+      press,
+      quotes,
+      events,
+    ],
   },
 })

@@ -11,7 +11,7 @@ export interface CardBasicProps {
 export default function CardBasic({
   url,
   borderColor,
-  linkText = 'Read More',
+  linkText = 'Read more',
   children,
 }: CardBasicProps) {
   const Wrapper = url ? 'a' : 'div'
@@ -30,7 +30,7 @@ export default function CardBasic({
         {children}
       </div>
       {hasLink && (
-        <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-900 py-1 pl-2.5 pr-2 text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
+        <div className="slant-edge-l absolute bottom-0 right-0 z-50 bg-gray-900 py-1 pl-2.5 pr-2 font-sans text-sm text-white duration-150 group-hover:bg-gray-900 group-hover:text-amber-300">
           {linkText}
         </div>
       )}

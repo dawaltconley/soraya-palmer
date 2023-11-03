@@ -1,0 +1,34 @@
+---
+import type { ImageData } from '@build/images'
+import Base from '@layouts/Base.astro'
+import Header from '@components/Header.astro'
+import EventList from '@components/EventList'
+import Footer from '@components/Footer.astro'
+import { makeResponsive } from '@build/images'
+import { isNotEmpty } from '@lib/utils'
+
+import { client } from '@tina/__generated__/client'
+
+const events = await client.queries.eventsConnection()
+const images = await makeResponsive(
+  events.data.eventsConnection.edges
+    ?.map((e) => e?.node?.image)
+    .filter(isNotEmpty)
+    .map<ImageData>((path) => ({
+      path,
+      sizes:
+        '(min-width: 1536px) 476px, (min-width: 1280px) 396px, (min-width: 1024px) 438px, (min-width: 768px) 320px, (min-width: 640px) 576px, 100vw',
+    })) || [],
+)
+---
+
+<Base title="Events – Soraya Palmer">
+  <Header />
+  <main class="container mx-auto py-16 text-lg">
+    <h1 class="separator mb-8 font-display text-5xl font-bold capitalize">
+      Events
+    </h1>
+    <EventList client:tina data={events} images={images} hLevel="h2" />
+  </main>
+  <Footer />
+</Base>
