@@ -1,7 +1,79 @@
+bookstores:
+  default:
+    name: Bookshop.org
+    link: >-
+      https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932,
+  locations:
+    - name: NYC
+      stores:
+        - name: Huemanbooks
+          link: https://bookshop.org/shop/Huemanbooks
+          tag: Black owned
+        - name: The Lit. Bar
+          link: https://www.thelitbar.com/
+          tag: Black women owned
+        - name: Cafe con Libros
+          link: https://www.cafeconlibrosbk.com/
+          tag: Black women owned
+        - name: Greenlight
+          link: https://www.greenlightbookstore.com/book/9781646220953
+        - name: Bluestockings
+          link: https://bluestockings.com/about-us/about-us
+          tag: worker/customer owned
+        - name: Taylor & CO
+          link: https://www.taylorcobooks.com/
+          tag: Black owned
+        - name: Cups and Books
+          link: https://bookshop.org/shop/cupsandbooks
+    - name: NJ
+      stores:
+        - name: Source of Knowledge
+          link: https://sourceofknowledgebookstore.com/store
+          tag: Black owned
+    - name: Chicago
+      stores:
+        - name: Seminary Co-op / 57th St Books
+          link: http://www.semcoop.com/
+          tag: worker/customer owned
+    - name: DC
+      stores:
+        - name: Sankofa
+          link: https://www.sankofa.com/blank-2/the-human-origins-of-beatrice-porter-other-essential-ghosts
+          tag: Black owned
+        - name: Loyalty
+          link: https://www.loyaltybookstores.com/book/9781646220953
+          tag: Black owned
+        - name: Mahogany Books
+          link: https://www.mahoganybooks.com/9781646220953
+          tag: Black owned
+        - name: Lost City Books
+          link: https://shop.lostcitybookstore.com/book/9781646220953
+          tag: Black owned
+        - name: Bus Boys and Poets
+          link: https://bookshop.org/shop/busboysbooks
+    - name: Baltimore
+      stores: []
+    - name: Boston
+      stores:
+        - name: Rozzie Bound
+          link: https://rozziebound.com/book/9781646220953
+          tag: worker/customer owned
+    - name: Seattle
+      stores:
+        - name: Third Place Books
+          link: https://www.thirdplacebooks.com/book/9781646220953
+        - name: Estelita's Library
+          link: https://bookshop.org/shop/estelitaslibrary
+          tag: Black owned
+    - name: Portland, OR
+      stores:
+        - name: Powell's City of Books
+          link: https://www.powells.com/book/human-origins-of-beatrice-porter-other-essential-ghosts-a-novel-9781646220953
+          tag: Black owned
 about:
   image: /media/headshot.jpeg
   title: Soraya Palmer
-  bio: |-
+  bio: |
     is a Flatbush-born-and-raised writer and licensed social worker
     who advocates for survivors of gender-based violence who are
     facing criminal charges related to their abuse. She has been

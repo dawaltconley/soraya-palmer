@@ -21,6 +21,87 @@ const slugify = (str: string): string =>
     .trim()
     .replaceAll(' ', '-')
 
+const bookstore = [
+  {
+    type: 'string',
+    name: 'name',
+    label: 'Store name',
+    required: true,
+    isTitle: true,
+  },
+  {
+    type: 'string',
+    name: 'link',
+    label: 'Link',
+    required: true,
+  },
+  {
+    type: 'string',
+    name: 'tag',
+    label: 'Tag',
+    options: [
+      {
+        value: 'Black owned',
+        label: 'Black owned',
+      },
+      {
+        value: 'worker/customer owned',
+        label: 'worker/customer owned',
+      },
+      {
+        value: 'Black women owned',
+        label: 'Black women owned',
+      },
+    ] as Option[],
+  },
+] as const
+
+const bookstores = {
+  type: 'object',
+  name: 'bookstores',
+  label: "'Buy the book' options",
+  required: true,
+  fields: [
+    {
+      type: 'object',
+      name: 'default',
+      label: 'Primary store',
+      required: true,
+      fields: bookstore,
+    },
+    {
+      type: 'object',
+      name: 'locations',
+      label: 'Local stores',
+      list: true,
+      ui: {
+        itemProps: (item: any) => ({
+          label: item.name,
+        }),
+      },
+      fields: [
+        {
+          type: 'string',
+          name: 'name',
+          label: 'Location',
+        },
+        {
+          type: 'object',
+          name: 'stores',
+          label: 'Stores',
+          list: true,
+          ui: {
+            itemProps: (item: any) => ({
+              label: item.name,
+            }),
+          },
+          fields: bookstore,
+        },
+      ],
+    },
+  ],
+}
+
 const homePage: Collection = {
   name: 'home',
   label: 'Home Page',
@@ -40,6 +121,7 @@ const homePage: Collection = {
     },
   },
   fields: [
+    bookstores,
     {
       type: 'object',
       name: 'about',
