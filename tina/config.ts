@@ -220,7 +220,7 @@ const press: Collection = {
           title: 'title',
           image: 'image.url',
           date: (data: any) => data.publishedDate || data.date,
-          quote: (data: any) => toRichText(data.description), // TODO this isn't working
+          description: (data: any) => toRichText(data.description),
           source: 'publisher',
           author: 'author',
         },
