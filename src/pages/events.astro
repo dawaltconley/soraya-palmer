@@ -25,24 +25,7 @@ const images = await makeResponsive(
 <Base title="Events – Soraya Palmer">
   <Header />
   <main class="container mx-auto py-16 text-lg">
-    <EventList client:tina data={events} images={images} />
+    <EventList client:load data={events} images={images} />
   </main>
   <Footer />
 </Base>
-
-<script>
-  const oldContainer = document.querySelector('[data-events="past"]')
-  const oldEvents = Array.from(
-    document
-      .querySelector('[data-events="upcoming"]')
-      ?.querySelectorAll<HTMLElement>('[data-event-card]') || [],
-  ).filter((e) => {
-    const date = e.dataset.eventCard
-    return !date || new Date(date).getTime() < Date.now()
-  })
-
-  oldEvents.forEach((e) => {
-    e.remove()
-  })
-  oldContainer?.prepend(...oldEvents)
-</script>
