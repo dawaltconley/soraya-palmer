@@ -49,15 +49,12 @@ export default function Quote({ style = 'basic', ...props }: QuoteProps) {
 }
 
 export const QuoteBasic = ({ children: quote, citation, url }: QuoteProps) => (
-  <figure className="relative h-full font-display">
-    <blockquote
-      cite={url?.toString()}
-      className="text-xl leading-snug text-gray-900"
-    >
+  <figure className="relative h-full font-serif">
+    <blockquote cite={url?.toString()} className="text-xl text-gray-900">
       {quote}
     </blockquote>
     {citation && (
-      <figcaption className="mt-2 block text-right font-serif text-base leading-snug text-gray-500 before:content-['\2014\20']">
+      <figcaption className="mt-2 block text-right text-base text-gray-500 before:content-['\2014\20']">
         {citation}
       </figcaption>
     )}
@@ -71,13 +68,10 @@ export const QuoteHeadshot = ({
   url,
 }: WithRequired<QuoteProps, 'image' | 'citation'>) => (
   <figure className="relative flex h-full flex-col font-display">
-    <blockquote
-      cite={url?.toString()}
-      className="m-auto text-xl leading-snug text-gray-900"
-    >
+    <blockquote cite={url?.toString()} className="m-auto text-xl text-gray-900">
       {quote}
     </blockquote>
-    <figcaption className="mt-4 flex flex-row items-center text-right font-serif text-lg leading-snug text-gray-500">
+    <figcaption className="mt-4 flex flex-row items-center text-right font-serif text-lg text-gray-500">
       <div className="ml-auto">{citation}</div>
       <img
         className="ml-4 aspect-square h-28 w-28 rounded-full object-cover"
@@ -113,7 +107,7 @@ export const QuoteBackground = ({
       >
         {quote}
       </blockquote>
-      <figcaption className="mt-4 items-center text-right font-serif leading-snug before:content-['\2014\20']">
+      <figcaption className="mt-4 items-center text-right font-serif before:content-['\2014\20']">
         <span className="ml-auto">{citation}</span>
       </figcaption>
     </figure>
