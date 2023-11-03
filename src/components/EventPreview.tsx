@@ -55,18 +55,12 @@ export default function ArticlePreview({
       alt={alt}
       linkText="View event"
       aspectRatio="square"
+      grow="text"
       {...imageCardProps}
     >
-      <div className="flex h-full px-8 py-4 font-serif text-base @container/article-preview @md:text-lg">
-        <div className="h-full max-w-prose flex-col">
-          <H
-            className={clsx(
-              'w-full font-display text-2xl font-semibold leading-tight @md:text-3xl',
-              description
-                ? ''
-                : '@2xl/image-card:separator @2xl/image-card:mb-2',
-            )}
-          >
+      <div className="flex h-full px-8 py-4 font-serif text-base @container/event-preview">
+        <div className="h-full max-w-prose flex-col @sm:text-lg @2xl:text-xl">
+          <H className="w-full font-display text-2xl font-semibold leading-tight @sm:text-3xl @2xl:text-4xl">
             {title}
           </H>
           <div
