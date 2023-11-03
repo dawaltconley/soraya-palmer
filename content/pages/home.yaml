@@ -7,79 +7,84 @@ bookstores:
     - name: NYC
       stores:
         - name: Huemanbooks
-          link: https://bookshop.org/shop/Huemanbooks
+          link: 'https://bookshop.org/shop/Huemanbooks'
           tag: Black owned
         - name: The Lit. Bar
-          link: https://www.thelitbar.com/
+          link: 'https://www.thelitbar.com/'
           tag: Black women owned
         - name: Cafe con Libros
-          link: https://www.cafeconlibrosbk.com/
+          link: 'https://www.cafeconlibrosbk.com/'
           tag: Black women owned
         - name: Greenlight
-          link: https://www.greenlightbookstore.com/book/9781646220953
+          link: 'https://www.greenlightbookstore.com/book/9781646220953'
         - name: Bluestockings
-          link: https://bluestockings.com/about-us/about-us
+          link: 'https://bluestockings.com/about-us/about-us'
           tag: worker/customer owned
         - name: Taylor & CO
-          link: https://www.taylorcobooks.com/
+          link: 'https://www.taylorcobooks.com/'
           tag: Black owned
         - name: Cups and Books
-          link: https://bookshop.org/shop/cupsandbooks
+          link: 'https://bookshop.org/shop/cupsandbooks'
     - name: NJ
       stores:
         - name: Source of Knowledge
-          link: https://sourceofknowledgebookstore.com/store
+          link: 'https://sourceofknowledgebookstore.com/store'
           tag: Black owned
     - name: Chicago
       stores:
         - name: Seminary Co-op / 57th St Books
-          link: http://www.semcoop.com/
+          link: 'http://www.semcoop.com/'
           tag: worker/customer owned
     - name: DC
       stores:
         - name: Sankofa
-          link: https://www.sankofa.com/blank-2/the-human-origins-of-beatrice-porter-other-essential-ghosts
+          link: >-
+            https://www.sankofa.com/blank-2/the-human-origins-of-beatrice-porter-other-essential-ghosts
           tag: Black owned
         - name: Loyalty
-          link: https://www.loyaltybookstores.com/book/9781646220953
+          link: 'https://www.loyaltybookstores.com/book/9781646220953'
           tag: Black owned
         - name: Mahogany Books
-          link: https://www.mahoganybooks.com/9781646220953
+          link: 'https://www.mahoganybooks.com/9781646220953'
           tag: Black owned
         - name: Lost City Books
-          link: https://shop.lostcitybookstore.com/book/9781646220953
+          link: 'https://shop.lostcitybookstore.com/book/9781646220953'
           tag: Black owned
         - name: Bus Boys and Poets
-          link: https://bookshop.org/shop/busboysbooks
+          link: 'https://bookshop.org/shop/busboysbooks'
     - name: Baltimore
       stores: []
     - name: Boston
       stores:
         - name: Rozzie Bound
-          link: https://rozziebound.com/book/9781646220953
+          link: 'https://rozziebound.com/book/9781646220953'
           tag: worker/customer owned
     - name: Seattle
       stores:
         - name: Third Place Books
-          link: https://www.thirdplacebooks.com/book/9781646220953
+          link: 'https://www.thirdplacebooks.com/book/9781646220953'
         - name: Estelita's Library
-          link: https://bookshop.org/shop/estelitaslibrary
+          link: 'https://bookshop.org/shop/estelitaslibrary'
           tag: Black owned
-    - name: Portland, OR
+    - name: 'Portland, OR'
       stores:
         - name: Powell's City of Books
-          link: https://www.powells.com/book/human-origins-of-beatrice-porter-other-essential-ghosts-a-novel-9781646220953
+          link: >-
+            https://www.powells.com/book/human-origins-of-beatrice-porter-other-essential-ghosts-a-novel-9781646220953
           tag: Black owned
 about:
   image: /media/headshot.jpeg
   title: Soraya Palmer
-  bio: |
-    is a Flatbush-born-and-raised writer and licensed social worker
-    who advocates for survivors of gender-based violence who are
-    facing criminal charges related to their abuse. She has been
-    awarded a residency at Blue Mountain Center and interviewed for
-    her work against police brutality, gentrification, and violence
-    in The New York Times and BuzzFeed News. She lives in Brooklyn.
+  bio: >
+    is the author of The Human Origins of Beatrice Porter and Other Essential
+    Ghosts. She is a Flatbush-born-and-raised writer and licensed social worker.
+    Her novel was named one of Today's "38 Best New Books to Read in 2023," one
+    of the "Buzziest Debut Novels of the New Year" by Goodreads, one of the
+    "Best and Most Anticipated Books of 2023" by Elle magazine, and one of “The
+    Most Anticipated Feminist Books of 2023” by Ms. Magazine. Her writing has
+    appeared in Electric Literature, Hazlitt, Ploughshares, and elsewhere. She
+    has been awarded a residency at Blue Mountain Center and graduated from the
+    Virginia Tech MFA program. She lives in Brooklyn with her cat, Nicholas.
 writing:
   title: More Writing
   selections:
