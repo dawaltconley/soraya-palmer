@@ -1,9 +1,7 @@
 ---
 import type { ImageData } from '@build/images'
-import Base from '@layouts/Base.astro'
-import Header from '@components/Header.astro'
+import Page from '@layouts/Page.astro'
 import CardList from '@components/CardList'
-import Footer from '@components/Footer.astro'
 import { makeResponsive } from '@build/images'
 import { isNotEmpty } from '@lib/utils'
 
@@ -23,11 +21,9 @@ const images = await makeResponsive(
 )
 ---
 
-<Base title="Writing – Soraya Palmer">
-  <Header />
+<Page title="Writing – Soraya Palmer">
   <main class="container mx-auto py-16 text-lg">
     <h1 class="separator heading-1 mb-8">Writing</h1>
     <CardList client:tina data={writing} images={images} hLevel="h2" />
   </main>
-  <Footer />
-</Base>
+</Page>

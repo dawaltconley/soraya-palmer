@@ -1,5 +1,5 @@
 ---
-import Base from '@layouts/Page.astro'
+import Page from '@layouts/Page.astro'
 import TinaContent from '@components/TinaContent'
 import ContactForm from '@components/ContactForm'
 
@@ -9,7 +9,7 @@ const page = await client.queries.workWithMePage({
 })
 ---
 
-<Base
+<Page
   title={`${page.data.workWithMePage.title} – Soraya Palmer`}
   headerClass="header-work-with-me"
 >
@@ -34,7 +34,7 @@ const page = await client.queries.workWithMePage({
       <ContactForm client:visible />
     </div>
   </div>
-</Base>
+</Page>
 
 <style lang="scss" is:global>
   .header-work-with-me {

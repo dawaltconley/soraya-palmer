@@ -1,9 +1,7 @@
 ---
 import type { ImageData } from '@build/images'
-import Base from '@layouts/Base.astro'
-import Header from '@components/Header.astro'
+import Page from '@layouts/Page.astro'
 import EventList from '@components/EventList'
-import Footer from '@components/Footer.astro'
 import { makeResponsive } from '@build/images'
 import { isNotEmpty } from '@lib/utils'
 
@@ -22,10 +20,8 @@ const images = await makeResponsive(
 )
 ---
 
-<Base title="Events – Soraya Palmer">
-  <Header />
+<Page title="Events – Soraya Palmer">
   <main class="container mx-auto py-16 text-lg">
     <EventList client:load data={events} images={images} />
   </main>
-  <Footer />
-</Base>
+</Page>

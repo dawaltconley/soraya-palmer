@@ -1,10 +1,8 @@
 ---
 import type { ImageData } from '@build/images'
-import Base from '@layouts/Base.astro'
-import Header from '@components/Header.astro'
+import Page from '@layouts/Page.astro'
 import PressGrid from '@components/PressGrid.tsx'
 import PressList from '@components/PressList.tsx'
-import Footer from '@components/Footer.astro'
 import { makeResponsive } from '@build/images'
 import { isNotEmpty } from '@lib/utils'
 
@@ -40,8 +38,7 @@ const cardImages = await makeResponsive(
 )
 ---
 
-<Base title="Press – Soraya Palmer">
-  <Header />
+<Page title="Press – Soraya Palmer">
   <main class="container mx-auto py-16">
     <h1 class="separator heading-1 mb-8">
       Praise for <span class="italic"
@@ -58,5 +55,4 @@ const cardImages = await makeResponsive(
       hLevel="h3"
     />
   </main>
-  <Footer />
-</Base>
+</Page>
