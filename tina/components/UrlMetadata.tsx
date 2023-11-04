@@ -40,15 +40,12 @@ export interface UrlMetadataProps {
 
 export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
   ({ field, input, form }) => {
-    ;(window as any).form = form
+    // ;(window as any).form = form
     const [error, setError] = useState<Error | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
-    ;(window as any).form = form
-
     const debounce = useRef<number>()
     const onUrlChange = (url: string): void => {
-      console.log('url change')
       setIsLoading(true)
       window.clearTimeout(debounce.current)
       debounce.current = window.setTimeout(() => {
@@ -56,21 +53,22 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
           .then((metadata) => {
             setError(null)
             const { values } = form.getState()
+            const updateFields = Object.entries(field.metadataFields).filter(
+              ([f]) =>
+                field.overwriteFields || // if has overwrite flag
+                !values[f] || // if field is empty
+                values[f].children?.length === 0 || // if empty AST
+                (values[f].children?.length === 1 &&
+                  !values[f].children?.[0]?.children?.[0].text),
+            )
             form.batch(() => {
-              Object.entries(field.metadataFields)
-                .filter(
-                  ([f]) =>
-                    field.overwriteFields ||
-                    !values[f] ||
-                    values[f].children.length === 0,
-                )
-                .forEach(([field, property]) => {
-                  const value: string =
-                    typeof property === 'function'
-                      ? property(metadata)
-                      : get(metadata, property, '')
-                  form.change(field, value)
-                })
+              updateFields.forEach(([field, property]) => {
+                const value: string =
+                  typeof property === 'function'
+                    ? property(metadata)
+                    : get(metadata, property, '')
+                form.change(field, value)
+              })
             })
           })
           .catch(setError)
@@ -96,7 +94,6 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
         <div className="relative">
           <Input
             {...input}
-            error={error}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               input.onChange(e.target.value)
               onUrlChange(e.target.value)
@@ -108,6 +105,11 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
             </div>
           )}
         </div>
+        {error && (
+          <span className="animate-slide-in undefined m-0 block whitespace-normal pt-3 font-sans text-xs font-normal text-red-500">
+            {error.name}: {error.message}
+          </span>
+        )}
       </>
     )
   },
