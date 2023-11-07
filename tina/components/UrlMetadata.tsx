@@ -48,6 +48,7 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
     const onUrlChange = (url: string): void => {
       setIsLoading(true)
       window.clearTimeout(debounce.current)
+      if (!url) return setIsLoading(false)
       debounce.current = window.setTimeout(() => {
         getMetadata(url, field.mqlOptions)
           .then((metadata) => {
@@ -78,15 +79,16 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
 
     useEffect(() => {
       const { values } = form.getState()
-
-      for (let [field, value] of Object.entries(values)) {
-        if (typeof value === 'string') {
-          const fixed = fixTinaMalformedPath(value)
-          if (fixed !== value) {
-            form.change(field, fixed)
+      form.batch(() => {
+        for (let [field, value] of Object.entries(values)) {
+          if (typeof value === 'string') {
+            const fixed = fixTinaMalformedPath(value)
+            if (fixed !== value) {
+              form.change(field, fixed)
+            }
           }
         }
-      }
+      })
     }, [])
 
     return (

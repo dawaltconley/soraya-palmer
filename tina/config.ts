@@ -15,6 +15,9 @@ const validateUrl = (url: string): string | void => {
   }
 }
 
+const requiredUrl = (url: string | null | undefined): string | void =>
+  url ? validateUrl(url) : 'Required'
+
 const slugify = (str: string): string =>
   str
     .replace(/[^A-z0-9_]+/g, ' ')
@@ -283,7 +286,7 @@ const writing: Collection = {
         // @ts-expect-error
         component: UrlMetadata,
         // @ts-expect-error
-        validate: validateUrl,
+        validate: requiredUrl,
         metadataFields: {
           title: 'title',
           image: 'image.url',
@@ -373,7 +376,7 @@ const press: Collection = {
         // @ts-expect-error
         component: UrlMetadata,
         // @ts-expect-error
-        validate: validateUrl,
+        validate: requiredUrl,
         metadataFields: {
           title: 'title',
           image: 'image.url',
@@ -480,7 +483,7 @@ const events: Collection = {
         // @ts-expect-error
         component: UrlMetadata,
         // @ts-expect-error
-        validate: validateUrl,
+        validate: requiredUrl,
         metadataFields: {
           title: 'title',
           image: 'image.url',
