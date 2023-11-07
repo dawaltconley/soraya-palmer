@@ -615,7 +615,6 @@ const pressPage: Collection = {
       delete: false,
     },
     router: async ({ document }) => {
-      console.log('router', document)
       if (document._sys.filename === 'press') return '/press'
       return undefined
     },
@@ -714,7 +713,6 @@ const workWithMePage: Collection = {
       delete: false,
     },
     router: async ({ document }) => {
-      console.log('router', document)
       if (document._sys.filename === 'services') return '/services'
       return undefined
     },
