@@ -95,14 +95,14 @@ const bookstore: TinaField[] = [
     type: 'string',
     name: 'name',
     label: 'Store name',
-    required: true,
-    isTitle: true,
   },
   {
     type: 'string',
     name: 'link',
     label: 'Link',
-    required: true,
+    ui: {
+      validate: validateUrl,
+    },
   },
   {
     type: 'string',
@@ -145,7 +145,7 @@ const bookstores: TinaField = {
       list: true,
       ui: {
         itemProps: (item: any) => ({
-          label: item.name,
+          label: item.name || 'Unnamed location',
         }),
       },
       fields: [

@@ -53,7 +53,6 @@ bookstores:
         - name: Bus Boys and Poets
           link: 'https://bookshop.org/shop/busboysbooks'
     - name: Baltimore
-      stores: []
     - name: Boston
       stores:
         - name: Rozzie Bound

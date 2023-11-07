@@ -1,7 +1,12 @@
+import type { StoreSelectProps } from './BookStoreSelect'
 import { useState, useRef } from 'react'
 import BookStoreSelect from './BookStoreSelect'
 
-export default function BookBuyButton() {
+export interface BookBuyButtonProps {
+  stores: StoreSelectProps['stores']
+}
+
+export default function BookBuyButton({ stores }: BookBuyButtonProps) {
   const button = useRef<HTMLAnchorElement>(null)
   const [link, setLink] = useState(
     'https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932',
@@ -21,6 +26,7 @@ export default function BookBuyButton() {
       <div className="flex h-full w-full items-baseline border-transparent @md:ml-4">
         <span>from</span>
         <BookStoreSelect
+          stores={stores}
           onSelect={(store) => {
             if (store) {
               setLink(store.link.href)

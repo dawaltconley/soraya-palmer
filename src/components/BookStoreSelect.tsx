@@ -1,5 +1,3 @@
-import type { Bookstore } from '@data/bookstores'
-import bookstores from '@data/bookstores'
 import { useState } from 'react'
 import * as Dropdown from '@radix-ui/react-dropdown-menu'
 import Icon from './Icon'
@@ -10,26 +8,36 @@ import { faCaretDown } from '@fortawesome/pro-solid-svg-icons'
 const truncate = (text: string, maxLen: number, append = '…') =>
   text.length > maxLen ? text.slice(0, maxLen - append.length) + append : text
 
-const bookstoreMap = new Map<string, Bookstore>(
-  bookstores
-    .map<[string, Bookstore][]>((l, i) =>
-      l.stores.map((b, j) => [`${i},${j}`, b]),
-    )
-    .flat(),
-)
+export interface Store {
+  name: string
+  link: URL
+  tag?: string
+}
 
-interface StoreSelectProps {
-  onSelect: (store?: Bookstore) => void
+export interface Location {
+  name: string | null
+  stores: Store[]
+}
+
+export interface StoreOptions {
+  default: Store
+  locations: Location[]
+}
+
+export interface StoreSelectProps {
+  stores: Location[]
+  onSelect: (store?: Store) => void
   focusElement?: HTMLElement | null
   isDark?: boolean
 }
 
 export default function BookStoreSelect({
+  stores: locations,
   onSelect,
   focusElement,
   isDark,
 }: StoreSelectProps) {
-  const [selected, setSelected] = useState(Array.from(bookstoreMap.keys())[0])
+  const [selected, setSelected] = useState(locations[0].stores[0])
   const [isOpen, setIsOpen] = useState(false)
   return (
     <Dropdown.Root onOpenChange={setIsOpen}>
@@ -40,7 +48,7 @@ export default function BookStoreSelect({
             'rotate-180': isOpen,
           })}
         />
-        {truncate(bookstoreMap.get(selected)?.name || 'Select', 30)}
+        {truncate(selected?.name || 'Select', 30)}
       </Dropdown.Trigger>
       <Dropdown.Portal>
         <Dropdown.Content
@@ -59,7 +67,7 @@ export default function BookStoreSelect({
           collisionPadding={16}
           loop
         >
-          {bookstores.map(
+          {locations.map(
             (loc, i) =>
               loc.stores.length > 0 && (
                 <Dropdown.Group
@@ -71,22 +79,22 @@ export default function BookStoreSelect({
                       {loc.name}
                     </Dropdown.Label>
                   )}
-                  {loc.stores.map(({ name, tag }, j) => {
+                  {loc.stores.map((store, j) => {
                     const id = `${i},${j}`
                     return (
                       <Dropdown.Item
                         key={id}
                         className="cursor-pointer px-4 py-2 outline-none hover:bg-amber-50 focus:bg-amber-50 dark:hover:bg-gray-800 dark:focus:bg-gray-800 dark:active:bg-orange-900"
-                        textValue={name}
+                        textValue={store.name}
                         onSelect={() => {
-                          setSelected(id)
-                          onSelect(bookstoreMap.get(id))
+                          setSelected(store)
+                          onSelect(store)
                         }}
                       >
-                        <div>{name}</div>
-                        {tag && (
+                        <div>{store.name}</div>
+                        {store.tag && (
                           <div className="ml-2 text-xs italic text-gray-400 dark:text-amber-200">
-                            {tag}
+                            {store.tag}
                           </div>
                         )}
                       </Dropdown.Item>

@@ -1,10 +1,14 @@
+import type { HomeQuery } from '@tina/__generated__/types'
 import type { ComponentPropsWithoutRef, SyntheticEvent } from 'react'
 import type { ResponsiveImageData } from '@lib/build/images'
-import { useState, useEffect, useRef } from 'react'
+import type { Store, Location as StoreLocation } from './BookStoreSelect'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import Icon from './Icon'
 import Spinner from './Spinner'
 import Image from './Image'
 import { getMetadata } from '@lib/images'
+import { toUrl, isNotEmpty } from '@lib/utils'
 import clsx from 'clsx'
 import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
 import { faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons/faArrowUpRightFromSquare'
@@ -77,13 +81,15 @@ declare global {
   }
 }
 
-export default function BookSplash({
+export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
+  data,
+  isClient,
   init = 'initial',
   cover,
   images = {},
   className,
   ...divProps
-}: BookSplashProps) {
+}) {
   const splash = useRef<HTMLDivElement>(null)
   const image = useRef<HTMLImageElement>(null)
 
@@ -92,6 +98,32 @@ export default function BookSplash({
   const isPlaying = isVideoLoaded && state === 'video'
 
   const showVideo = state === 'video' && isVideoLoaded
+
+  const stores: StoreLocation[] = useMemo(
+    () =>
+      [
+        { name: null, stores: [data.home.bookstores.default] },
+        ...(data.home.bookstores.locations || []),
+      ]
+        .filter(isNotEmpty)
+        .map<StoreLocation | null>((l) => {
+          if (!l.stores) return null
+          return {
+            name: l.name || null,
+            stores:
+              l.stores
+                ?.map<Store | null>((s) => {
+                  if (!s?.name || !s?.link) return null
+                  const link = toUrl(s.link)
+                  if (!link) return null
+                  return { name: s.name, link, tag: s.tag || undefined }
+                })
+                .filter(isNotEmpty) || [],
+          }
+        })
+        .filter(isNotEmpty),
+    [data.home.bookstores],
+  )
 
   const [imageAspect, setImageAspect] = useState<{ x: number; y: number }>()
   const metadata = getMetadata(cover, images)
@@ -211,7 +243,7 @@ export default function BookSplash({
           </div>
           <div className="mt-4 text-center md:text-left">
             <div className="inline-block">
-              <BuyTheBookLink />
+              <BuyTheBookLink stores={stores} />
             </div>
           </div>
           <div className="mt-6 w-full text-center text-base md:text-left">
@@ -246,4 +278,4 @@ export default function BookSplash({
       </div>
     </div>
   )
-}
+})
