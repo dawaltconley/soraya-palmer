@@ -18,8 +18,9 @@ export const getMetadata = (
 
 export interface TinaImageControls {
   alt?: string | null
-  imageSize?: string | null
-  imagePosition?: { x?: number | null; y?: number | null } | null
+  size?: string | null
+  posX?: number | null
+  posY?: number | null
 }
 
 const isImageSize = (str: string): str is 'cover' | 'contain' =>
@@ -31,19 +32,18 @@ export const getTinaImage = (
   responsive: ResponsiveImageData = {},
 ): Pick<ImageCardProps, 'image' | 'alt' | 'imageSize' | 'imagePosition'> => {
   const image = getMetadata(imagePath, responsive)
-  const { x, y } = imageControls?.imagePosition || {}
+  const hasPosition =
+    typeof imageControls?.posX === 'number' ||
+    typeof imageControls?.posY === 'number'
+  const x = imageControls?.posX || 50
+  const y = imageControls?.posY || 50
   return {
     image,
     alt: imageControls?.alt || undefined,
     imageSize:
-      imageControls?.imageSize && isImageSize(imageControls.imageSize)
-        ? imageControls.imageSize
+      imageControls?.size && isImageSize(imageControls.size)
+        ? imageControls.size
         : undefined,
-    imagePosition:
-      ((typeof x === 'number' || typeof y === 'number') && [
-        x || 50,
-        y || 50,
-      ]) ||
-      undefined,
+    imagePosition: hasPosition ? [x, y] : undefined,
   }
 }

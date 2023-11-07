@@ -28,11 +28,6 @@ const imageControls: TinaField = {
   type: 'object',
   name: 'imageControls',
   label: 'Image Controls',
-  ui: {
-    defaultItem: {
-      imageSize: 'cover',
-    },
-  },
   fields: [
     {
       type: 'string',
@@ -41,11 +36,11 @@ const imageControls: TinaField = {
     },
     {
       type: 'string',
-      name: 'imageSize',
+      name: 'size',
       label: 'Image size',
       ui: {
         description:
-          'Cover ensures the image fills the complete space and is usually the right approach. Contain ensures that the full image is visible.',
+          'Cover ensures that the image fills the complete space and is usually the right approach. Contain ensures that the full image is visible.',
       },
       options: [
         {
@@ -59,43 +54,40 @@ const imageControls: TinaField = {
       ],
     },
     {
-      type: 'object',
-      name: 'imagePosition',
-      label: 'Image position',
+      type: 'number',
+      name: 'posX',
+      label: 'Horizontal position',
       ui: {
         description:
-          'Image position controls how the image is centered when sizing images using "cover."',
-        defaultItem: {
-          x: 50,
-          y: 50,
+          'Controls how the image is centered when sized to "cover."',
+        validate: (value) => {
+          if (value < 0 || value > 100)
+            return 'Position must be between 0 and 100'
         },
       },
-      fields: [
-        {
-          type: 'number',
-          name: 'x',
-          label: 'Horizontal %',
-          ui: {
-            validate: (value) => {
-              if (value < 0 || value > 100)
-                return 'Position must be between 0 and 100'
-            },
-          },
+    },
+    {
+      type: 'number',
+      name: 'posY',
+      label: 'Vertical position',
+      ui: {
+        description:
+          'Controls how the image is centered when sized to "cover."',
+        validate: (value) => {
+          if (value < 0 || value > 100)
+            return 'Position must be between 0 and 100'
         },
-        {
-          type: 'number',
-          name: 'y',
-          label: 'Vertical %',
-          ui: {
-            validate: (value) => {
-              if (value < 0 || value > 100)
-                return 'Position must be between 0 and 100'
-            },
-          },
-        },
-      ],
+      },
     },
   ],
+}
+
+const defaultImageControls = {
+  imageControls: {
+    size: 'cover',
+    posX: 50,
+    posY: 50,
+  },
 }
 
 const bookstore: TinaField[] = [
@@ -211,7 +203,6 @@ const homePage: Collection = {
           label: 'Headshot',
           required: true,
         },
-        imageControls,
         {
           type: 'string',
           name: 'title',
@@ -275,6 +266,9 @@ const writing: Collection = {
         return slugify([prefix, title].join('__'))
       },
     },
+  },
+  defaultItem: {
+    ...defaultImageControls,
   },
   fields: [
     {
@@ -366,6 +360,9 @@ const press: Collection = {
       },
     },
   },
+  defaultItem: {
+    ...defaultImageControls,
+  },
   fields: [
     {
       type: 'string',
@@ -437,6 +434,9 @@ const quotes: Collection = {
   name: 'quotes',
   label: 'Author Quotes',
   path: 'content/quotes',
+  defaultItem: {
+    ...defaultImageControls,
+  },
   fields: [
     {
       type: 'rich-text',
@@ -472,6 +472,9 @@ const events: Collection = {
   path: 'content/events',
   ui: {
     router: async () => '/events',
+  },
+  defaultItem: {
+    ...defaultImageControls,
   },
   fields: [
     {
