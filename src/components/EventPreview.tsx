@@ -14,7 +14,10 @@ const formatTime = (date: dayjs.Dayjs): string =>
   date.minute() ? date.format('h:mm') : date.format('h')
 
 export interface EventPreviewProps
-  extends Pick<ImageCardProps, 'linkText' | 'linkLocation' | 'borderColor'> {
+  extends Pick<
+    ImageCardProps,
+    'imageSize' | 'imagePosition' | 'linkText' | 'linkLocation' | 'borderColor'
+  > {
   url: string | URL
   title: string
   image: string | ImageMetadata['metadata']

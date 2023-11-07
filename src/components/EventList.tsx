@@ -5,7 +5,7 @@ import EventPreview from './EventPreview'
 import EmailSignUp from './EmailSignUp'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import { isNotEmpty } from '@lib/utils'
-import { fixTinaMalformedPath } from '@lib/images'
+import { getTinaImage } from '@lib/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
@@ -19,7 +19,15 @@ const toEventProps = (
   event: Event,
   images: ResponsiveImageData = {},
 ): EventPreviewProps => {
-  let { image, description, startTime, endTime, location, ...props } = event
+  let {
+    image,
+    imageControls,
+    description,
+    startTime,
+    endTime,
+    location,
+    ...props
+  } = event
   if (typeof description === 'string') {
     description = description.trim()
   } else if ('children' in description) {
@@ -29,15 +37,12 @@ const toEventProps = (
       description = null
     }
   }
-  image = fixTinaMalformedPath(image || '')
-  const { metadata = image, alt } = images[image] || {}
   return {
     description,
     start: startTime,
     end: endTime || undefined,
     place: location,
-    image: metadata,
-    alt,
+    ...getTinaImage(image, imageControls, images),
     ...props,
   }
 }

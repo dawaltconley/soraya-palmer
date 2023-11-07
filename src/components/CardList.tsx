@@ -7,7 +7,7 @@ import type { ArticlePreviewProps } from './ArticlePreview'
 import ArticlePreview from './ArticlePreview'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import { isNotEmpty } from '@lib/utils'
-import { fixTinaMalformedPath } from '@lib/images'
+import { getTinaImage } from '@lib/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
@@ -33,7 +33,7 @@ export default withTinaWrapper<
   return (
     <ul className="grid gap-4 xl:grid-cols-3">
       {cards.map((card) => {
-        let { id, image, description, ...props } = card
+        let { id, image, imageControls, description, ...props } = card
         const source =
           card.__typename === 'Writing' ? card.publisher : card.source // TODO make consistent
 
@@ -47,9 +47,6 @@ export default withTinaWrapper<
           }
         }
 
-        image = fixTinaMalformedPath(image || '')
-        const { metadata = image, alt } = images[image] || {}
-
         return (
           <li
             key={id}
@@ -60,8 +57,7 @@ export default withTinaWrapper<
               style="card"
               layout="date"
               hLevel={hLevel}
-              image={metadata}
-              alt={alt}
+              {...getTinaImage(image || '', imageControls, images)}
               {...props}
               publisher={source}
             >

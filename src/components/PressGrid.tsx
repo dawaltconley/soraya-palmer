@@ -1,5 +1,6 @@
 import type { ReactNode, CSSProperties } from 'react'
 import type { ResponsiveImageData } from '@lib/build/images'
+import type { TinaImageControls } from '@lib/images'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
@@ -7,7 +8,7 @@ import Card from './Card'
 import { isCardStyle } from './ImageCard'
 import { ArticleLayout } from './ArticlePreview'
 import { AuthorQuote, ReviewQuote } from './Quote'
-import { fixTinaMalformedPath } from '@lib/images'
+import { getTinaImage } from '@lib/images'
 import clsx from 'clsx'
 import colors from 'tailwindcss/colors' // TODO avoid this
 
@@ -34,11 +35,12 @@ export default function PressGrid({
         let id: string
         let url: string | null | undefined
         let image: string | null | undefined
+        let imageControls: TinaImageControls | null | undefined
         const { layout, imageSide } = p
 
         if (p.__typename === 'PressPagePressArticle' && p.article) {
           id = p.article._sys.filename
-          ;({ url, image } = p.article)
+          ;({ url, image, imageControls } = p.article)
           const { title, date, source, author } = p.article
           const description = p.article.description ? (
             <TinaMarkdown content={p.article.description} />
@@ -67,8 +69,8 @@ export default function PressGrid({
             )
         } else if (p.__typename === 'PressPagePressQuote' && p.quote) {
           id = p.quote._sys.filename
+          ;({ image, imageControls } = p.quote)
           const { author, book, quote } = p.quote
-          image = p.quote.image
           content = (
             <AuthorQuote
               key={id}
@@ -83,8 +85,11 @@ export default function PressGrid({
           return null
         }
 
-        image = fixTinaMalformedPath(image || '')
-        const { metadata = image, alt } = images[image] || {}
+        const { image: metadata, ...controls } = getTinaImage(
+          image || '',
+          imageControls,
+          images,
+        )
 
         return (
           <div
@@ -107,9 +112,9 @@ export default function PressGrid({
               style={isCardStyle(layout) ? layout : 'tile'}
               url={url || undefined}
               image={metadata}
-              alt={alt}
               borderColor={accentColor}
               imageSide={imageSide === 'right' ? 'right' : 'left'}
+              {...controls}
             >
               <div className="h-full px-6 py-4 sm:px-8 sm:py-6">{content}</div>
             </Card>

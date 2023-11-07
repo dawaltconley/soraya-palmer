@@ -18,7 +18,13 @@ export const isArticleStyle = (str: string): str is ArticlePreviewStyle =>
 export const isArticleLayout = (str: string): str is ArticlePreviewLayout =>
   ArticlePreviewLayout.some((s) => s === str)
 
-const passthroughProps = ['linkText', 'linkLocation', 'borderColor'] as const
+const passthroughProps = [
+  'imageSize',
+  'imagePosition',
+  'linkText',
+  'linkLocation',
+  'borderColor',
+] as const
 
 export interface ArticlePreviewProps
   extends Pick<ImageCardProps, (typeof passthroughProps)[number]> {

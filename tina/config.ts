@@ -21,6 +21,80 @@ const slugify = (str: string): string =>
     .trim()
     .replaceAll(' ', '-')
 
+const imageControls: TinaField = {
+  type: 'object',
+  name: 'imageControls',
+  label: 'Image Controls',
+  ui: {
+    defaultItem: {
+      imageSize: 'cover',
+    },
+  },
+  fields: [
+    {
+      type: 'string',
+      name: 'alt',
+      label: 'Image description',
+    },
+    {
+      type: 'string',
+      name: 'imageSize',
+      label: 'Image size',
+      ui: {
+        description:
+          'Cover ensures the image fills the complete space and is usually the right approach. Contain ensures that the full image is visible.',
+      },
+      options: [
+        {
+          value: 'cover',
+          label: 'cover',
+        },
+        {
+          value: 'contain',
+          label: 'contain',
+        },
+      ],
+    },
+    {
+      type: 'object',
+      name: 'imagePosition',
+      label: 'Image position',
+      ui: {
+        description:
+          'Image position controls how the image is centered when sizing images using "cover."',
+        defaultItem: {
+          x: 50,
+          y: 50,
+        },
+      },
+      fields: [
+        {
+          type: 'number',
+          name: 'x',
+          label: 'Horizontal %',
+          ui: {
+            validate: (value) => {
+              if (value < 0 || value > 100)
+                return 'Position must be between 0 and 100'
+            },
+          },
+        },
+        {
+          type: 'number',
+          name: 'y',
+          label: 'Vertical %',
+          ui: {
+            validate: (value) => {
+              if (value < 0 || value > 100)
+                return 'Position must be between 0 and 100'
+            },
+          },
+        },
+      ],
+    },
+  ],
+}
+
 const bookstore: TinaField[] = [
   {
     type: 'string',
@@ -134,6 +208,7 @@ const homePage: Collection = {
           label: 'Headshot',
           required: true,
         },
+        imageControls,
         {
           type: 'string',
           name: 'title',
@@ -240,6 +315,7 @@ const writing: Collection = {
       label: 'Image',
       required: true,
     },
+    imageControls,
     {
       type: 'datetime',
       name: 'date',
@@ -328,6 +404,7 @@ const press: Collection = {
       name: 'image',
       label: 'Image',
     },
+    imageControls,
     {
       type: 'datetime',
       name: 'date',
@@ -382,6 +459,7 @@ const quotes: Collection = {
       name: 'image',
       label: 'Headshot',
     },
+    imageControls,
   ],
 }
 
@@ -426,6 +504,7 @@ const events: Collection = {
         description: 'Square images work best.',
       },
     },
+    imageControls,
     {
       type: 'datetime',
       name: 'startTime',
@@ -490,11 +569,23 @@ const gridControls: TinaField[] = [
     type: 'number',
     name: 'rows',
     label: 'Rows',
+    ui: {
+      validate: (value) => {
+        if (typeof value === 'number' && (value < 1 || value > 3))
+          return 'Rows must be between 1 and 3'
+      },
+    },
   },
   {
     type: 'number',
     name: 'cols',
     label: 'Cols',
+    ui: {
+      validate: (value) => {
+        if (typeof value === 'number' && (value < 1 || value > 3))
+          return 'Columns must be between 1 and 3'
+      },
+    },
   },
   {
     type: 'string',
