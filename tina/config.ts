@@ -511,7 +511,7 @@ const events: Collection = {
       label: 'Start time',
       required: true,
       ui: {
-        timeFormat: 'hh:mm A ZZ',
+        timeFormat: 'hh:mm A',
       },
     },
     {
@@ -519,7 +519,7 @@ const events: Collection = {
       name: 'endTime',
       label: 'End time',
       ui: {
-        timeFormat: 'hh:mm A ZZ',
+        timeFormat: 'hh:mm A',
       },
     },
     {
