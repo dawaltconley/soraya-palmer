@@ -10,4 +10,17 @@
       $src: './public/media/backgrounds/shutterstock_2315154005.jpg'
     );
   }
+
+  .bg-img-card {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+
+    @include responsive-images.bg(
+      $src: './public/media/backgrounds/shutterstock_2315154005.jpg',
+      $sizes:
+        '(min-width: 1536px) 476px, (min-width: 1280px) 396px, (min-width: 1024px) 438px, (min-width: 768px) 320px, (min-width: 640px) 576px, 100vw'
+    );
+  }
 }

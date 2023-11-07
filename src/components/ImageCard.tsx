@@ -26,6 +26,8 @@ export const isCardStyle = (str: string): str is CardStyle =>
 
 export interface ImageCardProps {
   image: string | ImageMetadata['metadata']
+  imageSize?: 'cover' | 'contain'
+  imagePosition?: [number, number]
   imageSide?: 'left' | 'right'
   alt?: string
   url?: string | URL
@@ -47,6 +49,8 @@ export default function ImageCard({
   // title,
   style = 'card',
   // styleLarge = style,
+  imageSize = 'cover',
+  imagePosition,
   imageSide = 'left',
   borderColor,
   linkText = 'Read more',
@@ -66,7 +70,10 @@ export default function ImageCard({
       <div className="flex h-full w-full flex-col items-stretch overflow-hidden @2xl:flex-row">
         <div
           className={clsx(
-            'overlay-before overlay-after before:vignette grow-0 overflow-hidden transition-none duration-500 before:z-10 after:z-20 after:bg-amber-300/10 after:duration-[inherit] @2xl:w-1/2',
+            'overlay-before overlay-after grow-0 overflow-hidden bg-amber-300 transition-none duration-500 after:z-20 after:bg-amber-300/5 after:duration-[inherit] @2xl:w-1/2',
+            imageSize === 'contain'
+              ? 'bg-img-card'
+              : 'before:vignette before:z-10',
             {
               '@2xl:grow': grow === 'image',
               '@2xl:order-1': imageSide === 'right',
@@ -88,12 +95,18 @@ export default function ImageCard({
             alt={alt}
             imgProps={{
               className: clsx(
-                'h-full w-full object-cover duration-[inherit]',
+                'h-full w-full duration-[inherit]',
                 aspectRatio === 'square' ? 'aspect-square' : 'aspect-og',
+                imageSize === 'cover'
+                  ? 'object-cover'
+                  : 'object-contain p-2 drop-shadow-xl',
                 {
                   'group-hover:scale-105': url,
                 },
               ),
+              style: imagePosition && {
+                objectPosition: `${imagePosition[0]}% ${imagePosition[1]}%`,
+              },
             }}
           />
           {hasImgLink && (
