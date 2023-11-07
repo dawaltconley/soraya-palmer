@@ -105,7 +105,7 @@ export default function ImageCard({
         <div
           className={clsx('flex w-full grow @2xl:p-0', {
             '@2xl:w-3/5 @2xl:max-w-prose @2xl:grow-0': grow === 'image',
-            'h-full p-8': style === 'tile',
+            'h-full p-6 sm:p-8 sm:@2xl:p-0': style === 'tile',
           })}
         >
           <div

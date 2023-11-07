@@ -120,7 +120,7 @@ export const QuoteTile = ({
   url,
 }: WithRequired<QuoteProps, 'citation'>) => (
   <figure className="flex h-full max-w-prose flex-col justify-center font-serif">
-    <blockquote cite={url?.toString()} className="m-auto text-xl">
+    <blockquote cite={url?.toString()} className="m-auto text-lg sm:text-xl">
       {quote}
     </blockquote>
     <figcaption className="mt-4 items-center text-right font-serif before:content-['\2014\20']">

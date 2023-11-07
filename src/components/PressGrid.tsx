@@ -111,7 +111,7 @@ export default function PressGrid({
               borderColor={accentColor}
               imageSide={imageSide === 'right' ? 'right' : 'left'}
             >
-              <div className="h-full px-8 py-6">{content}</div>
+              <div className="h-full px-6 py-4 sm:px-8 sm:py-6">{content}</div>
             </Card>
           </div>
         )
