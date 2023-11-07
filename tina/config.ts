@@ -1,4 +1,4 @@
-import type { Collection } from 'tinacms'
+import type { Collection, TinaField } from 'tinacms'
 import type { CardStyle } from '@components/ImageCard'
 import { defineConfig } from 'tinacms'
 import { UrlMetadata } from './components/UrlMetadata'
@@ -21,7 +21,7 @@ const slugify = (str: string): string =>
     .trim()
     .replaceAll(' ', '-')
 
-const bookstore = [
+const bookstore: TinaField[] = [
   {
     type: 'string',
     name: 'name',
@@ -52,11 +52,11 @@ const bookstore = [
         value: 'Black women owned',
         label: 'Black women owned',
       },
-    ] as Option[],
+    ],
   },
-] as const
+]
 
-const bookstores = {
+const bookstores: TinaField = {
   type: 'object',
   name: 'bookstores',
   label: "'Buy the book' options",
@@ -478,7 +478,7 @@ const cardLayoutOptions: CardLayoutOptions[] = [
   },
 ]
 
-const gridControls = [
+const gridControls: TinaField[] = [
   {
     type: 'string',
     name: 'layout',
@@ -503,9 +503,9 @@ const gridControls = [
     options: [
       { value: 'left', label: 'on left' },
       { value: 'right', label: 'on right' },
-    ] as Option[],
+    ],
   },
-] as const
+]
 
 const pressPage: Collection = {
   name: 'pressPage',
