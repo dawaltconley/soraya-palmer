@@ -1,9 +1,10 @@
 import type { HomeQuery } from '@tina/__generated__/types'
-import type { ComponentPropsWithoutRef, SyntheticEvent } from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
 import type { ResponsiveImageData } from '@lib/build/images'
 import type { Store, Location as StoreLocation } from './BookStoreSelect'
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
+import Video from './Video'
 import Icon from './Icon'
 import Spinner from './Spinner'
 import Image from './Image'
@@ -14,53 +15,6 @@ import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
 import { faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons/faArrowUpRightFromSquare'
 import { faXmark } from '@fortawesome/pro-regular-svg-icons/faXmark'
 import BuyTheBookLink from './BookBuyButton'
-
-interface TrailerProps extends ComponentPropsWithoutRef<'video'> {
-  play?: boolean
-  onReady: (e?: SyntheticEvent<HTMLVideoElement>) => void
-  onEnded: (e?: SyntheticEvent<HTMLVideoElement>) => void
-}
-
-const Trailer = ({
-  play = false,
-  onReady,
-  onEnded,
-  ...props
-}: TrailerProps) => {
-  const video = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    if (video.current && video.current.readyState >= 3) {
-      onReady()
-    }
-  }, [])
-
-  useEffect(() => {
-    const v = video.current
-    if (!v) return
-    if (play) {
-      v.currentTime = 0
-      v.play()
-    } else {
-      v.pause()
-    }
-  }, [play])
-
-  return (
-    <video
-      ref={video}
-      muted
-      autoPlay={false}
-      preload="auto"
-      className="absolute inset-0"
-      onCanPlayThrough={onReady}
-      onEnded={onEnded}
-      {...props}
-    >
-      <source src="/media/humanorigins_1080x1080_3.mp4" type="video/mp4" />
-    </video>
-  )
-}
 
 type SplashState = 'initial' | 'video'
 
@@ -168,12 +122,21 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         >
           <div className="sticky bottom-0 top-0 flex h-full max-h-screen-s w-full">
             <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
-              <Trailer
+              <Video
+                sources={[
+                  {
+                    src: '/media/humanorigins_1080x1080_3.mp4',
+                    type: 'video/mp4',
+                  },
+                ]}
                 play={isPlaying}
                 className={clsx(
                   'duration-1000',
                   isPlaying ? 'delay-300' : 'scale-95 opacity-0',
                 )}
+                muted
+                autoPlay={false}
+                preload="auto"
                 onReady={() =>
                   window.setTimeout(() => setIsVideoLoaded(true), 2000)
                 }
