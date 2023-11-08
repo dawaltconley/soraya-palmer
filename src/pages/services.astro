@@ -2,6 +2,7 @@
 import Page from '@layouts/Page.astro'
 import TinaContent from '@components/TinaContent'
 import ContactForm from '@components/ContactForm'
+import PDF from '@components/PDF'
 
 import { client } from '@tina/__generated__/client'
 const page = await client.queries.workWithMePage({
@@ -25,6 +26,10 @@ const page = await client.queries.workWithMePage({
     <main
       class="prose prose-lg mx-auto font-serif prose-headings:font-display first:prose-headings:mt-0 prose-li:marker:text-amber-300 xl:ml-0"
     >
+      <PDF
+        client:load
+        file="/media/half%20size%20Young%20Black%20Darkness%20(1).pdf"
+      />
       <TinaContent client:tina data={page} path="workWithMePage.body" />
     </main>
     <div
