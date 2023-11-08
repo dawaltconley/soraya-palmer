@@ -3,7 +3,7 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu'
 import Icon from './Icon'
 import clsx from 'clsx'
 
-import { faCaretDown } from '@fortawesome/pro-solid-svg-icons'
+import { faCaretDown } from '@fortawesome/pro-solid-svg-icons/faCaretDown'
 
 const truncate = (text: string, maxLen: number, append = '…') =>
   text.length > maxLen ? text.slice(0, maxLen - append.length) + append : text

@@ -6,8 +6,8 @@ import Icon from './Icon'
 import dayjs from 'dayjs'
 import clsx from 'clsx'
 
-import { faCalendar } from '@fortawesome/pro-regular-svg-icons'
-import { faLocationDot } from '@fortawesome/pro-regular-svg-icons'
+import { faCalendar } from '@fortawesome/pro-regular-svg-icons/faCalendar'
+import { faLocationDot } from '@fortawesome/pro-regular-svg-icons/faLocationDot'
 
 const formatTime = (date: dayjs.Dayjs): string =>
   // date.format('h:mm')
