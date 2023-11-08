@@ -5,7 +5,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { withTinaWrapper } from '@browser/withTinaWrapper'
 import ArticlePreview from './ArticlePreview'
 import { isNotEmpty } from '@lib/utils'
-import { getMetadata } from '@lib/images'
+import { getTinaImage } from '@lib/images'
 
 interface WritingSamplesProps {
   images?: ResponsiveImageData
@@ -27,17 +27,16 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
             <div className="grid gap-8 xl:grid-cols-3">
               {articles
                 .slice(0, 3)
-                .map(({ description, image, ...article }) => {
+                .map(({ description, image, imageControls, ...article }) => {
                   description = description?.children?.length ? (
                     <TinaMarkdown content={description} />
                   ) : null
-                  const metadata = getMetadata(image, images)
                   return (
                     <ArticlePreview
                       key={article.url}
                       style="inline"
                       layout="date"
-                      image={metadata}
+                      {...getTinaImage(image, imageControls, images)}
                       description={description}
                       {...article}
                     />
