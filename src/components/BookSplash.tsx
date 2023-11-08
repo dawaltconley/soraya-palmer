@@ -9,7 +9,7 @@ import Icon from './Icon'
 import Spinner from './Spinner'
 import Image from './Image'
 import { getMetadata } from '@lib/images'
-import { toUrl, isNotEmpty } from '@lib/utils'
+import { toUrl, isNotEmpty, isTruthy } from '@lib/utils'
 import clsx from 'clsx'
 import { faCirclePlay } from '@fortawesome/pro-regular-svg-icons/faCirclePlay'
 import { faArrowUpRightFromSquare } from '@fortawesome/pro-regular-svg-icons/faArrowUpRightFromSquare'
@@ -53,11 +53,12 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
 
   const showVideo = state === 'video' && isVideoLoaded
 
+  const { trailer, bookstores } = data.home.book
   const stores: StoreLocation[] = useMemo(
     () =>
       [
-        { name: null, stores: [data.home.bookstores.default] },
-        ...(data.home.bookstores.locations || []),
+        { name: null, stores: [bookstores.default] },
+        ...(bookstores.locations || []),
       ]
         .filter(isNotEmpty)
         .map<StoreLocation | null>((l) => {
@@ -76,8 +77,20 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
           }
         })
         .filter(isNotEmpty),
-    [data.home.bookstores],
+    [bookstores],
   )
+  const sources = useMemo(() => {
+    const webm = trailer?.webm && {
+      src: trailer.webm,
+      type: 'video/webm',
+    }
+    const mp4 = trailer?.mp4 && {
+      src: trailer.mp4,
+      type: 'video/mp4',
+    }
+    return [webm, mp4].filter(isTruthy)
+  }, [trailer])
+  const hasVideo = sources.length > 0
 
   const [imageAspect, setImageAspect] = useState<{ x: number; y: number }>()
   const metadata = getMetadata(cover, images)
@@ -114,52 +127,49 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
       {...divProps}
     >
       <div className="container mx-auto h-full justify-center py-16 md:flex">
-        <div
-          className={clsx(
-            'absolute inset-0 w-full duration-1000',
-            !showVideo ? 'pointer-events-none opacity-0' : 'delay-300',
-          )}
-        >
-          <div className="sticky bottom-0 top-0 flex h-full max-h-screen-s w-full">
-            <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
-              <Video
-                sources={[
-                  {
-                    src: '/media/humanorigins_1080x1080_3.mp4',
-                    type: 'video/mp4',
-                  },
-                ]}
-                play={isPlaying}
-                className={clsx(
-                  'duration-1000',
-                  isPlaying ? 'delay-300' : 'scale-95 opacity-0',
-                )}
-                muted
-                autoPlay={false}
-                preload="auto"
-                onReady={() =>
-                  window.setTimeout(() => setIsVideoLoaded(true), 2000)
-                }
-                onEnded={() => {
-                  window.setTimeout(() => setState('initial'), 500)
-                }}
-              />
-              <div className="absolute inset-0 flex">
-                <Spinner
-                  className={clsx('m-auto text-4xl', {
-                    hidden: isVideoLoaded,
-                  })}
+        {hasVideo && (
+          <div
+            className={clsx(
+              'absolute inset-0 w-full duration-1000',
+              !showVideo ? 'pointer-events-none opacity-0' : 'delay-300',
+            )}
+          >
+            <div className="sticky bottom-0 top-0 flex h-full max-h-screen-s w-full">
+              <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
+                <Video
+                  sources={sources}
+                  play={isPlaying}
+                  className={clsx(
+                    'duration-1000',
+                    isPlaying ? 'delay-300' : 'scale-95 opacity-0',
+                  )}
+                  muted
+                  autoPlay={false}
+                  preload="auto"
+                  onReady={() =>
+                    window.setTimeout(() => setIsVideoLoaded(true), 2000)
+                  }
+                  onEnded={() => {
+                    window.setTimeout(() => setState('initial'), 500)
+                  }}
                 />
+                <div className="absolute inset-0 flex">
+                  <Spinner
+                    className={clsx('m-auto text-4xl', {
+                      hidden: isVideoLoaded,
+                    })}
+                  />
+                </div>
+                <button
+                  className="absolute right-0 top-0 -translate-y-full p-4 text-xl duration-200 hover:text-amber-300 md:left-full md:right-auto md:translate-y-0"
+                  onClick={() => setState('initial')}
+                >
+                  <Icon icon={faXmark} />
+                </button>
               </div>
-              <button
-                className="absolute right-0 top-0 -translate-y-full p-4 text-xl duration-200 hover:text-amber-300 md:left-full md:right-auto md:translate-y-0"
-                onClick={() => setState('initial')}
-              >
-                <Icon icon={faXmark} />
-              </button>
             </div>
           </div>
-        </div>
+        )}
         <Image
           metadata={metadata}
           alt="Book cover of The Human Origins of Beatrice Porter"
@@ -210,19 +220,21 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
             </div>
           </div>
           <div className="mt-6 w-full text-center text-base md:text-left">
-            <button
-              className="group mr-4 whitespace-nowrap font-sans sm:mr-8"
-              onClick={() => setState('video')}
-            >
-              {state === 'video' ? (
-                <Spinner className="fa-inline mr-0.5" />
-              ) : (
-                <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />
-              )}{' '}
-              <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
-                Watch the trailer
-              </span>
-            </button>
+            {hasVideo && (
+              <button
+                className="group mr-4 whitespace-nowrap font-sans sm:mr-8"
+                onClick={() => setState('video')}
+              >
+                {state === 'video' ? (
+                  <Spinner className="fa-inline mr-0.5" />
+                ) : (
+                  <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />
+                )}{' '}
+                <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
+                  Watch the trailer
+                </span>
+              </button>
+            )}
             <a
               href="https://www.opinionstage.com/page/6abbaf30-f4cd-48fe-add5-09178f832c0c"
               className="group whitespace-nowrap font-sans"

@@ -190,7 +190,46 @@ const homePage: Collection = {
     },
   },
   fields: [
-    bookstores,
+    {
+      type: 'object',
+      name: 'book',
+      label: 'Book info',
+      required: true,
+      fields: [
+        {
+          type: 'object',
+          name: 'trailer',
+          label: 'Trailer',
+          fields: [
+            {
+              type: 'image',
+              name: 'webm',
+              label: 'WebM',
+              ui: {
+                validate: (file: string) => {
+                  if (!file.toLowerCase().endsWith('.webm'))
+                    return 'File must be a webm file and end in .webm'
+                },
+              },
+            },
+            {
+              type: 'image',
+              name: 'mp4',
+              label: 'MP4',
+              ui: {
+                description:
+                  'You should always provide an MP4 file. Providing a WebM file too will allow the video to load faster on most devices.',
+                validate: (file: string) => {
+                  if (!file.toLowerCase().endsWith('.mp4'))
+                    return 'File must be an mp4 and end in .mp4'
+                },
+              },
+            },
+          ],
+        },
+        bookstores,
+      ],
+    },
     {
       type: 'object',
       name: 'about',
