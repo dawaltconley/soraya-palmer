@@ -53,6 +53,11 @@
     }
   }
 
+  .content-em {
+    --tw-content: ' — ';
+    content: var(--tw-content, ' — ');
+  }
+
   .fa-inline {
     width: 1em;
     height: 1em;

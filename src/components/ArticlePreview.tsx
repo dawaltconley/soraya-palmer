@@ -139,7 +139,7 @@ function ArticleLayoutDate({
           {publisher && (
             <span
               className={clsx('flex italic', {
-                [`ml-1 before:mr-1 before:content-["\\20\\2014\\20"]`]: date,
+                'before:content-em ml-1 before:mr-1': date,
               })}
             >
               {publisher}

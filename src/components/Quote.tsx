@@ -54,7 +54,7 @@ export const QuoteBasic = ({ children: quote, citation, url }: QuoteProps) => (
       {quote}
     </blockquote>
     {citation && (
-      <figcaption className="mt-2 block text-right text-base text-gray-500 before:content-['\2014\20']">
+      <figcaption className="before:content-em mt-2 block text-right text-base text-gray-500">
         {citation}
       </figcaption>
     )}
@@ -107,7 +107,7 @@ export const QuoteBackground = ({
       >
         {quote}
       </blockquote>
-      <figcaption className="mt-4 items-center text-right font-serif before:content-['\2014\20']">
+      <figcaption className="before:content-em mt-4 items-center text-right font-serif">
         <span className="ml-auto">{citation}</span>
       </figcaption>
     </figure>
@@ -123,7 +123,7 @@ export const QuoteTile = ({
     <blockquote cite={url?.toString()} className="m-auto text-lg sm:text-xl">
       {quote}
     </blockquote>
-    <figcaption className="mt-4 items-center text-right font-serif before:content-['\2014\20']">
+    <figcaption className="before:content-em mt-4 items-center text-right font-serif">
       <span className="ml-auto">{citation}</span>
     </figcaption>
   </figure>
