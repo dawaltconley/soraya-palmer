@@ -56,7 +56,7 @@ const imageControls: TinaField = {
     {
       type: 'number',
       name: 'posX',
-      label: 'Horizontal position',
+      label: 'Horizontal position %',
       ui: {
         description:
           'Controls how the image is centered when sized to "cover."',
@@ -69,7 +69,7 @@ const imageControls: TinaField = {
     {
       type: 'number',
       name: 'posY',
-      label: 'Vertical position',
+      label: 'Vertical position %',
       ui: {
         description:
           'Controls how the image is centered when sized to "cover."',
