@@ -6,3 +6,4 @@ plugins:
 pluginSearchDirs: false
 tailwindFunctions:
   - classNames
+  - clsx
