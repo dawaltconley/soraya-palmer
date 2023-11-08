@@ -1,7 +1,7 @@
 book:
   trailer:
     webm: /media/humanorigins_1080x1080_3.webm
-    mp4: /media/humanorigins_1080x1080_3.mp4
+    mp4: /media/humanorigins_1080x1080_3_optimized.mp4
   bookstores:
     default:
       name: Bookshop.org
