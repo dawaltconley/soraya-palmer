@@ -807,6 +807,37 @@ const workWithMePage: Collection = {
             },
           ],
         },
+        {
+          name: 'ImageLink',
+          label: 'Image Link',
+          fields: [
+            {
+              type: 'string',
+              name: 'link',
+              label: 'URL',
+              required: true,
+            },
+            {
+              type: 'image',
+              name: 'image',
+              label: 'Image',
+              required: true,
+            },
+            {
+              type: 'string',
+              name: 'description',
+              label: 'Description',
+              ui: {
+                component: 'textarea',
+              },
+            },
+            {
+              type: 'boolean',
+              name: 'download',
+              label: 'Download?',
+            },
+          ],
+        },
       ],
     },
   ],
