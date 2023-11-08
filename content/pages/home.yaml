@@ -1,4 +1,15 @@
 book:
+  cover: '/media/beatrice-porter-cover.jpg'
+  title: The Human Origins of Beatrice Porter and other Essential Ghosts
+  byline: a novel by Soraya Palmer
+  description: >
+    > “Mothers never die. Children love to resurrect us in they stories.”
+
+
+    Folktales and spirits animate this lively and unforgettable coming-of-age
+    tale of two Jamaican-Trinidadian sisters in Brooklyn grappling with their
+    mother’s illness, their father's infidelity, and the truth of their family's
+    past…
   trailer:
     webm: /media/humanorigins_1080x1080_3.webm
     mp4: /media/humanorigins_1080x1080_3_optimized.mp4

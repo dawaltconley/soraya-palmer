@@ -8,6 +8,8 @@ import Video from './Video'
 import Icon from './Icon'
 import Spinner from './Spinner'
 import Image from './Image'
+import { TinaMarkdown } from 'tinacms/dist/rich-text'
+import { tinaField } from 'tinacms/dist/react'
 import { getMetadata } from '@lib/images'
 import { toUrl, isNotEmpty, isTruthy } from '@lib/utils'
 import clsx from 'clsx'
@@ -20,7 +22,6 @@ type SplashState = 'initial' | 'video'
 
 export interface BookSplashProps extends ComponentPropsWithoutRef<'div'> {
   init?: SplashState
-  cover: string
   images?: ResponsiveImageData
 }
 
@@ -39,7 +40,6 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
   data,
   isClient,
   init = 'initial',
-  cover,
   images = {},
   className,
   ...divProps
@@ -53,7 +53,8 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
 
   const showVideo = state === 'video' && isVideoLoaded
 
-  const { trailer, bookstores } = data.home.book
+  const { title, byline, description, cover, bookstores, trailer } =
+    data.home.book
   const stores: StoreLocation[] = useMemo(
     () =>
       [
@@ -124,6 +125,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         !showVideo ? 'delay-300 before:opacity-[0.85]' : 'before:opacity-100',
         className,
       )}
+      data-tina-field={tinaField(data.home, 'book')}
       {...divProps}
     >
       <div className="container mx-auto h-full justify-center py-16 md:flex">
@@ -190,31 +192,29 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         />
         <div
           className={clsx(
-            'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
+            'text-shadow relative z-10 mt-8 max-w-prose grow font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
             !showVideo
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',
           )}
         >
           <div className="mb-0">
-            <h2 className="font-display text-3xl font-bold">
-              The Human Origins of Beatrice Porter and other Essential Ghosts
-            </h2>
-            <p className="underline decoration-amber-300/80 decoration-2">
-              a novel by Soraya Palmer
-            </p>
-            <p className="my-4 italic">
-              “Mothers never die. Children love to resurrect us in they
-              stories.”
-            </p>
-            <p className="my-4">
-              Folktales and spirits animate this lively and unforgettable
-              coming-of-age tale of two Jamaican-Trinidadian sisters in Brooklyn
-              grappling with their mother’s illness, their father's infidelity,
-              and the truth of their family's past…
-            </p>
+            <h2 className="font-display text-3xl font-bold">{title}</h2>
+            {byline && (
+              <p className="underline decoration-amber-300/80 decoration-2">
+                {byline}
+              </p>
+            )}
+            {description && (
+              <div className="book-description mt-4 space-y-4">
+                <TinaMarkdown content={description} />
+              </div>
+            )}
           </div>
-          <div className="mt-4 text-center md:text-left">
+          <div
+            className="mt-8 text-center md:text-left"
+            data-tina-field={tinaField(data.home.book, 'bookstores')}
+          >
             <div className="inline-block">
               <BuyTheBookLink stores={stores} />
             </div>

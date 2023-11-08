@@ -46,6 +46,13 @@
       @apply font-display text-3xl font-bold capitalize;
     }
   }
+
+  .book-description {
+    blockquote {
+      font-style: italic;
+    }
+  }
+
   .fa-inline {
     width: 1em;
     height: 1em;

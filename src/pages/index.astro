@@ -17,8 +17,6 @@ import { client } from '@tina/__generated__/client'
 const page = await client.queries.home({ relativePath: 'home.yaml' })
 const writingSamples = await client.queries.writingSamples()
 
-const bookCover = '/media/beatrice-porter-cover.jpg'
-
 const writingSampleImages =
   writingSamples.data.home.writing.selections
     ?.map((s) => s?.item.image)
@@ -36,7 +34,7 @@ const images = await makeResponsive([
     // this should be cropped to a square for sizes to be accurate
   },
   {
-    path: bookCover,
+    path: page.data.home.book.cover,
     sizes:
       '(min-width: 1536px) 382px, (min-width: 768px) 340px, (min-width: 640px) 576px, 100vw',
     alt: 'Book cover of The Human Origins of Beatrice Porter',
@@ -52,13 +50,7 @@ const images = await makeResponsive([
     textColor="white"
   />
   <main class="text-lg">
-    <BookSplash
-      client:load
-      data={page}
-      className="pt-14"
-      cover={bookCover}
-      images={images}
-    />
+    <BookSplash client:load data={page} className="pt-14" images={images} />
     <div id="pull-quotes" class="bg-gray-50 py-16">
       <div
         class="container mx-auto grid justify-items-center gap-16 md:grid-cols-3 md:gap-8 lg:gap-16"

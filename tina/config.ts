@@ -197,6 +197,28 @@ const homePage: Collection = {
       required: true,
       fields: [
         {
+          type: 'image',
+          name: 'cover',
+          label: 'Book cover',
+          required: true,
+        },
+        {
+          type: 'string',
+          name: 'title',
+          label: 'Section header',
+          required: true,
+        },
+        {
+          type: 'string',
+          name: 'byline',
+          label: 'by',
+        },
+        {
+          type: 'rich-text',
+          name: 'description',
+          label: 'Description',
+        },
+        {
           type: 'object',
           name: 'trailer',
           label: 'Trailer',
