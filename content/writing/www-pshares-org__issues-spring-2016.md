@@ -1,7 +1,9 @@
 ---
 url: 'https://www.pshares.org/issues/spring-2016'
 title: Walk Like a Man
-image: /media/3D 421 Cover Revised.jpg
+image: /media/writing/ploughshares-2016.png
+imageControls:
+  size: contain
 date: 2016-04-01T04:00:00.000Z
 publisher: Ploughshares
 ---
