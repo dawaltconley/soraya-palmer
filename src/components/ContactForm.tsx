@@ -1,18 +1,30 @@
-import type { FunctionComponent, ReactNode } from 'react'
-import type { FormStatus } from '@browser/forms'
+import type { ReactNode } from 'react'
+import type { FormContent } from '@browser/forms'
 import { useEffect, useRef } from 'react'
-import { useForm, restoreForm } from '@browser/forms'
+import { useForm, restoreForm, getContent } from '@browser/forms'
 import clsx from 'clsx'
 import Spinner from './Spinner'
+import ErrorMessage from './ErrorMessage'
 
-const requiredFields = ['name', 'email', 'subject', 'message'] as const
+const content: FormContent = {
+  initial: {
+    title: 'Contact me',
+  },
+  error: {
+    title: 'Something went wrong',
+  },
+  success: {
+    title: 'Thank you!',
+    description: "I've received your message and will be in touch soon.",
+  },
+}
 
 export default function ContactForm(): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
   const { status, data, errorMessage, handleSubmit } = useForm({
-    requiredFields,
+    requiredFields: ['name', 'email', 'subject', 'message'],
   })
 
   const showForm = status !== 'success'
@@ -28,9 +40,23 @@ export default function ContactForm(): ReactNode {
     container.style.minHeight = `${container.clientHeight.toString()}px`
   }
 
+  const { description } = getContent(content, status)
+
   return (
     <div ref={containerRef} className="text-center">
-      <FormMessage status={status} errorMessage={errorMessage} />
+      <h2
+        className={clsx('heading-2 mb-4', {
+          capitalize: status !== 'error',
+        })}
+      >
+        {getContent(content, status).title}
+      </h2>
+      <div className="my-4 space-y-2 font-serif">
+        {status === 'error' && errorMessage && (
+          <ErrorMessage message={errorMessage} />
+        )}
+        {description && <p>{description}</p>}
+      </div>
       {showForm && (
         <form
           ref={formRef}
@@ -115,59 +141,3 @@ export default function ContactForm(): ReactNode {
     </div>
   )
 }
-
-interface FormMessageProps {
-  status: FormStatus
-  errorMessage?: string
-}
-
-const FormMessage: FunctionComponent<FormMessageProps> = ({
-  status,
-  errorMessage,
-}) => {
-  const title: Record<typeof status, string | JSX.Element> = {
-    initial: 'Contact me',
-    submitting: 'Contact me',
-    error: 'Something went wrong',
-    success: 'Thank you!',
-  }
-
-  let message: ReactNode = null
-  if (status === 'error') {
-    message = <ErrorMessage message={errorMessage} />
-  } else if (status === 'success') {
-    message = <SuccessMessage />
-  }
-
-  return (
-    <>
-      <h2
-        className={clsx('heading-2 mb-4', {
-          capitalize: status !== 'error',
-        })}
-      >
-        {title[status]}
-      </h2>
-      {message && (
-        <div
-          className={clsx('font-serif font-medium', {
-            'min-h-[6rem]': status === 'submitting' || status === 'success',
-          })}
-        >
-          {message}
-        </div>
-      )}
-    </>
-  )
-}
-
-const ErrorMessage: FunctionComponent<{ message?: string }> = ({ message }) =>
-  message && (
-    <pre className="my-2 inline-block border border-gray-900 bg-white px-4 py-2 text-sm text-red-900 drop-shadow">
-      {message}
-    </pre>
-  )
-
-const SuccessMessage = () => (
-  <p>I've received your message and will be in touch soon.</p>
-)

@@ -145,3 +145,21 @@ export const useForm = ({ requiredFields = [] }: FormProps) => {
     handleError,
   }
 }
+
+interface FormStatusContent {
+  title: string
+  description?: string | null
+}
+
+export interface FormContent {
+  initial: FormStatusContent
+  submitting?: FormStatusContent | null
+  error?: FormStatusContent | null
+  success?: FormStatusContent | null
+}
+
+export const getContent = (
+  content: FormContent,
+  status: FormStatus,
+): FormStatusContent =>
+  (status in content && content[status]) || content.initial

@@ -1,19 +1,10 @@
+import type { FormContent } from '@browser/forms'
 import { useRef } from 'react'
-import { useForm } from '@browser/forms'
+import { useForm, getContent } from '@browser/forms'
 import Spinner from './Spinner'
+import ErrorMessage from './ErrorMessage'
 
-interface EmailSignUpContent {
-  title: string
-  description?: string | null
-}
-
-interface EmailSignUpProps {
-  initial: EmailSignUpContent
-  error: EmailSignUpContent
-  success: EmailSignUpContent
-}
-
-const content: EmailSignUpProps = {
+const content: FormContent = {
   initial: {
     title: 'Join my mailing list',
     description: 'Sign up to receive updates when I’m doing an event near you.',
@@ -34,29 +25,24 @@ export default function EmailSignUp() {
     requiredFields: ['email'],
   })
 
-  const contentStatus: keyof EmailSignUpProps =
-    status === 'submitting' ? 'initial' : status
-  const title = content[contentStatus].title
-  const description = content[contentStatus].description
-
   const lockHeight = () => {
     const container = containerRef.current
     if (!container) return
     container.style.minHeight = `${container.clientHeight.toString()}px`
   }
 
+  const { description } = getContent(content, status)
+
   return (
-    <div ref={containerRef} className="mx-auto w-auto space-y-4 text-center">
-      <h2 className="heading-2">{title}</h2>
+    <div ref={containerRef} className="mx-auto w-auto text-center">
+      <h2 className="heading-2 mb-4">{getContent(content, status).title}</h2>
       {status === 'error' && errorMessage && (
-        <pre className="my-2 inline-block border border-gray-900 bg-white px-4 py-2 text-sm text-red-900 drop-shadow">
-          {errorMessage}
-        </pre>
+        <ErrorMessage message={errorMessage} />
       )}
-      {description && <p className="font-serif">{description}</p>}
+      {description && <p className="mt-2 font-serif">{description}</p>}
       {status !== 'success' && (
         <form
-          className="mx-auto flex max-w-xl text-lg"
+          className="mx-auto mt-4 flex max-w-xl text-lg"
           method="post"
           action="https://script.google.com/macros/s/AKfycbzQdHSp2CwiRcTcOMo7vn4jn74DnrG6f_k8-QAupvoGxyKDEkBLJjkt4P5_x9eZaiv4xA/exec"
           onSubmit={(e) => {
