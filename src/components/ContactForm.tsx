@@ -46,17 +46,19 @@ export default function ContactForm({ content }: ContactFormProps) {
   return (
     <div ref={containerRef} className="text-center">
       <h2
-        className={clsx('heading-2 mb-4', {
+        className={clsx('heading-2', {
           capitalize: status !== 'error',
         })}
       >
         {getContent(content, status).title}
       </h2>
-      <div className="my-4 space-y-2 font-serif">
+      <div className="mx-auto my-4 max-w-prose space-y-2 font-serif">
         {status === 'error' && errorMessage && (
           <ErrorMessage message={errorMessage} />
         )}
-        {description && <p className="inline-block text-left">{description}</p>}
+        {description && (
+          <p className="m-0 inline-block text-left">{description}</p>
+        )}
       </div>
       {showForm && (
         <form
