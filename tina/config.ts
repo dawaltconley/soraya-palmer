@@ -24,6 +24,30 @@ const slugify = (str: string): string =>
     .trim()
     .replaceAll(' ', '-')
 
+const globalData: Collection = {
+  name: 'global',
+  label: 'Global Data',
+  path: 'content/pages',
+  match: {
+    include: 'global',
+  },
+  format: 'yaml',
+  ui: {
+    allowedActions: {
+      create: false,
+      delete: false,
+    },
+  },
+  fields: [
+    {
+      type: 'string',
+      name: 'socialLinks',
+      label: 'Social links',
+      list: true,
+    },
+  ],
+}
+
 const imageControls: TinaField = {
   type: 'object',
   name: 'imageControls',
@@ -956,6 +980,7 @@ export default defineConfig({
   },
   schema: {
     collections: [
+      globalData,
       homePage,
       pressPage,
       eventsPage,

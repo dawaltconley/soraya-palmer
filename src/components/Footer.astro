@@ -1,38 +1,13 @@
 ---
-import Icon from './Icon'
-import { getIconFromUrl } from '@data/icons'
+import client from '@tina/__generated__/client'
+import ContactIcons from './ContactIcons'
 
-const socialLinks = [
-  'https://twitter.com/sorayaonfiyah',
-  'https://www.linkedin.com/in/soraya-palmer-64a7a72a/',
-  'https://www.instagram.com/soraya.palmer/',
-].map((ln) => new URL(ln))
+const data = await client.queries.global({ relativePath: 'global.yaml' })
 ---
 
 <footer class="mt-auto bg-gray-900 py-8 text-white">
   <div class="container mx-auto flex justify-between">
     <div>&copy; 2023 Soraya Palmer</div>
-    <div class="flex space-x-3">
-      {
-        socialLinks.map((url) => {
-          const icon = getIconFromUrl(url)
-          if (!icon) return null
-          return (
-            <a
-              href={url}
-              title={icon.name}
-              class="duration-150 hover:text-amber-300"
-            >
-              <Icon
-                icon={icon.getDefinition()}
-                class="fa-inline"
-                width="1.2em"
-                height="1.2em"
-              />
-            </a>
-          )
-        })
-      }
-    </div>
+    <ContactIcons client:tina data={data} />
   </div>
 </footer>
