@@ -7,4 +7,4 @@ startTime: 2023-10-07T21:00:00.000Z
 location: The Center for Fiction Café & Bar
 ---
 
-Reading, with John Manuel Arias (Where There Was Fire), Monique Laban (Center for Fiction Emerging Writers Fellow), Asha Thanki (A Thousand Times Before), and Claire Oleson (Center for Fiction Emerging Writers Fellow)
+Reading, with John Manuel Arias (Where There Was Fire), Monique Laban (Center for Fiction Emerging Writers Fellow), and Asha Thanki (A Thousand Times Before). Moderated by Claire Oleson (Center for Fiction Emerging Writers Fellow)
