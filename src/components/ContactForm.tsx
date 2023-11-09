@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import type { FormContent } from '@browser/forms'
 import { useEffect, useRef } from 'react'
 import { useForm, restoreForm, getContent } from '@browser/forms'
@@ -6,20 +5,11 @@ import clsx from 'clsx'
 import Spinner from './Spinner'
 import ErrorMessage from './ErrorMessage'
 
-const content: FormContent = {
-  initial: {
-    title: 'Contact me',
-  },
-  error: {
-    title: 'Something went wrong',
-  },
-  success: {
-    title: 'Thank you!',
-    description: "I've received your message and will be in touch soon.",
-  },
+interface ContactFormProps {
+  content: FormContent
 }
 
-export default function ContactForm(): ReactNode {
+export default function ContactForm({ content }: ContactFormProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -55,7 +45,7 @@ export default function ContactForm(): ReactNode {
         {status === 'error' && errorMessage && (
           <ErrorMessage message={errorMessage} />
         )}
-        {description && <p>{description}</p>}
+        {description && <p className="inline-block text-left">{description}</p>}
       </div>
       {showForm && (
         <form

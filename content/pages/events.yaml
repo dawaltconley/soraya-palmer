@@ -1,0 +1,9 @@
+emailForm:
+  initial:
+    title: Join my mailing list
+    description: Sign up to receive updates when I’m doing an event near you.
+  error:
+    title: Something went wrong
+  success:
+    title: Success!
+    description: You are now subscribed.

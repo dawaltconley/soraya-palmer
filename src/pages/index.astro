@@ -6,8 +6,8 @@ import BookSplash from '@components/BookSplash.tsx'
 import { ReviewQuote } from '@components/Quote.tsx'
 import Bio from '@components/Bio.tsx'
 import WritingSamples from '@components/WritingSamples.tsx'
-import EmailSignUp from '@components/EmailSignUp'
-import ContactForm from '@components/ContactForm'
+import TinaEmailSignUp from '@components/TinaEmailSignUp'
+import TinaContactForm from '@components/TinaContactForm'
 import Footer from '@components/Footer.astro'
 import { makeResponsive } from '@lib/build/images'
 import { isNotEmpty } from '@lib/utils'
@@ -91,10 +91,10 @@ const images = await makeResponsive([
         id="mailing-list"
         class="order-last my-16 basis-1/2 border-gray-900 xl:mb-0 xl:ml-8 xl:border-l xl:pb-16 xl:pl-8"
       >
-        <EmailSignUp client:visible />
+        <TinaEmailSignUp client:visible data={page} />
       </div>
       <div id="contact" class="my-16 min-h-[10rem] basis-1/2">
-        <ContactForm client:visible />
+        <TinaContactForm client:visible data={page} />
       </div>
     </div>
   </main>

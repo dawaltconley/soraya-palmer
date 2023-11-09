@@ -1,7 +1,7 @@
 ---
 import Page from '@layouts/Page.astro'
 import TinaContent from '@components/TinaContent'
-import ContactForm from '@components/ContactForm'
+import TinaContactForm from '@components/TinaContactForm'
 
 import { client } from '@tina/__generated__/client'
 const page = await client.queries.workWithMePage({
@@ -31,7 +31,7 @@ const page = await client.queries.workWithMePage({
       id="contact"
       class="relative mt-16 shrink-[0.5] basis-[36rem] text-lg xl:sticky xl:top-8 xl:ml-8 xl:mt-0 xl:pl-8"
     >
-      <ContactForm client:visible />
+      <TinaContactForm client:visible data={page} />
     </div>
   </div>
 </Page>

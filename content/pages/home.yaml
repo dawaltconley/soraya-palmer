@@ -112,3 +112,20 @@ writing:
     - item: >-
         content/writing/electricliterature-com__7-books-about-hauntings-by-black-women-writers.md
     - item: content/writing/www-pshares-org__issues-spring-2016.md
+emailForm:
+  initial:
+    title: Join my mailing list
+    description: Sign up to receive updates when I’m doing an event near you.
+  error:
+    title: Something went wrong
+  success:
+    title: Success!
+    description: You are now subscribed.
+contactForm:
+  initial:
+    title: Contact me
+  error:
+    title: Something went wrong
+  success:
+    title: Thank you!
+    description: I’ve received your message and will be in touch soon.

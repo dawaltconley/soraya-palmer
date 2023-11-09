@@ -7,6 +7,7 @@ import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'
 
+const page = await client.queries.eventsPage({ relativePath: 'events.yaml' })
 const events = await client.queries.eventsConnection()
 const images = await makeResponsive(
   events.data.eventsConnection.edges
@@ -22,6 +23,6 @@ const images = await makeResponsive(
 
 <Page title="Events – Soraya Palmer">
   <main class="container mx-auto py-16 text-lg">
-    <EventList client:load data={events} images={images} />
+    <EventList client:load data={events} page={page} images={images} />
   </main>
 </Page>

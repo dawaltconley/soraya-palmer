@@ -1,8 +1,12 @@
-import type { EventsConnectionQuery } from '@tina/__generated__/types'
+import type {
+  EventsPageQuery,
+  EventsConnectionQuery,
+} from '@tina/__generated__/types'
+import type { TinaData } from '@lib/browser/withTinaWrapper'
 import type { ResponsiveImageData } from '@lib/build/images'
 import type { EventPreviewProps } from './EventPreview'
 import EventPreview from './EventPreview'
-import EmailSignUp from './EmailSignUp'
+import TinaEmailSignUp from './TinaEmailSignUp'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import { isNotEmpty } from '@lib/utils'
 import { getTinaImage } from '@lib/images'
@@ -48,12 +52,13 @@ const toEventProps = (
 }
 
 interface EventListProps {
+  page: TinaData<EventsPageQuery>
   exclude?: string[]
   images?: ResponsiveImageData
 }
 
 export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
-  ({ data, exclude = [], images }) => {
+  ({ data, page, exclude = [], images }) => {
     const now = Date.now()
     const events =
       data.eventsConnection.edges
@@ -103,7 +108,7 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
           </div>
         )}
         <div className="mb-40 mt-16">
-          <EmailSignUp />
+          <TinaEmailSignUp data={page} />
         </div>
         {past.length > 0 && (
           <>

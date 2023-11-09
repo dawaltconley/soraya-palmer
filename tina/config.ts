@@ -171,6 +171,48 @@ const bookstores: TinaField = {
   ],
 }
 
+const formStatusContent: TinaField[] = [
+  {
+    type: 'string',
+    name: 'title',
+    label: 'Heading',
+    required: true,
+  },
+  {
+    type: 'string',
+    name: 'description',
+    label: 'Description',
+  },
+]
+
+const formContent: TinaField[] = [
+  {
+    type: 'object',
+    name: 'initial',
+    label: 'Form Message',
+    fields: formStatusContent,
+    required: true,
+  },
+  {
+    type: 'object',
+    name: 'error',
+    label: 'Error Message',
+    ui: {
+      description: 'Shown if the form encounters an error.',
+    },
+    fields: formStatusContent,
+  },
+  {
+    type: 'object',
+    name: 'success',
+    label: 'Success Message',
+    ui: {
+      description: 'Shown after the form is successfully submitted.',
+    },
+    fields: formStatusContent,
+  },
+]
+
 const homePage: Collection = {
   name: 'home',
   label: 'Home Page',
@@ -312,6 +354,20 @@ const homePage: Collection = {
           ],
         },
       ],
+    },
+    {
+      type: 'object',
+      name: 'emailForm',
+      label: 'Mailing List Form',
+      required: true,
+      fields: formContent,
+    },
+    {
+      type: 'object',
+      name: 'contactForm',
+      label: 'Contact Form',
+      required: true,
+      fields: formContent,
     },
   ],
 }
@@ -840,6 +896,42 @@ const workWithMePage: Collection = {
         },
       ],
     },
+    {
+      type: 'object',
+      name: 'contactForm',
+      label: 'Contact Form',
+      required: true,
+      fields: formContent,
+    },
+  ],
+}
+
+const eventsPage: Collection = {
+  name: 'eventsPage',
+  label: 'Events Page',
+  path: 'content/pages',
+  match: {
+    include: 'events',
+  },
+  format: 'yaml',
+  ui: {
+    allowedActions: {
+      create: false,
+      delete: false,
+    },
+    router: async ({ document }) => {
+      if (document._sys.filename === 'events') return '/events'
+      return undefined
+    },
+  },
+  fields: [
+    {
+      type: 'object',
+      name: 'emailForm',
+      label: 'Mailing List Form',
+      required: true,
+      fields: formContent,
+    },
   ],
 }
 
@@ -866,6 +958,7 @@ export default defineConfig({
     collections: [
       homePage,
       pressPage,
+      eventsPage,
       workWithMePage,
       writing,
       press,

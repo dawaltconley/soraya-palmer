@@ -4,22 +4,11 @@ import { useForm, getContent } from '@browser/forms'
 import Spinner from './Spinner'
 import ErrorMessage from './ErrorMessage'
 
-const content: FormContent = {
-  initial: {
-    title: 'Join my mailing list',
-    description: 'Sign up to receive updates when I’m doing an event near you.',
-  },
-  error: {
-    title: 'Something went wrong',
-    description: null,
-  },
-  success: {
-    title: 'Success!',
-    description: 'You are now subscribed.',
-  },
+interface EmailSignUpProps {
+  content: FormContent
 }
 
-export default function EmailSignUp() {
+export default function EmailSignUp({ content }: EmailSignUpProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { status, errorMessage, handleSubmit } = useForm({
     requiredFields: ['email'],
