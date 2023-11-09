@@ -71,7 +71,12 @@ export const restoreForm = (form: HTMLFormElement, data: FormData): void => {
   }
 }
 
-export type FormStatus = 'initial' | 'submitting' | 'error' | 'success'
+export const FormStatus = ['initial', 'submitting', 'error', 'success'] as const
+
+export type FormStatus = (typeof FormStatus)[number]
+
+export const isFormStatus = (str: string): str is FormStatus =>
+  FormStatus.includes(str as FormStatus)
 
 export interface FormProps {
   requiredFields?: readonly string[]
@@ -163,3 +168,22 @@ export const getContent = (
   status: FormStatus,
 ): FormStatusContent =>
   (status in content && content[status]) || content.initial
+
+export const useFormContentChange = (
+  content: FormContent,
+): FormStatus | null => {
+  const [changed, setChanged] = useState<FormStatus | null>(null)
+
+  const lastContent = useRef(content)
+  FormStatus.forEach((s) => {
+    if (
+      content[s]?.title !== lastContent.current[s]?.title ||
+      content[s]?.description !== lastContent.current[s]?.description
+    ) {
+      setChanged(s)
+    }
+  })
+  lastContent.current = content
+
+  return changed
+}
