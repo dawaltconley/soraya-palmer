@@ -11,6 +11,4 @@ endTime: 2023-10-01T22:00:00.000Z
 location: 'Cadman Plaza, Brooklyn, NY'
 ---
 
-10/01/2023 with Madelaine Lucas (Thirst for Salt), Kōtuku Titihuia Nuttall (Tauhau), Jinwoo Chong (Flux), Eliot Duncan (Ponyboy). Moderated by Catherine Lacey (The Biography of X)
-
-
+Panel reading and discussion with Madelaine Lucas (Thirst for Salt), Kōtuku Titihuia Nuttall (Tauhau), Jinwoo Chong (Flux), Eliot Duncan (Ponyboy). Moderated by Catherine Lacey (The Biography of X)
