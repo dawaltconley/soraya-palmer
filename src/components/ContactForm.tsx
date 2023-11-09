@@ -1,22 +1,33 @@
-import type { FormContent } from '@browser/forms'
+import type { FormStatus, FormContent } from '@browser/forms'
 import { useEffect, useRef } from 'react'
-import { useForm, restoreForm, getContent } from '@browser/forms'
+import {
+  useForm,
+  useFormContentChange,
+  restoreForm,
+  getContent,
+} from '@browser/forms'
 import clsx from 'clsx'
 import Spinner from './Spinner'
 import ErrorMessage from './ErrorMessage'
 
 interface ContactFormProps {
   content: FormContent
+  showStatus?: FormStatus | null
 }
 
 export default function ContactForm({ content }: ContactFormProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
 
-  const { status, data, errorMessage, handleSubmit } = useForm({
+  const {
+    status: formStatus,
+    data,
+    errorMessage,
+    handleSubmit,
+  } = useForm({
     requiredFields: ['name', 'email', 'subject', 'message'],
   })
-
+  const status = useFormContentChange(content) || formStatus
   const showForm = status !== 'success'
 
   useEffect(() => {

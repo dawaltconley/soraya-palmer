@@ -1,6 +1,6 @@
 import type { FormContent } from '@browser/forms'
 import { useRef } from 'react'
-import { useForm, getContent } from '@browser/forms'
+import { useForm, useFormContentChange, getContent } from '@browser/forms'
 import Spinner from './Spinner'
 import ErrorMessage from './ErrorMessage'
 
@@ -10,9 +10,14 @@ interface EmailSignUpProps {
 
 export default function EmailSignUp({ content }: EmailSignUpProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { status, errorMessage, handleSubmit } = useForm({
+  const {
+    status: formStatus,
+    errorMessage,
+    handleSubmit,
+  } = useForm({
     requiredFields: ['email'],
   })
+  const status = useFormContentChange(content) || formStatus
 
   const lockHeight = () => {
     const container = containerRef.current
