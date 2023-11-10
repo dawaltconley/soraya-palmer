@@ -49,7 +49,6 @@ export default function PressGrid({
             p.display === 'quote' && source ? (
               <ReviewQuote
                 key={id}
-                style="tile"
                 author={author || undefined}
                 source={source}
                 url={url}
@@ -72,12 +71,7 @@ export default function PressGrid({
           ;({ image, imageControls } = p.quote)
           const { author, book, quote } = p.quote
           content = (
-            <AuthorQuote
-              key={id}
-              style="tile"
-              author={author}
-              book={book || undefined}
-            >
+            <AuthorQuote key={id} author={author} book={book || undefined}>
               <TinaMarkdown content={quote} />
             </AuthorQuote>
           )
@@ -116,7 +110,9 @@ export default function PressGrid({
               imageSide={imageSide === 'right' ? 'right' : 'left'}
               {...controls}
             >
-              <div className="h-full px-6 py-4 sm:px-8 sm:py-6">{content}</div>
+              <div className="flex h-full items-stretch px-6 py-4 sm:px-8 sm:py-6">
+                {content}
+              </div>
             </Card>
           </div>
         )
