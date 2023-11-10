@@ -7,8 +7,11 @@ import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'
 
-const page = await client.queries.eventsPage({ relativePath: 'events.yaml' })
-const events = await client.queries.eventsConnection()
+const [page, events] = await Promise.all([
+  client.queries.eventsPage({ relativePath: 'events.yaml' }),
+  client.queries.eventsConnection(),
+])
+
 const images = await makeResponsive(
   events.data.eventsConnection.edges
     ?.map((e) => e?.node?.image)

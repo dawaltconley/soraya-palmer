@@ -7,7 +7,6 @@ import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'
 
-/* const page = await client.queries.pressPage({ relativePath: 'press.yaml' }) */
 const writing = await client.queries.writingConnection()
 const images = await makeResponsive(
   writing.data.writingConnection.edges

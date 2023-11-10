@@ -8,8 +8,10 @@ import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'
 
-const page = await client.queries.pressPage({ relativePath: 'press.yaml' })
-const press = await client.queries.pressConnection()
+const [page, press] = await Promise.all([
+  client.queries.pressPage({ relativePath: 'press.yaml' }),
+  client.queries.pressConnection(),
+])
 
 const gridImages = await makeResponsive(
   page.data.pressPage.press

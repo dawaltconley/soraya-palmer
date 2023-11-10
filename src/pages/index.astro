@@ -14,8 +14,10 @@ import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'
 
-const page = await client.queries.home({ relativePath: 'home.yaml' })
-const writingSamples = await client.queries.writingSamples()
+const [page, writingSamples] = await Promise.all([
+  client.queries.home({ relativePath: 'home.yaml' }),
+  client.queries.writingSamples(),
+])
 
 const writingSampleImages =
   writingSamples.data.home.writing.selections
