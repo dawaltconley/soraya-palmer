@@ -24,7 +24,6 @@ Resources:
         CloudFrontPriceClass: PriceClass_100
         CloudFrontSecurityPolicy: TLSv1.2_2021
         CloudFrontCachePolicy: CachingOptimized
-        CloudFrontHtmlCachePolicy: CachingOptimized
   GitHubDeployment:
     Type: AWS::CloudFormation::Stack
     Properties:
