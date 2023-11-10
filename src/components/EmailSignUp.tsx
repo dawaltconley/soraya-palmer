@@ -17,7 +17,8 @@ export default function EmailSignUp({ content }: EmailSignUpProps) {
   } = useForm({
     requiredFields: ['email'],
   })
-  const status = useFormContentChange(content) || formStatus
+  const editStatus = useFormContentChange(content)
+  const status = editStatus || formStatus
 
   const lockHeight = () => {
     const container = containerRef.current
@@ -30,9 +31,12 @@ export default function EmailSignUp({ content }: EmailSignUpProps) {
   return (
     <div ref={containerRef} className="mx-auto w-auto text-center">
       <h2 className="heading-2 mb-4">{getContent(content, status).title}</h2>
-      {status === 'error' && errorMessage && (
-        <ErrorMessage message={errorMessage} />
-      )}
+      {status === 'error' &&
+        (errorMessage ? (
+          <ErrorMessage message={errorMessage} />
+        ) : editStatus === 'error' ? (
+          <ErrorMessage message="Error message will show here." />
+        ) : null)}
       {description && <p className="mt-2 font-serif">{description}</p>}
       {status !== 'success' && (
         <form

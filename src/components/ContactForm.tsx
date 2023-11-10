@@ -27,7 +27,8 @@ export default function ContactForm({ content }: ContactFormProps) {
   } = useForm({
     requiredFields: ['name', 'email', 'subject', 'message'],
   })
-  const status = useFormContentChange(content) || formStatus
+  const editStatus = useFormContentChange(content)
+  const status = editStatus || formStatus
   const showForm = status !== 'success'
 
   useEffect(() => {
@@ -53,9 +54,12 @@ export default function ContactForm({ content }: ContactFormProps) {
         {getContent(content, status).title}
       </h2>
       <div className="mx-auto my-4 max-w-prose space-y-2 font-serif">
-        {status === 'error' && errorMessage && (
-          <ErrorMessage message={errorMessage} />
-        )}
+        {status === 'error' &&
+          (errorMessage ? (
+            <ErrorMessage message={errorMessage} />
+          ) : editStatus === 'error' ? (
+            <ErrorMessage message="Error message will show here." />
+          ) : null)}
         {description && (
           <p className="m-0 inline-block text-left">{description}</p>
         )}
