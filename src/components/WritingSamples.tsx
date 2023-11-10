@@ -8,11 +8,12 @@ import { isNotEmpty } from '@lib/utils'
 import { getTinaImage } from '@lib/images'
 
 interface WritingSamplesProps {
+  max?: number
   images?: ResponsiveImageData
 }
 
 export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
-  ({ data, images = {} }) => {
+  ({ data, max, images = {} }) => {
     const { title, selections } = data.home.writing
     const articles = selections?.map((w) => w?.item).filter(isNotEmpty)
     return (
@@ -26,20 +27,28 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
           {articles && (
             <div className="grid gap-8 xl:grid-cols-3">
               {articles
-                .slice(0, 3)
-                .map(({ description, image, imageControls, ...article }) => {
+                .slice(0, max)
+                .map(({ description, image, imageControls, ...article }, i) => {
                   description = description?.children?.length ? (
                     <TinaMarkdown content={description} />
                   ) : null
                   return (
-                    <ArticlePreview
-                      key={article.url}
-                      style="inline"
-                      layout="date"
-                      {...getTinaImage(image, imageControls, images)}
-                      description={description}
-                      {...article}
-                    />
+                    <div
+                      data-tina-field={tinaField(
+                        data.home.writing,
+                        'selections',
+                        i,
+                      )}
+                    >
+                      <ArticlePreview
+                        key={article.url}
+                        style="inline"
+                        layout="date"
+                        {...getTinaImage(image, imageControls, images)}
+                        description={description}
+                        {...article}
+                      />
+                    </div>
                   )
                 })}
             </div>

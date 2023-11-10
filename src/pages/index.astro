@@ -58,7 +58,7 @@ const images = await makeResponsive([
 
     <Bio client:tina data={page} images={images} />
 
-    <WritingSamples client:tina data={writingSamples} images={images} />
+    <WritingSamples client:tina data={writingSamples} max={3} images={images} />
 
     <div id="contact-group" class="container mx-auto justify-around xl:flex">
       <div
