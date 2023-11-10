@@ -14,6 +14,9 @@ export default defineConfig({
   output: 'static',
   integrations: [react(), tina()],
   vite: {
+    build: {
+      emptyOutDir: false,
+    },
     css: {
       preprocessorOptions: {
         scss: {

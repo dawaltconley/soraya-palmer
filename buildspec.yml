@@ -45,3 +45,4 @@ cache:
     - '.npm/**/*'
     - '.cache/**/*'
     - 'dist/_responsive-images/*'
+    - 'dist/media/**/*'

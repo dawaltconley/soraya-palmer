@@ -35,6 +35,7 @@ Resources:
         EnvironmentImage: aws/codebuild/standard:7.0
         UseBuildArtifacts: 'false'
         CacheType: S3
+        CacheExpiration: 30
         ParameterStoreArns: !Sub "\
           arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/FontAwesomeProToken,\
           arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaClientId,\
