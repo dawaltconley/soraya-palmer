@@ -3,7 +3,7 @@ import type { ImageData } from '@build/images'
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import BookSplash from '@components/BookSplash.tsx'
-import { ReviewQuote } from '@components/Quote.tsx'
+import QuoteGrid from '@components/QuoteGrid'
 import Bio from '@components/Bio.tsx'
 import WritingSamples from '@components/WritingSamples.tsx'
 import TinaEmailSignUp from '@components/TinaEmailSignUp'
@@ -53,36 +53,8 @@ const images = await makeResponsive([
   />
   <main class="text-lg">
     <BookSplash client:load data={page} className="pt-14" images={images} />
-    <div id="pull-quotes" class="bg-gray-50 py-16">
-      <div
-        class="container mx-auto grid items-start justify-items-center gap-16 md:grid-cols-3 md:gap-8 lg:gap-16"
-      >
-        <ReviewQuote
-          author="Ingrid Rojas Contreras"
-          source="The New York Times Book Review"
-          url="https://www.nytimes.com/2023/03/28/books/review/the-human-origins-of-beatrice-porter-and-other-essential-ghosts-soraya-palmer.html"
-        >
-          This is a book written with the gods of storytelling in mind.
-        </ReviewQuote>
 
-        <ReviewQuote
-          source="Today"
-          url="https://www.today.com/popculture/best-new-books-2023-t272941"
-        >
-          One of the Best New Books to Read in 2023.
-        </ReviewQuote>
-
-        <ReviewQuote
-          author="Sarah Neilson"
-          source="Shondaland"
-          url="https://www.shondaland.com/inspire/books/a43391194/soraya-palmers-the-human-origins-of-beatrice-porter-and-other-essential-ghosts/"
-        >
-          [A] stunning debut novel . . . With magnetic prose and nuanced
-          characters, Palmer has created a story where readers will be invested
-          from page one.
-        </ReviewQuote>
-      </div>
-    </div>
+    <QuoteGrid client:tina data={page} max={3} />
 
     <Bio client:tina data={page} images={images} />
 

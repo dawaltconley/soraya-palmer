@@ -320,6 +320,69 @@ const homePage: Collection = {
     },
     {
       type: 'object',
+      name: 'quotes',
+      label: 'Quotes',
+      required: true,
+      list: true,
+      templates: [
+        {
+          name: 'article',
+          label: 'From press',
+          ui: {
+            itemProps: (item) => {
+              const label = [item._template, item.article].join(': ')
+              return { label }
+            },
+          },
+          fields: [
+            {
+              type: 'reference',
+              collections: ['press'],
+              name: 'article',
+              label: 'Source',
+            },
+            {
+              type: 'rich-text',
+              name: 'quoteOverride',
+              label: 'Quote override',
+              ui: {
+                description:
+                  'Use this to customize how the quote appears here, i.e. to shorten the original.',
+              },
+            },
+          ],
+        },
+        {
+          name: 'quote',
+          label: 'From author',
+          ui: {
+            itemProps: (item) => {
+              const label = [item._template, item.quote].join(': ')
+              return { label }
+            },
+          },
+          fields: [
+            {
+              type: 'reference',
+              collections: ['quotes'],
+              name: 'quote',
+              label: 'Source',
+            },
+            {
+              type: 'rich-text',
+              name: 'quoteOverride',
+              label: 'Quote override',
+              ui: {
+                description:
+                  'Use this to customize how the quote appears here, i.e. to shorten the original.',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'object',
       name: 'about',
       label: 'About Me',
       required: true,
