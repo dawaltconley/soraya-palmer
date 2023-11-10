@@ -324,6 +324,11 @@ const homePage: Collection = {
       label: 'Quotes',
       required: true,
       list: true,
+      ui: {
+        validate: (items) => {
+          if (items.length !== 3) return 'Must provide 3 quotes.'
+        },
+      },
       templates: [
         {
           name: 'article',
@@ -429,6 +434,10 @@ const homePage: Collection = {
             itemProps: ({ item }) => ({
               label: item || 'Add sample',
             }),
+            validate: (items) => {
+              if (items.length !== 3)
+                return 'Must select 3 articles for preview.'
+            },
           },
           fields: [
             {
