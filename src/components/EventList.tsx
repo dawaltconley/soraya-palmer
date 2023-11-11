@@ -5,6 +5,7 @@ import type {
 import type { TinaData } from '@lib/browser/withTinaWrapper'
 import type { ResponsiveImageData } from '@lib/build/images'
 import type { EventPreviewProps } from './EventPreview'
+import { useState, useEffect } from 'react'
 import EventPreview from './EventPreview'
 import TinaEmailSignUp from './TinaEmailSignUp'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
@@ -55,13 +56,14 @@ const toEventProps = (
 
 interface EventListProps {
   page: TinaData<EventsPageQuery>
+  serverTime: number
   exclude?: string[]
   images?: ResponsiveImageData
 }
 
 export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
-  ({ data, page, exclude = [], images }) => {
-    const now = Date.now()
+  ({ data, page, serverTime, exclude = [], images }) => {
+    const [now, setNow] = useState(serverTime)
     const events =
       data.eventsConnection.edges
         ?.map((e) => e?.node)
@@ -74,6 +76,8 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
 
     const upcoming = events.filter((e) => new Date(e.startTime).getTime() > now)
     const past = events.filter((e) => new Date(e.startTime).getTime() <= now)
+
+    useEffect(() => setNow(Date.now()), [])
 
     return (
       <>

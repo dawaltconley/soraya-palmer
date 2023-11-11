@@ -26,6 +26,12 @@ const images = await makeResponsive(
 
 <Page title="Events – Soraya Palmer">
   <main class="container mx-auto py-16 text-lg">
-    <EventList client:load data={events} page={page} images={images} />
+    <EventList
+      client:load
+      data={events}
+      page={page}
+      serverTime={Date.now()}
+      images={images}
+    />
   </main>
 </Page>
