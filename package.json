@@ -37,7 +37,6 @@
     "astro-tina": "^0.1.1",
     "autoprefixer": "^10.4.15",
     "clsx": "^2.0.0",
-    "dayjs": "^1.11.10",
     "hamburgers": "^1.2.1",
     "lodash": "^4.17.21",
     "postcss": "^8.4.29",

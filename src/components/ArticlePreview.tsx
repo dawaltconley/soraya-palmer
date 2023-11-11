@@ -3,7 +3,6 @@ import type { ImageMetadata } from '@dawaltconley/responsive-images'
 import type { ImageCardProps } from './ImageCard'
 import Card from './Card'
 import pick from 'lodash/pick'
-import dayjs from 'dayjs'
 import clsx from 'clsx'
 
 const ArticlePreviewStyle = ['card', 'tile', 'inline'] as const
@@ -106,6 +105,12 @@ function ArticleLayoutBasic({
   )
 }
 
+const dateFormat = Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
+
 function ArticleLayoutDate({
   title,
   publisher,
@@ -114,7 +119,7 @@ function ArticleLayoutDate({
   description = children,
   hLevel,
 }: ArticleLayoutProps) {
-  const date = dateString ? dayjs(dateString) : null
+  const date = dateString ? new Date(dateString) : null
   const H = hLevel || 'p'
 
   return (
@@ -133,7 +138,7 @@ function ArticleLayoutDate({
         <div className="-order-1 flex text-base leading-none text-gray-500">
           {date && (
             <time className="shrink-0" dateTime={date.toISOString()}>
-              {date.format('MMM YYYY')}
+              {dateFormat.format(date)}
             </time>
           )}
           {publisher && (
