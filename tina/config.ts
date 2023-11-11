@@ -686,9 +686,11 @@ const events: Collection = {
   ui: {
     router: async () => '/events',
   },
-  defaultItem: {
+  defaultItem: () => ({
     ...defaultImageControls,
-  },
+    timezone:
+      Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/New_York',
+  }),
   fields: [
     {
       type: 'string',
@@ -740,6 +742,15 @@ const events: Collection = {
       ui: {
         timeFormat: 'hh:mm A',
       },
+    },
+    {
+      type: 'string',
+      name: 'timezone',
+      label: 'Time Zone',
+      options: Intl.supportedValuesOf('timeZone').map((tz) => ({
+        value: tz,
+        label: tz,
+      })),
     },
     {
       type: 'string',

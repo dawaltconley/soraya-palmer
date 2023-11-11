@@ -29,6 +29,7 @@ const toEventProps = (
     description,
     startTime,
     endTime,
+    timezone,
     location,
     ...props
   } = event
@@ -45,6 +46,7 @@ const toEventProps = (
     description,
     start: startTime,
     end: endTime || undefined,
+    tz: timezone || undefined,
     place: location,
     ...getTinaImage(image, imageControls, images),
     ...props,
@@ -64,11 +66,11 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
       data.eventsConnection.edges
         ?.map((e) => e?.node)
         .filter((p) => exclude.every((id) => id !== p?.id))
-        .filter(isNotEmpty) || []
-    events.sort(
-      (a, b) =>
-        new Date(b.startTime).getTime() - new Date(a.startTime).getTime(),
-    )
+        .filter(isNotEmpty)
+        .sort(
+          (a, b) =>
+            new Date(b.startTime).getTime() - new Date(a.startTime).getTime(),
+        ) || []
 
     const upcoming = events.filter((e) => new Date(e.startTime).getTime() > now)
     const past = events.filter((e) => new Date(e.startTime).getTime() <= now)
