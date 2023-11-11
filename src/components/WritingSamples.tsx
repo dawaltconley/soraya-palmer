@@ -34,6 +34,7 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
                   ) : null
                   return (
                     <div
+                      key={article.url}
                       data-tina-field={tinaField(
                         data.home.writing,
                         'selections',
@@ -41,7 +42,6 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
                       )}
                     >
                       <ArticlePreview
-                        key={article.url}
                         style="inline"
                         layout="date"
                         {...getTinaImage(image, imageControls, images)}
