@@ -1,6 +1,6 @@
 import { ResponsiveImages } from '@dawaltconley/responsive-images'
 
-const isProduction = import.meta.env.MODE === 'production'
+const isProduction = process.env.NODE_ENV === 'production'
 
 export default new ResponsiveImages({
   scalingFactor: 0.5,
