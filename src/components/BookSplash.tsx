@@ -147,7 +147,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
                   )}
                   muted
                   autoPlay={false}
-                  preload="auto"
+                  preload="metadata"
                   onReady={() =>
                     window.setTimeout(() => setIsVideoLoaded(true), 2000)
                   }
