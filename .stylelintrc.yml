@@ -7,3 +7,4 @@ plugins:
 rules:
   selector-pseudo-class-no-unknown: [true, { ignorePseudoClasses: [global] }]
   scss/at-rule-no-unknown: null
+  no-empty-source: null

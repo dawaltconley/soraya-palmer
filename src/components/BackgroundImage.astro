@@ -1,0 +1,40 @@
+---
+import * as sass from 'sass'
+import postcss from 'postcss'
+import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
+import imageConfig from '@build/image-config'
+
+export interface Props {
+  selector: string
+  src: string
+}
+
+const { selector, src } = Astro.props
+
+const output = await sass
+  .compileStringAsync(
+    `
+    @use '@dawaltconley/responsive-images';
+
+    ${selector} {
+      @include responsive-images.bg(
+        $src: '${src}'
+      );
+    }
+  `,
+    {
+      loadPaths: ['node_modules'],
+      quietDeps: true,
+      functions: imageConfig.sassFunctions,
+    },
+  )
+  .then(({ css }) =>
+    postcss([autoprefixer, cssnano]).process(css, {
+      from: undefined,
+      map: false,
+    }),
+  )
+---
+
+<style is:inline set:html={output.css}></style>
