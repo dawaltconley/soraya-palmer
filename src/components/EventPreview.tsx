@@ -45,12 +45,16 @@ const TimeRange = ({ start, end, format }: TimeRangeProps) => {
 
   return (
     <>
-      <time dateTime={start.toISOString()}>{startString}</time>
+      <time dateTime={start.toISOString()} suppressHydrationWarning>
+        {startString}
+      </time>
       <span className="mx-0">
         &nbsp;{sep?.value.trim() || '\u2012'}
         {sameDay ? <>&nbsp;</> : <br />}
       </span>
-      <time dateTime={end.toISOString()}>{endString}</time>
+      <time dateTime={end.toISOString()} suppressHydrationWarning>
+        {endString}
+      </time>
     </>
   )
 }
@@ -135,7 +139,10 @@ export default function ArticlePreview({
                   {end ? (
                     <TimeRange start={start} end={end} format={dateFormat} />
                   ) : (
-                    <time dateTime={start.toISOString()}>
+                    <time
+                      dateTime={start.toISOString()}
+                      suppressHydrationWarning
+                    >
                       {formatParts(dateFormat.formatToParts(start))}
                     </time>
                   )}
