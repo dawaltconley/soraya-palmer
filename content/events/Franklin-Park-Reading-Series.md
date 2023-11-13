@@ -1,7 +1,7 @@
 ---
 url: 'https://www.franklinparkbrooklyn.com/reading-series/'
 title: Franklin Park Reading Series
-image: /media/IMG_8927.jpeg
+image: /media/IMG_8995.jpeg
 imageControls:
   size: cover
   posX: 50
@@ -13,5 +13,3 @@ location: 'Franklin Park, Brooklyn, NY'
 Franklin Park Reading Series with Tim Blake Nelson (City of Blows), Idra Novey (Take What You Need), Mahogany Browne (Chrome Valley), Mary Otis (Burst), and Laura Spence-Ash (Beyond That: the Sea).
 
  
-
-
