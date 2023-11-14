@@ -1,6 +1,5 @@
-import type { StoreSelectProps } from './BookStoreSelect'
 import { useState, useRef } from 'react'
-import BookStoreSelect from './BookStoreSelect'
+import BookStoreSelect, { type StoreSelectProps } from './BookStoreSelect'
 
 export interface BookBuyButtonProps {
   stores: StoreSelectProps['stores']

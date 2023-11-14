@@ -4,16 +4,15 @@ import type {
 } from '@tina/__generated__/types'
 import type { TinaData } from '@lib/browser/withTinaWrapper'
 import type { ResponsiveImageData } from '@lib/build/images'
-import type { ArticlePreviewProps } from './ArticlePreview'
 import { useTina } from 'tinacms/dist/react'
 import { isNotEmpty } from '@lib/utils'
-import CardList from './CardList'
+import CardList, { type CardListProps } from './CardList'
 
 export interface PressListProps {
   data: TinaData<PressConnectionQuery>
   images?: ResponsiveImageData
   exclude: TinaData<PressPageQuery>
-  hLevel?: ArticlePreviewProps['hLevel']
+  hLevel?: CardListProps['hLevel']
 }
 
 export default function PressList({

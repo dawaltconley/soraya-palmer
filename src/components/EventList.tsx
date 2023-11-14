@@ -2,15 +2,12 @@ import type {
   EventsPageQuery,
   EventsConnectionQuery,
 } from '@tina/__generated__/types'
-import type { TinaData } from '@lib/browser/withTinaWrapper'
-import type { ResponsiveImageData } from '@lib/build/images'
-import type { EventPreviewProps } from './EventPreview'
 import { useState, useEffect } from 'react'
-import EventPreview from './EventPreview'
+import EventPreview, { type EventPreviewProps } from './EventPreview'
 import TinaEmailSignUp from './TinaEmailSignUp'
-import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
+import { withTinaWrapper, type TinaData } from '@lib/browser/withTinaWrapper'
 import { isNotEmpty } from '@lib/utils'
-import { getTinaImage } from '@lib/images'
+import { getTinaImage, type ResponsiveImageData } from '@lib/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 

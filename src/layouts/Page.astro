@@ -1,9 +1,9 @@
 ---
-import type { Props as HeaderImageProps } from '@components/HeaderImage.astro'
-import type { Props as BaseProps } from '@layouts/Base.astro'
-import Base from '@layouts/Base.astro'
+import Base, { type Props as BaseProps } from '@layouts/Base.astro'
+import HeaderImage, {
+  type Props as HeaderImageProps,
+} from '@components/HeaderImage.astro'
 import Header from '@components/Header.astro'
-import HeaderImage from '@components/HeaderImage.astro'
 import Footer from '@components/Footer.astro'
 
 export interface Props extends BaseProps {

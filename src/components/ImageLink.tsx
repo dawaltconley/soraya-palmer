@@ -1,9 +1,11 @@
 import type { ComponentPropsWithoutRef } from 'react'
-import type { ResponsiveImageData } from '@lib/build/images'
-import type { TinaImageControls } from '@lib/images'
 import Image from './Image'
 import Icon from './Icon'
-import { getTinaImage } from '@lib/images'
+import {
+  getTinaImage,
+  type ResponsiveImageData,
+  type TinaImageControls,
+} from '@lib/images'
 import clsx from 'clsx'
 
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types'

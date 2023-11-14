@@ -1,5 +1,9 @@
-import type { ComponentPropsWithoutRef, SyntheticEvent } from 'react'
-import { useEffect, useRef } from 'react'
+import {
+  useEffect,
+  useRef,
+  type ComponentPropsWithoutRef,
+  type SyntheticEvent,
+} from 'react'
 
 interface Source {
   src: string

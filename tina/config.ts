@@ -1,6 +1,5 @@
-import type { Collection, TinaField } from 'tinacms'
 import type { CardStyle } from '@components/ImageCard'
-import { defineConfig } from 'tinacms'
+import { defineConfig, type Collection, type TinaField } from 'tinacms'
 import { UrlMetadata } from './components/UrlMetadata'
 import { toUrl } from '../src/lib/utils'
 

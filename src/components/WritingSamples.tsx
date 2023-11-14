@@ -1,11 +1,10 @@
 import type { WritingSamplesQuery } from '@tina/__generated__/types'
-import type { ResponsiveImageData } from '@build/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { withTinaWrapper } from '@browser/withTinaWrapper'
 import ArticlePreview from './ArticlePreview'
 import { isNotEmpty } from '@lib/utils'
-import { getTinaImage } from '@lib/images'
+import { getTinaImage, type ResponsiveImageData } from '@lib/images'
 
 interface WritingSamplesProps {
   max?: number

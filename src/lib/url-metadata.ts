@@ -1,5 +1,4 @@
-import type { MqlResponse } from '@microlink/mql'
-import mql from '@microlink/mql'
+import mql, { type MqlResponse } from '@microlink/mql'
 import { toUrl } from '@lib/utils'
 
 export const getMetadata = async (

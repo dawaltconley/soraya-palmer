@@ -2,16 +2,14 @@ import type {
   WritingConnectionQuery,
   PressConnectionQuery,
 } from '@tina/__generated__/types'
-import type { ResponsiveImageData } from '@lib/build/images'
-import type { ArticlePreviewProps } from './ArticlePreview'
-import ArticlePreview from './ArticlePreview'
+import ArticlePreview, { type ArticlePreviewProps } from './ArticlePreview'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import { isNotEmpty } from '@lib/utils'
-import { getTinaImage } from '@lib/images'
+import { getTinaImage, type ResponsiveImageData } from '@lib/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 
-interface CardListProps {
+export interface CardListProps {
   exclude?: string[]
   images?: ResponsiveImageData
   hLevel?: ArticlePreviewProps['hLevel']

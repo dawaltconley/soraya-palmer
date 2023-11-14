@@ -1,5 +1,4 @@
-import type { IconProps } from './Icon'
-import Icon from './Icon'
+import Icon, { type IconProps } from './Icon'
 import clsx from 'clsx'
 import { faSpinnerThird as faLoading } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird'
 

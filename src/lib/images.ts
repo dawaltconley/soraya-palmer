@@ -3,6 +3,8 @@ import type { Metadata } from '@11ty/eleventy-img'
 import type { ImageCardProps } from '@components/ImageCard'
 import { toUrl } from './utils'
 
+export type { ResponsiveImageData }
+
 export const tinaAssets = /^https:\/\/assets.tina.io\/[a-f0-9\-]*/
 
 export const fixTinaMalformedPath = (image: string): string =>

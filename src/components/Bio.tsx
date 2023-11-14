@@ -1,10 +1,9 @@
 import type { HomeQuery } from '@tina/__generated__/types'
-import type { ResponsiveImageData } from '@lib/build/images'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { tinaField } from 'tinacms/dist/react'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import Image from './Image'
-import { getMetadata } from '@lib/images'
+import { getMetadata, type ResponsiveImageData } from '@lib/images'
 
 export interface BioProps {
   images?: ResponsiveImageData

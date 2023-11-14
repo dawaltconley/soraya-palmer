@@ -1,10 +1,11 @@
-import type { FormStatus, FormContent } from '@browser/forms'
 import { useEffect, useRef } from 'react'
 import {
   useForm,
   useFormContentChange,
   restoreForm,
   getContent,
+  type FormStatus,
+  type FormContent,
 } from '@browser/forms'
 import clsx from 'clsx'
 import Spinner from './Spinner'

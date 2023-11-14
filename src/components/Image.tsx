@@ -1,6 +1,5 @@
 import type { ImageMetadata } from '@dawaltconley/responsive-images'
-import type { ComponentPropsWithoutRef, Ref } from 'react'
-import { forwardRef } from 'react'
+import { forwardRef, type ComponentPropsWithoutRef, type Ref } from 'react'
 
 export type Metadata = ImageMetadata['metadata']
 

@@ -1,5 +1,4 @@
-import type { IconProps } from './Icon'
-import Icon from './Icon'
+import Icon, { type IconProps } from './Icon'
 
 export interface IconLinkProps extends IconProps {
   url?: string

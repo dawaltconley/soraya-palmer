@@ -1,5 +1,4 @@
 ---
-import type { ImageData } from '@build/images'
 import Base from '@layouts/Base.astro'
 import Header from '@components/Header.astro'
 import BookSplash from '@components/BookSplash.tsx'
@@ -9,7 +8,7 @@ import WritingSamples from '@components/WritingSamples.tsx'
 import TinaEmailSignUp from '@components/TinaEmailSignUp'
 import TinaContactForm from '@components/TinaContactForm'
 import Footer from '@components/Footer.astro'
-import { makeResponsive } from '@lib/build/images'
+import { makeResponsive, type ImageData } from '@lib/build/images'
 import { isNotEmpty } from '@lib/utils'
 
 import { client } from '@tina/__generated__/client'

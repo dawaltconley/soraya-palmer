@@ -1,6 +1,4 @@
 import type { ReactNode, CSSProperties } from 'react'
-import type { ResponsiveImageData } from '@lib/build/images'
-import type { TinaImageControls } from '@lib/images'
 import type { PressPageQuery } from '@tina/__generated__/types'
 import { useTina, tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
@@ -8,7 +6,11 @@ import Card from './Card'
 import { isCardStyle } from './ImageCard'
 import { ArticleLayout } from './ArticlePreview'
 import { AuthorQuote, ReviewQuote } from './Quote'
-import { getTinaImage } from '@lib/images'
+import {
+  getTinaImage,
+  type ResponsiveImageData,
+  type TinaImageControls,
+} from '@lib/images'
 import clsx from 'clsx'
 import colors from 'tailwindcss/colors' // TODO avoid this
 

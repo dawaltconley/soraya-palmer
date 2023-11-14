@@ -1,6 +1,10 @@
-import type { FormContent } from '@browser/forms'
 import { useRef } from 'react'
-import { useForm, useFormContentChange, getContent } from '@browser/forms'
+import {
+  useForm,
+  useFormContentChange,
+  getContent,
+  type FormContent,
+} from '@browser/forms'
 import Spinner from './Spinner'
 import ErrorMessage from './ErrorMessage'
 

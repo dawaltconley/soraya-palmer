@@ -1,15 +1,18 @@
-import type { MqlResponse, MicrolinkApiOptions } from '@microlink/mql'
-import mql from '@microlink/mql'
+import mql, { type MqlResponse, type MqlOptions } from '@microlink/mql'
 import React, { useState, useEffect, useRef } from 'react'
-import type { InputProps } from 'tinacms'
-import { wrapFieldsWithMeta, Input, LoadingDots } from 'tinacms'
+import {
+  wrapFieldsWithMeta,
+  Input,
+  LoadingDots,
+  type InputProps,
+} from 'tinacms'
 import { get, memoize } from 'lodash'
 import { fixTinaMalformedPath } from '../../src/lib/images'
 
 const getMetadata = memoize(
   async (
     urlString: string | URL,
-    options?: MicrolinkApiOptions,
+    options?: MqlOptions,
   ): Promise<MqlResponse['data']> => {
     let url: URL
     try {
@@ -35,7 +38,7 @@ export interface UrlMetadataProps {
     string | ((data: MqlResponse['data']) => string)
   >
   overwriteFields: boolean
-  mqlOptions: MicrolinkApiOptions
+  mqlOptions: MqlOptions
 }
 
 export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(

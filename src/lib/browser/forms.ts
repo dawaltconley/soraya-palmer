@@ -1,5 +1,4 @@
-import type { FormEvent } from 'react'
-import { useState, useRef } from 'react'
+import { useState, useRef, type FormEvent } from 'react'
 
 type FormMethod = 'GET' | 'POST'
 type FormEncoding = 'application/x-www-form-urlencoded' | 'multipart/form-data'

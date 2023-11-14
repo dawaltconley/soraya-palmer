@@ -1,7 +1,5 @@
-import type { CardBasicProps } from './CardBasic'
-import type { ImageCardProps } from './ImageCard'
-import CardBasic from './CardBasic'
-import ImageCard from './ImageCard'
+import CardBasic, { type CardBasicProps } from './CardBasic'
+import ImageCard, { type ImageCardProps } from './ImageCard'
 
 export default function Card(
   props: (CardBasicProps & { image?: null }) | ImageCardProps,
