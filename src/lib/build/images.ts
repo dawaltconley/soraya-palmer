@@ -11,7 +11,7 @@ export interface ImageData {
 
 export type ResponsiveImageData = Record<string, ImageMetadata>
 
-const normalizeImagePath = (image: string): string =>
+export const normalizeImagePath = (image: string): string =>
   toUrl(image)?.href || path.resolve('./public', `.${image}`)
 
 const processImageData = async ({

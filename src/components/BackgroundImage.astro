@@ -1,6 +1,7 @@
 ---
 import type { MediaQueryOptions } from '@dawaltconley/responsive-images'
 import imageConfig from '@build/image-config'
+import { normalizeImagePath } from '@build/images'
 import postcss from 'postcss'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
@@ -13,7 +14,7 @@ export interface Props extends MediaQueryOptions {
 const { selector, src, ...options } = Astro.props
 
 const output = await imageConfig
-  .backgroundFromSizes(selector, src, options)
+  .backgroundFromSizes(selector, normalizeImagePath(src), options)
   .then((css) =>
     postcss([autoprefixer, cssnano]).process(css, {
       from: undefined,

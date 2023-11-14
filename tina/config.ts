@@ -48,63 +48,71 @@ const globalData: Collection = {
   ],
 }
 
-const imageControls: TinaField = {
-  type: 'object',
-  name: 'imageControls',
-  label: 'Image Controls',
-  fields: [
-    {
-      type: 'string',
-      name: 'alt',
-      label: 'Image description',
+type ImageControlFields = 'alt' | 'size' | 'posX' | 'posY'
+
+const imageControlFields: Record<ImageControlFields, TinaField> = {
+  alt: {
+    type: 'string',
+    name: 'alt',
+    label: 'Image description',
+  },
+  size: {
+    type: 'string',
+    name: 'size',
+    label: 'Image size',
+    ui: {
+      description:
+        'Cover ensures that the image fills the complete space and is usually the right approach. Contain ensures that the full image is visible.',
     },
-    {
-      type: 'string',
-      name: 'size',
-      label: 'Image size',
-      ui: {
-        description:
-          'Cover ensures that the image fills the complete space and is usually the right approach. Contain ensures that the full image is visible.',
+    options: [
+      {
+        value: 'cover',
+        label: 'cover',
       },
-      options: [
-        {
-          value: 'cover',
-          label: 'cover',
-        },
-        {
-          value: 'contain',
-          label: 'contain',
-        },
-      ],
-    },
-    {
-      type: 'number',
-      name: 'posX',
-      label: 'Horizontal position %',
-      ui: {
-        description:
-          'Controls how the image is centered when sized to "cover."',
-        validate: (value) => {
-          if (value < 0 || value > 100)
-            return 'Position must be between 0 and 100'
-        },
+      {
+        value: 'contain',
+        label: 'contain',
+      },
+    ],
+  },
+  posX: {
+    type: 'number',
+    name: 'posX',
+    label: 'Horizontal position %',
+    ui: {
+      description: 'Controls how the image is centered when sized to "cover."',
+      validate: (value) => {
+        if (value < 0 || value > 100)
+          return 'Position must be between 0 and 100'
       },
     },
-    {
-      type: 'number',
-      name: 'posY',
-      label: 'Vertical position %',
-      ui: {
-        description:
-          'Controls how the image is centered when sized to "cover."',
-        validate: (value) => {
-          if (value < 0 || value > 100)
-            return 'Position must be between 0 and 100'
-        },
+  },
+  posY: {
+    type: 'number',
+    name: 'posY',
+    label: 'Vertical position %',
+    ui: {
+      description: 'Controls how the image is centered when sized to "cover."',
+      validate: (value) => {
+        if (value < 0 || value > 100)
+          return 'Position must be between 0 and 100'
       },
     },
-  ],
+  },
 }
+
+const imageControls = ({
+  name = 'imageControls',
+  fields = ['alt', 'size', 'posX', 'posY'],
+}: {
+  name?: string
+  fields?: ImageControlFields[]
+} = {}): TinaField => ({
+  type: 'object',
+  name,
+  label: 'Image Controls',
+  fields: fields.map((f) => imageControlFields[f]),
+})
 
 const defaultImageControls = {
   imageControls: {
@@ -525,7 +533,7 @@ const writing: Collection = {
       label: 'Image',
       required: true,
     },
-    imageControls,
+    imageControls(),
     {
       type: 'datetime',
       name: 'date',
@@ -617,7 +625,7 @@ const press: Collection = {
       name: 'image',
       label: 'Image',
     },
-    imageControls,
+    imageControls(),
     {
       type: 'datetime',
       name: 'date',
@@ -675,7 +683,7 @@ const quotes: Collection = {
       name: 'image',
       label: 'Headshot',
     },
-    imageControls,
+    imageControls(),
   ],
 }
 
@@ -725,7 +733,7 @@ const events: Collection = {
         description: 'Square images work best.',
       },
     },
-    imageControls,
+    imageControls(),
     {
       type: 'datetime',
       name: 'startTime',
@@ -945,6 +953,13 @@ const workWithMePage: Collection = {
     },
   },
   fields: [
+    {
+      type: 'image',
+      name: 'headerImage',
+      label: 'Page Image',
+      required: true,
+    },
+    imageControls({ fields: ['posX', 'posY'] }),
     {
       type: 'string',
       name: 'title',

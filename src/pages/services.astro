@@ -11,7 +11,11 @@ const page = await client.queries.workWithMePage({
 
 <Page
   title={`${page.data.workWithMePage.title} – Soraya Palmer`}
-  headerImage="./public/media/headshot.jpeg"
+  headerImage={page.data.workWithMePage.headerImage}
+  headerImagePosition={[
+    page.data.workWithMePage.imageControls?.posX || null,
+    page.data.workWithMePage.imageControls?.posY || null,
+  ]}
 >
   <TinaContent
     client:tina
