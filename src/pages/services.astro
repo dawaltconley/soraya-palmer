@@ -1,7 +1,8 @@
 ---
 import Page from '@layouts/Page.astro'
-import TinaContent from '@components/TinaContent'
-import TinaContactForm from '@components/TinaContactForm'
+import TinaContent from '@components/TinaContent.tsx'
+import TinaContactForm from '@components/TinaContactForm.tsx'
+import TinaBackgroundImage from '@components/BackgroundImage.tsx'
 
 import { client } from '@tina/__generated__/client'
 const page = await client.queries.workWithMePage({
@@ -12,11 +13,13 @@ const page = await client.queries.workWithMePage({
 <Page
   title={`${page.data.workWithMePage.title} – Soraya Palmer`}
   headerImage={page.data.workWithMePage.headerImage}
-  headerImagePosition={[
-    page.data.workWithMePage.imageControls?.posX || null,
-    page.data.workWithMePage.imageControls?.posY || null,
-  ]}
 >
+  <TinaBackgroundImage
+    client:tina
+    slot="header-image"
+    data={page}
+    optimized={page.data.workWithMePage.headerImage}
+  />
   <TinaContent
     client:tina
     slot="header-title"

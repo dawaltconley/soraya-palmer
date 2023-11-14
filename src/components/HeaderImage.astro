@@ -13,18 +13,29 @@ const {
   class: className,
   imagePosition: [posX, posY] = [],
 } = Astro.props
+
+const backgroundImage = await Astro.slots.render('background-image')
 ---
 
 <div
   class:list={[
     className,
-    'bg-img-header vignette overlay-before flex h-[40vh] w-full flex-col bg-cover bg-center bg-no-repeat before:bg-gray-950/80',
+    'vignette relative flex h-[40vh] w-full flex-col bg-gray-900/30',
   ]}
-  style={{
-    '--background-position-x': posX,
-    '--background-position-y': posY,
-  }}
 >
+  {
+    backgroundImage ? (
+      <Fragment set:html={backgroundImage} />
+    ) : (
+      <div
+        class="bg-img-header absolute inset-0 -z-10"
+        style={{
+          '--background-position-x': posX,
+          '--background-position-y': posY,
+        }}
+      />
+    )
+  }
   <div class="relative z-50">
     <Header textColor="white" class="sm:text-shadow" />
   </div>
@@ -37,30 +48,16 @@ const {
       </div>
     )
   }
-  <BackgroundImage
-    selector=".bg-img-header::before"
-    src={image}
-    formats={['webp']}
-  />
+  <BackgroundImage selector=".bg-img-header" src={image} formats={['webp']} />
 </div>
 
-<style lang="scss">
+<style lang="scss" is:global>
   .bg-img-header {
-    position: relative;
-    background-color: #{"theme('colors.gray.900 / 30%')"};
-    background-image: none;
-
-    &::before {
-      content: '';
-      display: block;
-      inset: 0;
-      background-position: center;
-      background-position-x: calc(1% * var(--background-position-x, 50));
-      background-position-y: calc(1% * var(--background-position-y, 50));
-      background-size: cover;
-      background-repeat: no-repeat;
-      filter: contrast(70%);
-      z-index: -1;
-    }
+    background-position: center;
+    background-position-x: calc(1% * var(--background-position-x, 50));
+    background-position-y: calc(1% * var(--background-position-y, 50));
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: contrast(70%);
   }
 </style>

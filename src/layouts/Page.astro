@@ -18,6 +18,7 @@ const { headerImage, headerImagePosition, ...props } = Astro.props
   {
     headerImage && Astro.slots.has('header-title') ? (
       <HeaderImage image={headerImage} imagePosition={headerImagePosition}>
+        <slot name="header-image" slot="background-image" />
         <slot name="header-title" />
       </HeaderImage>
     ) : (
