@@ -11,7 +11,7 @@ const page = await client.queries.workWithMePage({
 
 <Page
   title={`${page.data.workWithMePage.title} – Soraya Palmer`}
-  headerClass="header-work-with-me"
+  headerImage="./public/media/headshot.jpeg"
 >
   <TinaContent
     client:tina
@@ -35,26 +35,3 @@ const page = await client.queries.workWithMePage({
     </div>
   </div>
 </Page>
-
-<style lang="scss" is:global>
-  .header-work-with-me {
-    position: relative;
-    background-color: #{"theme('colors.gray.900 / 30%')"};
-    background-image: none;
-
-    &::before {
-      content: '';
-      display: block;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-position: center 29%;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-image: url(/media/headshot.jpeg);
-      filter: contrast(70%);
-      z-index: -1;
-    }
-  }
-</style>

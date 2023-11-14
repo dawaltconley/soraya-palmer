@@ -6,16 +6,16 @@ import HeaderImage from '@components/HeaderImage.astro'
 import Footer from '@components/Footer.astro'
 
 export interface Props extends BaseProps {
-  headerClass?: string
+  headerImage?: string
 }
 
-const { headerClass, ...props } = Astro.props
+const { headerImage, ...props } = Astro.props
 ---
 
 <Base {...props}>
   {
-    headerClass && Astro.slots.has('header-title') ? (
-      <HeaderImage class={headerClass}>
+    headerImage && Astro.slots.has('header-title') ? (
+      <HeaderImage image={headerImage}>
         <slot name="header-title" />
       </HeaderImage>
     ) : (

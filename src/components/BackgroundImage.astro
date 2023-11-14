@@ -1,35 +1,20 @@
 ---
-import * as sass from 'sass'
+import type { MediaQueryOptions } from '@dawaltconley/responsive-images'
+import imageConfig from '@build/image-config'
 import postcss from 'postcss'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
-import imageConfig from '@build/image-config'
 
-export interface Props {
+export interface Props extends MediaQueryOptions {
   selector: string
   src: string
 }
 
-const { selector, src } = Astro.props
+const { selector, src, ...options } = Astro.props
 
-const output = await sass
-  .compileStringAsync(
-    `
-    @use '@dawaltconley/responsive-images';
-
-    ${selector} {
-      @include responsive-images.bg(
-        $src: '${src}'
-      );
-    }
-  `,
-    {
-      loadPaths: ['node_modules'],
-      quietDeps: true,
-      functions: imageConfig.sassFunctions,
-    },
-  )
-  .then(({ css }) =>
+const output = await imageConfig
+  .backgroundFromSizes(selector, src, options)
+  .then((css) =>
     postcss([autoprefixer, cssnano]).process(css, {
       from: undefined,
       map: false,

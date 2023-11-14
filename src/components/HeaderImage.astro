@@ -1,17 +1,19 @@
 ---
-import Header from '@components/Header.astro'
+import Header from './Header.astro'
+import BackgroundImage from './BackgroundImage.astro'
 
 export interface Props {
-  class?: string // if I had a way to produce CSS for responsive images without sass this could work better
+  image: string
+  class?: string
 }
 
-const { class: className } = Astro.props
+const { image, class: className } = Astro.props
 ---
 
 <div
   class:list={[
     className,
-    'vignette overlay-before flex h-[40vh] w-full flex-col bg-cover bg-center bg-no-repeat before:bg-gray-950/80',
+    'bg-img-header vignette overlay-before flex h-[40vh] w-full flex-col bg-cover bg-center bg-no-repeat before:bg-gray-950/80',
   ]}
 >
   <div class="relative z-50">
@@ -26,4 +28,24 @@ const { class: className } = Astro.props
       </div>
     )
   }
+  <BackgroundImage selector=".bg-img-header::before" src={image} />
 </div>
+
+<style lang="scss">
+  .bg-img-header {
+    position: relative;
+    background-color: #{"theme('colors.gray.900 / 30%')"};
+    background-image: none;
+
+    &::before {
+      content: '';
+      display: block;
+      inset: 0;
+      background-position: center 29%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      filter: contrast(70%);
+      z-index: -1;
+    }
+  }
+</style>
