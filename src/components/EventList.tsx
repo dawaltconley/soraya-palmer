@@ -10,6 +10,7 @@ import { isNotEmpty } from '@lib/utils'
 import { getTinaImage, type ResponsiveImageData } from '@lib/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
+import clsx from 'clsx'
 
 type Event = NonNullable<
   NonNullable<
@@ -22,6 +23,7 @@ const toEventProps = (
   images: ResponsiveImageData = {},
 ): EventPreviewProps => {
   let {
+    url,
     image,
     imageControls,
     description,
@@ -41,6 +43,7 @@ const toEventProps = (
     }
   }
   return {
+    url: url || undefined,
     description,
     start: startTime,
     end: endTime || undefined,
@@ -90,7 +93,12 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
               return (
                 <li
                   key={event.id}
-                  className="overflow-hidden rounded-sm bg-white drop-shadow duration-200 odd:last:col-span-full hover:drop-shadow-md"
+                  className={clsx(
+                    'overflow-hidden rounded-sm bg-white drop-shadow duration-200 odd:last:col-span-full',
+                    {
+                      'hover:drop-shadow-md': props.url,
+                    },
+                  )}
                   data-tina-field={tinaField(event, 'title')}
                   data-event-card={new Date(props.start).toISOString()}
                 >
@@ -126,7 +134,12 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
                 return (
                   <li
                     key={event.id}
-                    className="overflow-hidden rounded-sm bg-white drop-shadow duration-200 hover:drop-shadow-md"
+                    className={clsx(
+                      'overflow-hidden rounded-sm bg-white drop-shadow duration-200',
+                      {
+                        'hover:drop-shadow-md': props.url,
+                      },
+                    )}
                     data-tina-field={tinaField(event, 'title')}
                     data-event-card={new Date(props.start).toISOString()}
                   >

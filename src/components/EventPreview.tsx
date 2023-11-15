@@ -64,7 +64,7 @@ export interface EventPreviewProps
     ImageCardProps,
     'imageSize' | 'imagePosition' | 'linkText' | 'linkLocation' | 'borderColor'
   > {
-  url: string | URL
+  url?: string | URL
   title: string
   image: string | ImageMetadata['metadata']
   alt?: string

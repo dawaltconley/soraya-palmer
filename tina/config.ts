@@ -703,12 +703,11 @@ const events: Collection = {
       type: 'string',
       name: 'url',
       label: 'URL',
-      required: true,
       ui: {
         // @ts-expect-error
         component: UrlMetadata,
         // @ts-expect-error
-        validate: requiredUrl,
+        validate: validateUrl,
         metadataFields: {
           title: 'title',
           image: 'image.url',
