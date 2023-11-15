@@ -3,11 +3,24 @@ import Page from '@layouts/Page.astro'
 import TinaContent from '@components/TinaContent.tsx'
 import TinaContactForm from '@components/TinaContactForm.tsx'
 import TinaBackgroundImage from '@components/BackgroundImage.tsx'
+import { makeResponsive } from '@lib/build/images'
 
 import { client } from '@tina/__generated__/client'
 const page = await client.queries.workWithMePage({
   relativePath: 'services.mdx',
 })
+
+const bodyImages: string[] = page.data.workWithMePage.body.children
+  .filter((e: any) => e?.name === 'ImageLink')
+  .map((e: any) => e.props.image)
+  .filter((e: any): e is string => typeof e === 'string')
+
+const images = await makeResponsive([
+  ...bodyImages.map((path) => ({
+    path,
+    size: '(min-width: 468px) 421px, 100vw',
+  })),
+])
 ---
 
 <Page
@@ -32,7 +45,12 @@ const page = await client.queries.workWithMePage({
     <main
       class="prose prose-lg mx-auto font-serif prose-headings:font-display first:prose-headings:mt-0 prose-li:marker:text-amber-300 xl:ml-0"
     >
-      <TinaContent client:tina data={page} path="workWithMePage.body" />
+      <TinaContent
+        client:tina
+        data={page}
+        path="workWithMePage.body"
+        images={images}
+      />
     </main>
     <div
       id="contact"
