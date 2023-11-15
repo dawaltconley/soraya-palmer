@@ -22,13 +22,14 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
     >
       <div className="container mx-auto grid items-start justify-items-center gap-16 md:grid-cols-3 md:gap-8 lg:gap-16">
         {data.home.quotes.slice(0, max).map((q, i) => {
+          let key: string
           let content: ReactNode
           if (q.__typename === 'HomeQuotesArticle' && q.article) {
             const { url, author, source, description } = q.article
+            key = url
             if (!source) return null
             content = (
               <ReviewQuote
-                key={url}
                 author={author || undefined}
                 source={source}
                 url={url}
@@ -42,12 +43,9 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
             )
           } else if (q.__typename === 'HomeQuotesQuote' && q.quote) {
             const { author, book, quote } = q.quote
+            key = author
             content = (
-              <AuthorQuote
-                key={author}
-                author={author}
-                book={book || undefined}
-              >
+              <AuthorQuote author={author} book={book || undefined}>
                 <TinaMarkdown
                   content={
                     hasRichText(q.quoteOverride) ? q.quoteOverride : quote
@@ -59,7 +57,7 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
             return null
           }
           return (
-            <div data-tina-field={tinaField(data.home, 'quotes', i)}>
+            <div key={key} data-tina-field={tinaField(data.home, 'quotes', i)}>
               {content}
             </div>
           )
