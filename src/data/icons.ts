@@ -5,6 +5,9 @@ import { definition as IconPhone } from '@fortawesome/pro-regular-svg-icons/faPh
 import { definition as IconTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter'
 import { definition as IconLinkedIn } from '@fortawesome/free-brands-svg-icons/faLinkedin'
 import { definition as IconInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram'
+import { faTiktok } from '@fortawesome/free-brands-svg-icons/faTiktok'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook'
+import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube'
 
 import { Icon, getIconFromUrl } from '@lib/icons'
 
@@ -25,6 +28,21 @@ const icons = {
     name: 'Instagram',
     url: 'https://www.instagram.com/',
     icons: IconInstagram,
+  }),
+  tiktok: new Icon({
+    name: 'TikTok',
+    url: 'https://www.tiktok.com/',
+    icons: faTiktok,
+  }),
+  facebook: new Icon({
+    name: 'Facebook',
+    url: 'https://www.facebook.com/',
+    icons: faFacebook,
+  }),
+  youtube: new Icon({
+    name: 'YouTube',
+    url: 'https://www.youtube.com/',
+    icons: faYoutube,
   }),
 } as const
 
