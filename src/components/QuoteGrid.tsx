@@ -4,6 +4,7 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { tinaField } from 'tinacms/dist/react'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
 import { AuthorQuote, ReviewQuote } from './Quote'
+import { hasRichText } from '@lib/utils'
 
 export interface QuoteGridProps {
   max?: number
@@ -32,7 +33,11 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
                 source={source}
                 url={url}
               >
-                <TinaMarkdown content={q.quoteOverride || description} />
+                <TinaMarkdown
+                  content={
+                    hasRichText(q.quoteOverride) ? q.quoteOverride : description
+                  }
+                />
               </ReviewQuote>
             )
           } else if (q.__typename === 'HomeQuotesQuote' && q.quote) {
@@ -43,7 +48,11 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
                 author={author}
                 book={book || undefined}
               >
-                <TinaMarkdown content={q.quoteOverride || quote} />
+                <TinaMarkdown
+                  content={
+                    hasRichText(q.quoteOverride) ? q.quoteOverride : quote
+                  }
+                />
               </AuthorQuote>
             )
           } else {

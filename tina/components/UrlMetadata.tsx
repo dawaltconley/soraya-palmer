@@ -8,6 +8,7 @@ import {
 } from 'tinacms'
 import { get, memoize } from 'lodash'
 import { fixTinaMalformedPath } from '../../src/lib/images'
+import { hasRichText } from '../../src/lib/utils'
 
 const getMetadata = memoize(
   async (
@@ -61,9 +62,7 @@ export const UrlMetadata = wrapFieldsWithMeta<InputProps, UrlMetadataProps>(
               ([f]) =>
                 field.overwriteFields || // if has overwrite flag
                 !values[f] || // if field is empty
-                values[f].children?.length === 0 || // if empty AST
-                (values[f].children?.length === 1 &&
-                  !values[f].children?.[0]?.children?.[0].text),
+                !hasRichText(values[f]), // if empty AST
             )
             form.batch(() => {
               updateFields.forEach(([field, property]) => {

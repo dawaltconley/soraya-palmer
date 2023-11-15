@@ -22,3 +22,10 @@ export function hasProps<T extends object, K extends keyof T>(
 ): obj is WithRequired<T, K> {
   return props.every((p) => p in obj)
 }
+
+export const hasRichText = (ast?: object | null): boolean =>
+  ast &&
+  'children' in ast &&
+  Array.isArray(ast.children) &&
+  (ast.children.length > 1 ||
+    (ast.children.length === 1 && ast.children[0]?.children?.[0].text))
