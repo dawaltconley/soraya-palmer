@@ -2,19 +2,24 @@
 import '@styles/global.scss'
 
 export interface Props {
-  title: string
+  title: string | null
   description?: string
   ogImage?: string
   class?: string
 }
 
 const {
-  title,
+  title: pageTitle,
   description,
   class: className,
   ogImage = '/og-default.png',
 } = Astro.props
 
+const siteTitle = 'Soraya Palmer'
+const title =
+  pageTitle && pageTitle !== siteTitle
+    ? `${pageTitle} – ${siteTitle}`
+    : siteTitle
 const canonicalUrl = Astro.site && new URL(Astro.url.pathname, Astro.site)
 ---
 
