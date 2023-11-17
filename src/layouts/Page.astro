@@ -11,10 +11,10 @@ export interface Props extends BaseProps {
   headerImagePosition?: HeaderImageProps['imagePosition']
 }
 
-const { headerImage, headerImagePosition, ...props } = Astro.props
+const { headerImage, headerImagePosition, ogImage, ...props } = Astro.props
 ---
 
-<Base {...props}>
+<Base ogImage={ogImage || headerImage} {...props}>
   {
     headerImage && Astro.slots.has('header-title') ? (
       <HeaderImage image={headerImage} imagePosition={headerImagePosition}>

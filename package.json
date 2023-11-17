@@ -33,6 +33,7 @@
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/react-transition-group": "^4.4.6",
+    "@types/sharp": "^0.32.0",
     "astro": "^3.0.8",
     "astro-tina": "^0.1.1",
     "autoprefixer": "^10.4.15",
@@ -47,6 +48,7 @@
     "sass": "^1.66.1",
     "sass-parallax": "^0.6.1",
     "sass-tailwind-functions": "github:dawaltconley/sass-tailwind-functions",
+    "sharp": "^0.32.6",
     "tailwindcss": "^3.3.3",
     "tinacms": "^1.5.20",
     "typescript": "^5.2.2"

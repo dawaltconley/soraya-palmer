@@ -23,7 +23,7 @@ const images = await makeResponsive(
 )
 ---
 
-<Page title="Events">
+<Page title="Events" {...page.data.eventsPage.meta}>
   <main class="container mx-auto py-16 text-lg">
     <EventList
       client:load
