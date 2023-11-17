@@ -7,7 +7,7 @@ import Icon from './Icon'
 export default withTinaWrapper<GlobalQuery>(({ data }) => (
   <div
     className="flex space-x-3"
-    data-tina-field={tinaField(data.global, 'socialLinks')}
+    // data-tina-field={tinaField(data.global, 'socialLinks')}
   >
     {data.global.socialLinks?.map((url) => {
       const icon = url && getIconFromUrl(url)

@@ -7,7 +7,8 @@ import { isNotEmpty } from '@lib/utils'
 import { client } from '@tina/__generated__/client'
 
 const [page, writing] = await Promise.all([
-  client.queries.writingPage({ relativePath: 'writing.yaml' }),
+  null,
+  /* client.queries.writingPage({ relativePath: 'writing.yaml' }), */
   client.queries.writingConnection(),
 ])
 const images = await makeResponsive(
@@ -22,7 +23,7 @@ const images = await makeResponsive(
 )
 ---
 
-<Page title="Writing" {...page.data.writingPage.meta}>
+<Page title="Writing">
   <main class="container mx-auto py-16 text-lg">
     <h1 class="separator heading-1 mb-8">Writing</h1>
     <CardList client:tina data={writing} images={images} hLevel="h2" />
