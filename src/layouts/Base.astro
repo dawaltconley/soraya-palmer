@@ -1,26 +1,24 @@
 ---
 import '@styles/global.scss'
+import { client } from '@tina/__generated__/client'
+import { makeOg } from '@lib/build/images'
 
 export interface Props {
   title: string | null
-  description?: string
-  ogImage?: string
+  description?: string | null
+  ogImage?: string | null
   class?: string
 }
 
-const {
-  title: pageTitle,
-  description,
-  class: className,
-  ogImage = '/og-default.png',
-} = Astro.props
+let { title, description, class: className, ogImage } = Astro.props
 
 const siteTitle = 'Soraya Palmer'
-const title =
-  pageTitle && pageTitle !== siteTitle
-    ? `${pageTitle} – ${siteTitle}`
-    : siteTitle
 const canonicalUrl = Astro.site && new URL(Astro.url.pathname, Astro.site)
+
+title = title && title !== siteTitle ? `${title} – ${siteTitle}` : siteTitle
+ogImage ??= await client.queries
+  .global({ relativePath: 'global.yaml' })
+  .then(({ data }) => makeOg(data.global.ogImage))
 ---
 
 <!doctype html>

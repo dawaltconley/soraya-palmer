@@ -2,6 +2,7 @@ import type { CardStyle } from '@components/ImageCard'
 import { defineConfig, type Collection, type TinaField } from 'tinacms'
 import { UrlMetadata } from './components/UrlMetadata'
 import { toUrl } from '../src/lib/utils'
+import { cloneDeep } from 'lodash'
 
 // Your hosting provider likely exposes this as an environment variable
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main'
@@ -23,6 +24,39 @@ const slugify = (str: string): string =>
     .trim()
     .replaceAll(' ', '-')
 
+const pageMeta: TinaField = {
+  type: 'object',
+  name: 'meta',
+  label: 'Page Metadata',
+  fields: [
+    {
+      type: 'string',
+      name: 'description',
+      label: 'Page description',
+      ui: {
+        description:
+          'Shown in Google searches and when links are shared on social media.',
+        validate: (value) => {
+          if (value && value.length > 160)
+            return 'Descriptions should be no more than 160 characters long.'
+        },
+      },
+    },
+    {
+      type: 'image',
+      name: 'ogImage',
+      label: 'Social media image',
+      ui: {
+        description:
+          'Used for previews when this page is shared on social media or any app that supports link previews. For best results should be 1200x630 pixels.',
+      },
+    },
+  ],
+}
+
+const pageMetaNoImage = cloneDeep(pageMeta)
+pageMetaNoImage.fields.splice(1, 1)
+
 const globalData: Collection = {
   name: 'global',
   label: 'Global Data',
@@ -38,6 +72,16 @@ const globalData: Collection = {
     },
   },
   fields: [
+    {
+      type: 'image',
+      name: 'ogImage',
+      label: 'Default social media image',
+      required: true,
+      ui: {
+        description:
+          'Used for previews when a link is shared on social media or any app that supports link previews. For best results should be 1200x630 pixels. This is a fallback for when page-specific images are not provided.',
+      },
+    },
     {
       type: 'string',
       name: 'socialLinks',
@@ -263,6 +307,7 @@ const homePage: Collection = {
     },
   },
   fields: [
+    pageMeta,
     {
       type: 'object',
       name: 'book',
@@ -853,6 +898,7 @@ const pressPage: Collection = {
     },
   },
   fields: [
+    pageMeta,
     {
       type: 'object',
       name: 'press',
@@ -932,6 +978,28 @@ const pressPage: Collection = {
   ],
 }
 
+const writingPage: Collection = {
+  name: 'writingPage',
+  label: 'Writing Page',
+  path: 'content/pages',
+  match: {
+    include: 'writing',
+  },
+  format: 'yaml',
+  ui: {
+    allowedActions: {
+      create: false,
+      delete: false,
+    },
+    // have to disable router because visual editing pulls up writing collection anyway
+    // router: async ({ document }) => {
+    //   if (document._sys.filename === 'writing') return '/writing'
+    //   return undefined
+    // },
+  },
+  fields: [pageMeta],
+}
+
 const workWithMePage: Collection = {
   name: 'workWithMePage',
   label: 'Work With Me Page',
@@ -951,6 +1019,7 @@ const workWithMePage: Collection = {
     },
   },
   fields: [
+    pageMetaNoImage,
     {
       type: 'image',
       name: 'headerImage',
@@ -1045,6 +1114,7 @@ const eventsPage: Collection = {
     },
   },
   fields: [
+    pageMeta,
     {
       type: 'object',
       name: 'emailForm',
@@ -1078,6 +1148,7 @@ export default defineConfig({
     collections: [
       globalData,
       homePage,
+      writingPage,
       pressPage,
       eventsPage,
       workWithMePage,
