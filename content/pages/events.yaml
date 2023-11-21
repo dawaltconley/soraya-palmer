@@ -1,4 +1,6 @@
-pageMeta: {}
+meta:
+  description: Find out about my upcoming readings and other events.
+  ogImage: /media/DSC01796.jpeg
 emailForm:
   initial:
     title: Join my mailing list
