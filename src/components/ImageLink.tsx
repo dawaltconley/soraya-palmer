@@ -80,7 +80,7 @@ export default function ImageLink({
             })}
             imgProps={{
               className: clsx(
-                'max-h-[50vh] duration-300 will-change-transform group-hover:scale-105 group-hover:blur',
+                'duration-300 will-change-transform group-hover:scale-105 group-hover:blur',
                 imageSize === 'contain' ? 'object-contain' : 'object-cover',
               ),
               style: imagePosition && {
