@@ -126,7 +126,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
       data-tina-field={tinaField(data.home, 'book')}
       {...divProps}
     >
-      <div className="container mx-auto h-full justify-center py-16 md:flex">
+      <div className="container mx-auto h-full justify-center pb-16 pt-8 md:flex md:pt-16">
         {hasVideo && (
           <div
             className={clsx(
@@ -184,7 +184,8 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
           }}
           imgRef={image}
           imgProps={{
-            className: 'h-full w-full object-contain drop-shadow-2xl',
+            className:
+              'mx-auto h-full w-full max-w-xs object-contain drop-shadow-2xl md:mx-0 md:max-w-none',
             loading: 'eager',
           }}
         />
