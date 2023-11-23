@@ -77,7 +77,7 @@ export default function ImageCard({
             {
               '@2xl:grow': grow === 'image',
               '@2xl:order-1': imageSide === 'right',
-              'group-hover:after:bg-gray-800/20 ': url,
+              'after:transform-gpu group-hover:after:bg-gray-800/20': url,
               relative: style === 'card',
               'absolute inset-0 z-0 h-full @2xl:relative': style === 'tile',
             },
@@ -101,7 +101,8 @@ export default function ImageCard({
                   ? 'object-cover'
                   : 'object-contain p-2 drop-shadow-xl',
                 {
-                  'group-hover:scale-105': url,
+                  'transform-gpu will-change-transform group-hover:scale-105':
+                    url,
                 },
               ),
               style: imagePosition && {
