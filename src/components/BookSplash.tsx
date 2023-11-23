@@ -136,21 +136,23 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
           >
             <div className="sticky bottom-0 top-0 flex h-full max-h-screen-s w-full">
               <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
-                <Video
-                  sources={sources}
-                  play={state === 'video'}
-                  className={clsx(
-                    'duration-1000',
-                    showVideo ? 'delay-300' : 'scale-95 opacity-0',
-                  )}
-                  muted
-                  autoPlay={false}
-                  preload="metadata"
-                  onReady={() => setIsVideoLoaded(true)}
-                  onEnded={() => {
-                    window.setTimeout(() => setState('initial'), 500)
-                  }}
-                />
+                {(isVideoLoaded || state === 'video') && (
+                  <Video
+                    sources={sources}
+                    play={state === 'video'}
+                    className={clsx(
+                      'duration-1000',
+                      showVideo ? 'delay-300' : 'scale-95 opacity-0',
+                    )}
+                    muted
+                    autoPlay={false}
+                    preload="auto"
+                    onReady={() => setIsVideoLoaded(true)}
+                    onEnded={() => {
+                      window.setTimeout(() => setState('initial'), 500)
+                    }}
+                  />
+                )}
                 <div className="absolute inset-0 flex">
                   <Spinner
                     className={clsx('m-auto text-4xl', {
