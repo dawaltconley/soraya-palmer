@@ -47,6 +47,14 @@
     }
   }
 
+  .card {
+    @apply overflow-hidden rounded-sm bg-white drop-shadow;
+
+    &--hover {
+      @apply duration-200 hover:drop-shadow-md;
+    }
+  }
+
   .book-description {
     blockquote {
       font-style: italic;

@@ -90,12 +90,9 @@ export default function PressGrid({
         return (
           <div
             key={id}
-            className={clsx(
-              'press-grid__item overflow-hidden rounded-sm bg-white drop-shadow',
-              {
-                'duration-200 hover:drop-shadow-md': url,
-              },
-            )}
+            className={clsx('press-grid__item card', {
+              'card--hover': url,
+            })}
             style={
               {
                 '--rows': p.rows || 1,

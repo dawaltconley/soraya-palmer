@@ -93,12 +93,9 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
               return (
                 <li
                   key={event.id}
-                  className={clsx(
-                    'overflow-hidden rounded-sm bg-white drop-shadow duration-200 odd:last:col-span-full',
-                    {
-                      'hover:drop-shadow-md': props.url,
-                    },
-                  )}
+                  className={clsx('card odd:last:col-span-full', {
+                    'card--hover': props.url,
+                  })}
                   data-tina-field={tinaField(event, 'title')}
                   data-event-card={new Date(props.start).toISOString()}
                 >
@@ -134,12 +131,9 @@ export default withTinaWrapper<EventsConnectionQuery, EventListProps>(
                 return (
                   <li
                     key={event.id}
-                    className={clsx(
-                      'overflow-hidden rounded-sm bg-white drop-shadow duration-200',
-                      {
-                        'hover:drop-shadow-md': props.url,
-                      },
-                    )}
+                    className={clsx('card', {
+                      'card--hover': props.url,
+                    })}
                     data-tina-field={tinaField(event, 'title')}
                     data-event-card={new Date(props.start).toISOString()}
                   >

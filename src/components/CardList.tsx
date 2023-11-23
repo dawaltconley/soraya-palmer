@@ -48,7 +48,7 @@ export default withTinaWrapper<
         return (
           <li
             key={id}
-            className="overflow-hidden rounded-sm bg-white drop-shadow duration-200 hover:drop-shadow-md"
+            className="card card--hover"
             data-tina-field={tinaField(card, 'title')}
           >
             <ArticlePreview

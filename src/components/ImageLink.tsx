@@ -71,7 +71,7 @@ export default function ImageLink({
       {...props}
     >
       <figure className="inline-block max-w-md">
-        <div className="relative overflow-hidden rounded-sm drop-shadow group-hover:drop-shadow-md">
+        <div className="card card--hover relative">
           <Image
             metadata={metadata}
             alt={alt}
