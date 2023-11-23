@@ -72,7 +72,7 @@ export default function BookStoreSelect({
               loc.stores.length > 0 && (
                 <Dropdown.Group
                   key={loc.name}
-                  className="divide-y divide-gray-100 dark:divide-gray-800"
+                  className="transform-gpu divide-y divide-gray-100 dark:divide-gray-800"
                 >
                   {loc.name && (
                     <Dropdown.Label className="bg-gray-100 px-2 py-1 text-xs font-semibold uppercase text-gray-600 dark:bg-gray-700 dark:text-gray-300">
