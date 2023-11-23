@@ -27,7 +27,7 @@
 
   input,
   textarea {
-    @apply border border-gray-900 bg-white px-4 py-2 leading-normal disabled:bg-gray-50 disabled:text-gray-600;
+    @apply rounded-none border border-gray-900 bg-white px-4 py-2 leading-normal disabled:bg-gray-50 disabled:text-gray-600;
   }
 
   %relative,
