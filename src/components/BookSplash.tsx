@@ -48,7 +48,6 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
 
   const [state, setState] = useState<SplashState>(init)
   const [isVideoLoaded, setIsVideoLoaded] = useState(false)
-  const isPlaying = isVideoLoaded && state === 'video'
 
   const showVideo = state === 'video' && isVideoLoaded
 
@@ -139,17 +138,15 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
               <div className="relative m-auto aspect-square w-full text-gray-600 md:h-full md:w-auto">
                 <Video
                   sources={sources}
-                  play={isPlaying}
+                  play={state === 'video'}
                   className={clsx(
                     'duration-1000',
-                    isPlaying ? 'delay-300' : 'scale-95 opacity-0',
+                    showVideo ? 'delay-300' : 'scale-95 opacity-0',
                   )}
                   muted
                   autoPlay={false}
                   preload="metadata"
-                  onReady={() =>
-                    window.setTimeout(() => setIsVideoLoaded(true), 2000)
-                  }
+                  onReady={() => setIsVideoLoaded(true)}
                   onEnded={() => {
                     window.setTimeout(() => setState('initial'), 500)
                   }}

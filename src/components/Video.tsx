@@ -14,14 +14,12 @@ export interface VideoProps extends ComponentPropsWithoutRef<'video'> {
   sources: Source[]
   play?: boolean
   onReady: (e?: SyntheticEvent<HTMLVideoElement>) => void
-  onEnded: (e?: SyntheticEvent<HTMLVideoElement>) => void
 }
 
 export default function Video({
   sources,
   play = false,
   onReady,
-  onEnded,
   ...props
 }: VideoProps) {
   const video = useRef<HTMLVideoElement>(null)
@@ -44,7 +42,7 @@ export default function Video({
   }, [play])
 
   return (
-    <video ref={video} onCanPlayThrough={onReady} onEnded={onEnded} {...props}>
+    <video ref={video} onCanPlayThrough={onReady} {...props}>
       {sources.map((s) => (
         <source key={s.src} {...s} />
       ))}
