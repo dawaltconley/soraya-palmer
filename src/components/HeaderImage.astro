@@ -20,7 +20,7 @@ const backgroundImage = await Astro.slots.render('background-image')
 <div
   class:list={[
     className,
-    'vignette relative flex h-[40vh] w-full flex-col bg-gray-900/30',
+    'vignette relative flex min-h-[40vh] w-full flex-col bg-gray-900/30',
   ]}
 >
   {
@@ -36,12 +36,12 @@ const backgroundImage = await Astro.slots.render('background-image')
       />
     )
   }
-  <div class="relative z-50">
+  <div class="relative z-50 mb-auto">
     <Header textColor="white" class="sm:text-shadow" />
   </div>
   {
     Astro.slots.has('default') && (
-      <div class="container mx-auto mb-8 mt-auto">
+      <div class="container mx-auto mb-8 mt-24">
         <h1 class="separator text-shadow heading-1 mb-8 text-white">
           <slot />
         </h1>
