@@ -75,7 +75,7 @@ export default function ImageLink({
           <Image
             metadata={metadata}
             alt={alt}
-            className={clsx({
+            className={clsx('block overflow-hidden', {
               'bg-img-card bg-amber-300': imageSize === 'contain',
             })}
             imgProps={{
