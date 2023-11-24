@@ -10,7 +10,6 @@
     &__item {
       --rows: 1;
       --cols: 1;
-      overflow: hidden;
 
       &::before {
         content: '';
