@@ -48,7 +48,7 @@
   }
 
   .card {
-    @apply rounded-sm bg-white drop-shadow;
+    @apply overflow-hidden rounded-sm bg-white drop-shadow;
 
     &--hover {
       @apply duration-200 hover:drop-shadow-md;
