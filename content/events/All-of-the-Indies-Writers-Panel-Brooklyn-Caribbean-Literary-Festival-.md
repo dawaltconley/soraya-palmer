@@ -3,6 +3,7 @@ url: 'https://www.bklyncbeanlitfest.org/'
 title: 'All of the Indies Writers Panel: Brooklyn Caribbean Literary Festival '
 image: /media/IMG_9561.jpeg
 imageControls:
+  alt: Event flyer with sunset and silhouette couple in the background
   size: cover
   posX: 50
   posY: 50
@@ -12,5 +13,3 @@ location: 'Brooklyn Public Library (Brooklyn Heights Branch), Brooklyn, NY'
 ---
 
 Panel discussion and reading with Sharma Taylor (What a Mother’s Love Don’t Teach You), Camille Hernández-Ramdwar (Suite as Sugar), and Vanessa Walters (The Nigerwife)
-
-
