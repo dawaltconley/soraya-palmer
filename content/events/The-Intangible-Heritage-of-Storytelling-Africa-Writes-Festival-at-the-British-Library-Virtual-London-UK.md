@@ -6,6 +6,9 @@ title: >-
   Library (Virtual), London, U.K
 image: /media/IMG_9616.png
 imageControls:
+  alt: >-
+    Orange event flyer with photos of Bookstagrammer BookofCinz holding a pile
+    of books and Soraya Palmer's author photo.
   size: cover
   posX: 50
   posY: 50
@@ -15,5 +18,3 @@ location: Virtual
 ---
 
 Guest speaker at the Africa Writes Festival at the British Library, London, U.K (and remote) with BookofCinz Book Club
-
-
