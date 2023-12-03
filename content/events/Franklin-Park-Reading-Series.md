@@ -3,6 +3,7 @@ url: 'https://www.franklinparkbrooklyn.com/reading-series/'
 title: Franklin Park Reading Series
 image: /media/IMG_8995.jpeg
 imageControls:
+  alt: Authors posing at Franklin Park bar after reading
   size: cover
   posX: 50
   posY: 50
