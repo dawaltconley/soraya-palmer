@@ -3,7 +3,7 @@ url: 'https://www.petescandystore.com/events-and-series/'
 title: 'Pete’s Reading Series: Pete’s Candy Store, Brooklyn, NY'
 image: /media/IMG_9023.png
 imageControls:
-  alt: Event Flyer
+  alt: Blue event flyer with author photos.
   size: cover
   posX: 50
   posY: 50
