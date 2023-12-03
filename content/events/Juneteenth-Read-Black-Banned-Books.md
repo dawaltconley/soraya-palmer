@@ -13,4 +13,4 @@ startTime: 2023-06-16T22:00:00.000Z
 location: 'Greenlight Bookstore, Fort Greene, Brooklyn'
 ---
 
-Reading of Black banned books with Zakiya Dalila Harris (The Other Black Girl).
+Reading of Black banned books with Zakiya Dalila Harris (The Other Black Girl) wearing custom shirts of banned Black authors, Toni Morrison and Octavia Butler, from the Black owned business, Granru Market. Some proceeds went to benefit two Black organizations, The Free Black Women's Library and Black Girls Sew.
