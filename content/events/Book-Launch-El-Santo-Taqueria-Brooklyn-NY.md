@@ -3,6 +3,7 @@ url: 'https://www.cafeconlibrosbk.com/events'
 title: 'Book Launch: El Santo Taqueria, Brooklyn, NY'
 image: /media/DSC01796.jpeg
 imageControls:
+  alt: Photo of the author speaking at her book launch.
   size: cover
   posX: 50
   posY: 50
