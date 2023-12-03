@@ -5,6 +5,7 @@ title: >-
   Blacksburg, VA
 image: /media/IMG_2300.jpeg
 imageControls:
+  alt: Author speaking in front of podium at event.
   size: cover
   posX: 50
   posY: 50
@@ -13,5 +14,3 @@ location: 'Blacksburg Library, Blacksburg VA'
 ---
 
 Featured Author: Virginia Tech English Department with Matthew Vollmer (All of Us Together in the End)
-
-
