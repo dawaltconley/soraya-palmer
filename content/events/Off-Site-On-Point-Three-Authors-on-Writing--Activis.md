@@ -1,5 +1,7 @@
 ---
-title: 'Off Site On Point: Three Authors on Writing & Activis,'
+title: >-
+  Off Site On Point: Three Authors on Writing & Activism - AWP Offsite Event at
+  The Hideout, Seattle, WA
 image: >-
   /media/El Santo Taqueria 1053 Flushing aVE Brooklyn, NY 11237 (Instagram Post
   (Square)) (4).png
@@ -15,6 +17,4 @@ timezone: America/New_York
 location: 'The Hideout, Seattle, WA'
 ---
 
-Reading and discussion with Madeleine ffitch (Stay and Fight) and Prince Shakur (When They Tell You to Be Good)
-
-
+AWP Offsite Event: Reading and discussion with Madeleine ffitch (Stay and Fight) and Prince Shakur (When They Tell You to Be Good)
