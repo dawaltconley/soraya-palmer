@@ -3,6 +3,9 @@ url: 'https://brooklynbookfestival.org/'
 title: 'Who? New! Debut Authors Panel: Brooklyn Book Festival '
 image: /media/IMG_9674.jpeg
 imageControls:
+  alt: >-
+    Blue and Pink Event flyer of Brooklyn Book Festival with illustrated figures
+    holding books in front of a building.
   size: cover
   posX: 50
   posY: 50
