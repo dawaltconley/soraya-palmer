@@ -3,7 +3,7 @@ url: 'https://www.bklyncbeanlitfest.org/'
 title: 'All of the Indies Writers Panel: Brooklyn Caribbean Literary Festival '
 image: /media/IMG_9561.jpeg
 imageControls:
-  alt: Event flyer with sunset and silhouette couple in the background
+  alt: 'Event flyer with sunset and silhouette couple in the background '
   size: cover
   posX: 50
   posY: 50
