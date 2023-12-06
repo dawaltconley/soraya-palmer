@@ -66,7 +66,7 @@ export interface EventPreviewProps
   > {
   url?: string | URL
   title: string
-  image: string | ImageMetadata['metadata']
+  image: string | ImageMetadata
   alt?: string
   start: string | Date
   end?: string | Date

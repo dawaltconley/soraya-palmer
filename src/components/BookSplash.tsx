@@ -171,7 +171,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
           </div>
         )}
         <Image
-          metadata={metadata}
+          src={metadata}
           alt="Book cover of The Human Origins of Beatrice Porter"
           className={clsx(
             'mx-auto aspect-cover h-full min-h-[32rem] transition-[opacity,transform] duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',

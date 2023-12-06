@@ -29,7 +29,7 @@ export interface ArticlePreviewProps
   extends Pick<ImageCardProps, (typeof passthroughProps)[number]> {
   url: string | URL
   title: string
-  image?: string | ImageMetadata['metadata'] | null
+  image?: string | ImageMetadata | null
   alt?: string | null
   date?: string | Date | null
   description?: ReactNode | null

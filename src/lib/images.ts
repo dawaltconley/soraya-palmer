@@ -1,5 +1,5 @@
 import type { ResponsiveImageData } from './build/images'
-import type { Metadata } from '@11ty/eleventy-img'
+import type { ImageMetadata } from '@dawaltconley/responsive-images'
 import type { ImageCardProps } from '@components/ImageCard'
 import { toUrl } from './utils'
 
@@ -13,9 +13,9 @@ export const fixTinaMalformedPath = (image: string): string =>
 export const getMetadata = (
   path: string,
   responsive: ResponsiveImageData = {},
-): string | Metadata => {
+): string | ImageMetadata => {
   const image = fixTinaMalformedPath(path)
-  return responsive[image]?.metadata || image
+  return responsive[image] || image
 }
 
 export interface TinaImageControls {

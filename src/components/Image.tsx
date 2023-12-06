@@ -4,7 +4,7 @@ import { forwardRef, type ComponentPropsWithoutRef, type Ref } from 'react'
 export type Metadata = ImageMetadata['metadata']
 
 export interface ImageProps extends ComponentPropsWithoutRef<'picture'> {
-  metadata: string | Metadata
+  src: string | ImageMetadata
   alt: string
   sizes?: string
   imgRef?: Ref<HTMLImageElement>
@@ -12,11 +12,15 @@ export interface ImageProps extends ComponentPropsWithoutRef<'picture'> {
 }
 
 export default forwardRef<HTMLPictureElement, ImageProps>(function Image(
-  { metadata, alt, sizes, imgRef, imgProps = {}, ...picture },
+  { src, alt, sizes: sizesProp, imgRef, imgProps = {}, ...picture },
   pictureRef,
 ) {
-  const isResponsive = typeof metadata === 'object'
-  const metaValues = isResponsive ? Object.values(metadata) : [[]]
+  const isResponsive = typeof src === 'object'
+  const metaValues = isResponsive ? Object.values(src.metadata) : [[]]
+  const sizes =
+    sizesProp ||
+    (isResponsive && typeof src.sizes === 'string' && src.sizes) ||
+    undefined
   const smallest = metaValues[0][0]
   const biggest = metaValues[0][metaValues[0].length - 1]
 
@@ -33,7 +37,7 @@ export default forwardRef<HTMLPictureElement, ImageProps>(function Image(
         ))}
       <img
         ref={imgRef}
-        src={!isResponsive ? metadata : smallest?.url}
+        src={!isResponsive ? src : smallest?.url}
         width={biggest?.width}
         height={biggest?.height}
         alt={alt}

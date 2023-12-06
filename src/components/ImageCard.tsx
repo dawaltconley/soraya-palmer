@@ -25,7 +25,7 @@ export const isCardStyle = (str: string): str is CardStyle =>
   CardStyle.some((s) => s === str)
 
 export interface ImageCardProps {
-  image: string | ImageMetadata['metadata']
+  image: string | ImageMetadata
   imageSize?: 'cover' | 'contain'
   imagePosition?: [number, number]
   imageSide?: 'left' | 'right'
@@ -91,7 +91,7 @@ export default function ImageCard({
         >
           <Image
             className="duration-[inherit]"
-            metadata={image}
+            src={image}
             alt={alt}
             imgProps={{
               className: clsx(

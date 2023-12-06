@@ -25,7 +25,7 @@ export default withTinaWrapper<HomeQuery, BioProps>(function Bio({
       <div className="container mx-auto justify-center lg:flex">
         <Image
           className="layer-children mx-auto mb-8 block aspect-square max-w-sm shrink-0 self-start lg:mx-0 lg:mb-0 lg:w-1/2"
-          metadata={metadata}
+          src={metadata}
           alt="Headshot of Soraya Palmer"
           imgProps={{
             className: 'rounded-full object-cover',

@@ -73,7 +73,7 @@ export default function ImageLink({
       <figure className="inline-block max-w-md">
         <div className="card card--hover relative">
           <Image
-            metadata={metadata}
+            src={metadata}
             alt={alt}
             className={clsx('block overflow-hidden', {
               'bg-img-card bg-amber-300': imageSize === 'contain',
