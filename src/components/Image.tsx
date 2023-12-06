@@ -21,8 +21,8 @@ export default forwardRef<HTMLPictureElement, ImageProps>(function Image(
     sizesProp ||
     (isResponsive && typeof src.sizes === 'string' && src.sizes) ||
     undefined
-  const smallest = metaValues[0][0]
-  const biggest = metaValues[0][metaValues[0].length - 1]
+  const smallest = metaValues[metaValues.length - 1][0]
+  const biggest = metaValues[metaValues.length - 1][metaValues[0].length - 1]
 
   return (
     <picture ref={pictureRef} {...picture}>
