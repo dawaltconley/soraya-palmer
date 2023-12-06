@@ -3,22 +3,46 @@ import Page from '@layouts/Page.astro'
 import TinaContent from '@components/TinaContent.tsx'
 import TinaContactForm from '@components/TinaContactForm.tsx'
 import TinaBackgroundImage from '@components/BackgroundImage.tsx'
-import { makeResponsive } from '@lib/build/images'
+import { makeResponsive, type ImageData } from '@lib/build/images'
 
 import { client } from '@tina/__generated__/client'
 const page = await client.queries.workWithMePage({
   relativePath: 'services.mdx',
 })
 
-const bodyImages: string[] = page.data.workWithMePage.body.children
+const bodyImages: ImageData[] = page.data.workWithMePage.body.children.reduce(
+  function toImageData(data: ImageData[], e: any): ImageData[] {
+    if (e && e?.type === 'img' && typeof e?.url === 'string') {
+      return [
+        ...data,
+        {
+          path: e.url,
+          alt: typeof e?.caption === 'string' ? e.caption : undefined,
+        },
+      ]
+    }
+    if (e && Array.isArray(e?.children)) {
+      return [...data, ...e.children.reduce(toImageData, [])]
+    }
+    return data
+  },
+  [],
+)
+
+const imageLinks: string[] = page.data.workWithMePage.body.children
   .filter((e: any) => e?.name === 'ImageLink')
   .map((e: any) => e.props.image)
   .filter((e: any): e is string => typeof e === 'string')
 
 const images = await makeResponsive([
-  ...bodyImages.map((path) => ({
+  ...imageLinks.map((path) => ({
     path,
     sizes: '(min-width: 468px) 448px, 100vw',
+  })),
+  ...bodyImages.map((img) => ({
+    ...img,
+    sizes:
+      '(min-width: 1536px) 818px, (min-width: 1280px) 727px, (min-width: 768px) 704px, (min-width: 640px) 576px, 100vw',
   })),
 ])
 ---

@@ -2,7 +2,9 @@ import type { ResponsiveImageData } from '@lib/build/images'
 import { tinaField } from 'tinacms/dist/react'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
+import { getMetadata } from '@lib/images'
 import ContactButton from './ContactButton'
+import Image from './Image'
 import ImageLink from './ImageLink'
 import get from 'lodash/get'
 import toPath from 'lodash/toPath'
@@ -43,6 +45,11 @@ export default withTinaWrapper<object, TinaContentProps>(
         ) : (
           <></>
         ),
+      img: (props) => {
+        if (!props?.url) return <></>
+        const metadata = getMetadata(props.url, images)
+        return <Image src={metadata} alt={props?.caption || ''} />
+      },
     }
 
     return (
