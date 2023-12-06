@@ -18,7 +18,7 @@ const bodyImages: string[] = page.data.workWithMePage.body.children
 const images = await makeResponsive([
   ...bodyImages.map((path) => ({
     path,
-    size: '(min-width: 468px) 421px, 100vw',
+    sizes: '(min-width: 468px) 448px, 100vw',
   })),
 ])
 ---
