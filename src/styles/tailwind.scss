@@ -10,8 +10,10 @@
     max-width: 100%;
     overflow-x: hidden;
     overflow-x: clip;
-    scroll-behavior: smooth;
     accent-color: theme('colors.amber.300');
+    @media not (prefers-reduced-motion) {
+      scroll-behavior: smooth;
+    }
   }
 
   body,
