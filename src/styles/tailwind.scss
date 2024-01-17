@@ -185,6 +185,27 @@
       @apply right-1 border-amber-300;
     }
   }
+
+  .underline-fill {
+    --underline-color: theme('colors.amber.300');
+    --x-overflow: 2px;
+    background: linear-gradient(
+        to bottom,
+        var(--underline-color, currentColor) 0%,
+        var(--underline-color, currentColor) 100%
+      )
+      no-repeat left bottom / 100% 2px;
+    text-decoration: none;
+    transition: #{theme('transitionDuration.200')} ease-out;
+    padding: 0 var(--x-overflow);
+    margin: 0 calc(-1 * var(--x-overflow));
+
+    &:hover,
+    &:focus-visible,
+    &--active {
+      background-size: 100% 100%;
+    }
+  }
 }
 
 @layer utilities {
