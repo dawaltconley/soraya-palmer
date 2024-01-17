@@ -37,6 +37,14 @@ module.exports = {
         og: '1200 / 630',
         cover: '794 / 1199',
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': theme('colors.gray[900]'),
+            '--tw-prose-links': theme('colors.gray[900]'),
+          },
+        },
+      }),
     },
   },
   plugins: [
