@@ -180,6 +180,7 @@
     }
 
     &:hover::before,
+    &:focus-visible::before,
     &--active::before {
       @apply right-1 border-amber-300;
     }

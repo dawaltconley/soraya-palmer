@@ -61,8 +61,8 @@ const H = useAsTitle ? 'h1' : 'h4'
       {
         links.map(({ text, href }) => (
           <li>
-            <a class="-mb-4 inline-block p-4" href={href}>
-              <span class="underline-link before:border-b-4 sm:before:border-b-2">
+            <a class="group -mb-4 inline-block p-4" href={href}>
+              <span class="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active before:border-b-4 sm:before:border-b-2">
                 {text}
               </span>
             </a>
