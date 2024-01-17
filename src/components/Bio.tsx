@@ -32,7 +32,7 @@ export default withTinaWrapper<HomeQuery, BioProps>(function Bio({
           }}
           data-tina-field={tinaField(data.home.about, 'image')}
         />
-        <div className="peer mx-auto max-w-prose self-center font-serif text-lg sm:text-xl lg:ml-16 lg:mr-0 lg:w-1/2">
+        <div className="prose-a:underline-fill peer prose mx-auto max-w-prose self-center font-serif text-lg hover:prose-a:text-black lg:ml-16 lg:mr-0 lg:w-1/2">
           <span className="inline-next-p heading-2 mr-1 inline underline decoration-amber-300 decoration-4">
             {title}
           </span>{' '}

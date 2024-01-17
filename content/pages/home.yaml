@@ -115,7 +115,7 @@ quotes:
 about:
   image: /media/headshot.jpeg
   title: Soraya Palmer
-  bio: >
+  bio: |
     is the author of *The Human Origins of Beatrice Porter and Other Essential
     Ghosts.* She is a Flatbush-born-and-raised writer and licensed social
     worker. Her novel was named one of Today's “38 Best New Books to Read in
@@ -126,6 +126,8 @@ about:
     elsewhere. She has been awarded a residency at Blue Mountain Center and
     graduated from the Virginia Tech MFA program. She lives in Brooklyn with her
     cat, Nicholas.
+
+    Learn more about [her work.](/services)
 writing:
   title: More Writing
   selections:
