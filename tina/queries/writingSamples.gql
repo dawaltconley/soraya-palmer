@@ -1,5 +1,5 @@
 query writingSamples {
-  home(relativePath: "home.yaml") {
+  home(relativePath: "home.mdx") {
     writing {
       title
       selections {
@@ -19,6 +19,7 @@ query writingSamples {
           }
         }
       }
+      linkText
     }
   }
 }

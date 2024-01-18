@@ -14,7 +14,7 @@ import { isNotEmpty } from '@lib/utils'
 import { client } from '@tina/__generated__/client'
 
 const [page, writingSamples] = await Promise.all([
-  client.queries.home({ relativePath: 'home.yaml' }),
+  client.queries.home({ relativePath: 'home.mdx' }),
   client.queries.writingSamples(),
 ])
 

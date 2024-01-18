@@ -14,7 +14,7 @@ interface WritingSamplesProps {
 
 export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
   ({ data, max, images = {} }) => {
-    const { title, selections } = data.home.writing
+    const { title, selections, linkText } = data.home.writing
     const articles = selections?.map((w) => w?.item).filter(isNotEmpty)
     return (
       <div
@@ -53,9 +53,11 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
                 })}
             </div>
           )}
-          <div className="mt-10 text-center font-serif text-lg">
-            <ReadMore href="/writing">More writing</ReadMore>
-          </div>
+          {linkText && (
+            <div className="mt-10 text-center font-serif text-lg">
+              <ReadMore href="/writing">{linkText}</ReadMore>
+            </div>
+          )}
         </div>
       </div>
     )

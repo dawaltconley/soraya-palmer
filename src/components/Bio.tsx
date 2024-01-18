@@ -6,6 +6,14 @@ import Image from './Image'
 import { getMetadata, type ResponsiveImageData } from '@lib/images'
 import ReadMore from './ReadMore'
 
+type Components = Parameters<typeof TinaMarkdown>[0]['components']
+
+const components: Components = {
+  ReadMore: ({ href = '', children = '' }: any) => (
+    <ReadMore href={href}>{children}</ReadMore>
+  ),
+}
+
 export interface BioProps {
   images?: ResponsiveImageData
 }
@@ -37,10 +45,7 @@ export default withTinaWrapper<HomeQuery, BioProps>(function Bio({
           <span className="inline-next-p heading-2 mr-1 inline underline decoration-amber-300 decoration-4">
             {title}
           </span>{' '}
-          <TinaMarkdown content={bio} />
-          <p>
-            Learn more about <ReadMore href="/services">her work.</ReadMore>
-          </p>
+          <TinaMarkdown content={bio} components={components} />
         </div>
       </div>
     </div>

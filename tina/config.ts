@@ -295,7 +295,7 @@ const homePage: Collection = {
   match: {
     include: 'home',
   },
-  format: 'yaml',
+  format: 'mdx',
   ui: {
     allowedActions: {
       create: false,
@@ -375,66 +375,79 @@ const homePage: Collection = {
       name: 'quotes',
       label: 'Quotes',
       required: true,
-      list: true,
-      ui: {
-        validate: (items) => {
-          if (items.length !== 3) return 'Must provide 3 quotes.'
-        },
-      },
-      templates: [
+      fields: [
         {
-          name: 'article',
-          label: 'From press',
+          type: 'object',
+          name: 'press',
+          label: 'Quotes',
+          required: true,
+          list: true,
           ui: {
-            itemProps: (item) => {
-              const label = [item._template, item.article].join(': ')
-              return { label }
+            validate: (items) => {
+              if (items.length !== 3) return 'Must provide 3 quotes.'
             },
           },
-          fields: [
+          templates: [
             {
-              type: 'reference',
-              collections: ['press'],
               name: 'article',
-              label: 'Source',
+              label: 'From press',
+              ui: {
+                itemProps: (item) => {
+                  const label = [item._template, item.article].join(': ')
+                  return { label }
+                },
+              },
+              fields: [
+                {
+                  type: 'reference',
+                  collections: ['press'],
+                  name: 'article',
+                  label: 'Source',
+                },
+                {
+                  type: 'rich-text',
+                  name: 'quoteOverride',
+                  label: 'Quote override',
+                  ui: {
+                    description:
+                      'Use this to customize how the quote appears here, i.e. to shorten the original.',
+                  },
+                },
+              ],
             },
             {
-              type: 'rich-text',
-              name: 'quoteOverride',
-              label: 'Quote override',
+              name: 'quote',
+              label: 'From author',
               ui: {
-                description:
-                  'Use this to customize how the quote appears here, i.e. to shorten the original.',
+                itemProps: (item) => {
+                  const label = [item._template, item.quote].join(': ')
+                  return { label }
+                },
               },
+              fields: [
+                {
+                  type: 'reference',
+                  collections: ['quotes'],
+                  name: 'quote',
+                  label: 'Source',
+                },
+                {
+                  type: 'rich-text',
+                  name: 'quoteOverride',
+                  label: 'Quote override',
+                  ui: {
+                    description:
+                      'Use this to customize how the quote appears here, i.e. to shorten the original.',
+                  },
+                },
+              ],
             },
           ],
         },
         {
-          name: 'quote',
-          label: 'From author',
-          ui: {
-            itemProps: (item) => {
-              const label = [item._template, item.quote].join(': ')
-              return { label }
-            },
-          },
-          fields: [
-            {
-              type: 'reference',
-              collections: ['quotes'],
-              name: 'quote',
-              label: 'Source',
-            },
-            {
-              type: 'rich-text',
-              name: 'quoteOverride',
-              label: 'Quote override',
-              ui: {
-                description:
-                  'Use this to customize how the quote appears here, i.e. to shorten the original.',
-              },
-            },
-          ],
+          type: 'string',
+          name: 'linkText',
+          label: 'Press link text',
         },
       ],
     },
@@ -462,6 +475,27 @@ const homePage: Collection = {
           name: 'bio',
           label: 'Bio',
           required: true,
+          templates: [
+            {
+              name: 'ReadMore',
+              label: 'Arrow Link',
+              inline: true,
+              fields: [
+                {
+                  type: 'string',
+                  name: 'href',
+                  label: 'URL',
+                  required: true,
+                },
+                {
+                  type: 'string',
+                  name: 'children',
+                  label: 'Text',
+                  required: true,
+                },
+              ],
+            },
+          ],
         },
       ],
     },
@@ -500,6 +534,11 @@ const homePage: Collection = {
               required: true, // TODO: this may break builds!!
             },
           ],
+        },
+        {
+          type: 'string',
+          name: 'linkText',
+          label: 'Writing link text',
         },
       ],
     },

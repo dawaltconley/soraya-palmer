@@ -15,6 +15,7 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
   data,
   max,
 }) {
+  const { press, linkText } = data.home.quotes
   return (
     <div
       id="pull-quotes"
@@ -22,10 +23,10 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
       data-tina-field={tinaField(data.home, 'quotes')}
     >
       <div className="container mx-auto grid items-start justify-items-center gap-16 md:grid-cols-3 md:gap-8 lg:gap-16">
-        {data.home.quotes.slice(0, max).map((q, i) => {
+        {press.slice(0, max).map((q, i) => {
           let key: string
           let content: ReactNode
-          if (q.__typename === 'HomeQuotesArticle' && q.article) {
+          if (q.__typename === 'HomeQuotesPressArticle' && q.article) {
             const { url, author, source, description } = q.article
             key = url
             if (!source) return null
@@ -42,7 +43,7 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
                 />
               </ReviewQuote>
             )
-          } else if (q.__typename === 'HomeQuotesQuote' && q.quote) {
+          } else if (q.__typename === 'HomeQuotesPressQuote' && q.quote) {
             const { author, book, quote } = q.quote
             key = author
             content = (
@@ -58,15 +59,20 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
             return null
           }
           return (
-            <div key={key} data-tina-field={tinaField(data.home, 'quotes', i)}>
+            <div
+              key={key}
+              data-tina-field={tinaField(data.home.quotes, 'press', i)}
+            >
               {content}
             </div>
           )
         })}
       </div>
-      <div className="mt-4 text-center font-serif text-lg">
-        <ReadMore href="/press">More press</ReadMore>
-      </div>
+      {linkText && (
+        <div className="mt-4 text-center font-serif text-lg">
+          <ReadMore href="/press">{linkText}</ReadMore>
+        </div>
+      )}
     </div>
   )
 })
