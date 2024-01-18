@@ -3,6 +3,7 @@ import type { HomeQuery } from '@tina/__generated__/types'
 import { TinaMarkdown } from 'tinacms/dist/rich-text'
 import { tinaField } from 'tinacms/dist/react'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
+import ReadMore from './ReadMore'
 import { AuthorQuote, ReviewQuote } from './Quote'
 import { hasRichText } from '@lib/utils'
 
@@ -62,6 +63,9 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
             </div>
           )
         })}
+      </div>
+      <div className="mt-4 text-center font-serif text-lg">
+        <ReadMore href="/press">More press</ReadMore>
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import { withTinaWrapper } from '@browser/withTinaWrapper'
 import ArticlePreview from './ArticlePreview'
 import { isNotEmpty } from '@lib/utils'
 import { getTinaImage, type ResponsiveImageData } from '@lib/images'
+import ReadMore from './ReadMore'
 
 interface WritingSamplesProps {
   max?: number
@@ -52,6 +53,9 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
                 })}
             </div>
           )}
+          <div className="mt-10 text-center font-serif text-lg">
+            <ReadMore href="/writing">More writing</ReadMore>
+          </div>
         </div>
       </div>
     )
