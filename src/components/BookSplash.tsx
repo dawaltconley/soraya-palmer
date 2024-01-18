@@ -95,11 +95,16 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
   const metadata = getMetadata(cover, images)
 
   useEffect(() => {
-    if (!image.current) return
-    setImageAspect({
-      x: image.current.clientWidth,
-      y: image.current.clientHeight,
-    })
+    if (!window.localStorage.getItem('trailerDidPlay')) {
+      window.localStorage.setItem('trailerDidPlay', new Date().toISOString())
+      setState('video')
+    }
+    if (image.current) {
+      setImageAspect({
+        x: image.current.clientWidth,
+        y: image.current.clientHeight,
+      })
+    }
   }, [])
 
   useEffect(() => {
