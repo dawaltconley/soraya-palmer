@@ -196,7 +196,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         />
         <div
           className={clsx(
-            'text-shadow relative z-10 mt-8 max-w-prose grow font-serif text-white transition-[opacity,transform] duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
+            'text-shadow relative z-10 mt-8 max-w-prose grow font-serif text-white transition duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
             !showVideo
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',
@@ -234,7 +234,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
                 ) : (
                   <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />
                 )}{' '}
-                <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
+                <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active transition duration-300">
                   Watch the trailer
                 </span>
               </button>
@@ -248,7 +248,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
                 icon={faArrowUpRightFromSquare}
                 className="fa-inline mr-0.5"
               />{' '}
-              <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active duration-300">
+              <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active transtiion duration-300">
                 Take the quiz
               </span>
             </a>

@@ -15,7 +15,7 @@ export default function BookBuyButton({ stores }: BookBuyButtonProps) {
       <a
         ref={button}
         href={link}
-        className="group inline-block border-2 border-amber-300/80 bg-gray-950/50 px-4 py-3 font-sans duration-300 hover:border-amber-300 hover:bg-gray-950 focus-visible:border-amber-300 focus-visible:bg-gray-950"
+        className="group inline-block border-2 border-amber-300/80 bg-gray-950/50 px-4 py-3 font-sans transition duration-300 hover:border-amber-300 hover:bg-gray-950 focus-visible:border-amber-300 focus-visible:bg-gray-950"
         target="_blank"
       >
         <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active whitespace-nowrap font-semibold">
