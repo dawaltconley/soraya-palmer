@@ -4,7 +4,7 @@ import fsp from 'node:fs/promises'
 import path from 'node:path'
 import sharp from 'sharp'
 import imageConfig from './image-config'
-import { toUrl } from '../utils'
+import { toUrl, isNotEmpty } from '../utils'
 
 export interface ImageData {
   path: string
@@ -28,11 +28,13 @@ const processImageData = async ({
   })
 
 export const makeResponsive = async (
-  images: ImageData[],
+  images: (ImageData | null | undefined)[],
 ): Promise<ResponsiveImageData> =>
   Object.fromEntries(
     await Promise.all(
-      images.map((i) => Promise.all([i.path, processImageData(i)])),
+      images
+        .filter(isNotEmpty)
+        .map((i) => Promise.all([i.path, processImageData(i)])),
     ),
   )
 
