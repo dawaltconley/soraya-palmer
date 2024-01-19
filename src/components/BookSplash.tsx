@@ -91,16 +91,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
   }, [trailer])
   const hasVideo = sources.length > 0
 
-  const [imageAspect, setImageAspect] = useState<{ x: number; y: number }>()
   const metadata = getMetadata(cover, images)
-
-  useEffect(() => {
-    if (!image.current) return
-    setImageAspect({
-      x: image.current.clientWidth,
-      y: image.current.clientHeight,
-    })
-  }, [])
 
   useEffect(() => {
     if (!splash.current) return
@@ -126,7 +117,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
       data-tina-field={tinaField(data.home, 'book')}
       {...divProps}
     >
-      <div className="container mx-auto h-full justify-center pb-16 pt-8 md:flex md:pt-16">
+      <div className="splash-grid container mx-auto h-full justify-center gap-8 pb-16 pt-8 text-white md:pt-16 xl:gap-12">
         {hasVideo && (
           <div
             className={clsx(
@@ -174,14 +165,11 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
           src={metadata}
           alt="Book cover of The Human Origins of Beatrice Porter"
           className={clsx(
-            'mx-auto aspect-cover h-full min-h-[32rem] transition-[opacity,transform] duration-1000 md:mx-0 md:max-h-[40vh] lg:max-h-[50vh]',
+            'mx-auto h-full min-w-80 transition-[opacity,transform] duration-1000 md:float-left md:mx-0 lg:row-span-2',
             !showVideo
               ? 'delay-300'
-              : 'pointer-events-none -translate-x-16 opacity-0',
+              : 'pointer-events-none -translate-y-2 opacity-0 md:-translate-x-16 md:-translate-y-0',
           )}
-          style={{
-            aspectRatio: imageAspect && `${imageAspect.x} / ${imageAspect.y}`,
-          }}
           imgRef={image}
           imgProps={{
             className:
@@ -191,10 +179,10 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         />
         <div
           className={clsx(
-            'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition duration-1000 before:-z-10 md:ml-12 md:mt-0',
+            'text-shadow relative z-10 flex max-w-prose flex-col font-serif transition duration-1000 before:-z-10 md:col-start-2',
             !showVideo
               ? 'delay-300'
-              : 'pointer-events-none translate-x-16 opacity-0',
+              : 'pointer-events-none translate-y-2 opacity-0 md:translate-x-16 md:translate-y-0',
           )}
         >
           <div className="mb-0">
@@ -211,44 +199,49 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
             )}
           </div>
           <div
-            className="mb-auto mt-8 text-center md:text-left"
+            className="mt-8 text-center md:text-left"
             data-tina-field={tinaField(data.home.book, 'bookstores')}
           >
-            <div className="inline-block">
-              <BuyTheBookLink stores={stores} />
-            </div>
+            <BuyTheBookLink stores={stores} />
           </div>
-          <div className="mt-8 flex h-28 w-full justify-center space-x-8 text-base md:h-20 md:justify-start md:space-x-4 lg:h-28 xl:h-32">
-            {hasVideo && (
-              <Thumbnail
-                onClick={() => setState('video')}
-                image="/media/trailer/thumbnail.png"
-                text="Watch the trailer"
-                isActive={state === 'video'}
-                icon={
-                  state === 'video' ? (
-                    <Spinner className="fa-inline drop-shadow-lg" />
-                  ) : (
-                    <Icon
-                      icon={faCirclePlay}
-                      className="fa-inline drop-shadow-lg"
-                    />
-                  )
-                }
-              />
-            )}
+        </div>
+        <div
+          className={clsx(
+            'relative z-10 flex w-full justify-center space-x-4 text-base transition duration-1000 sm:h-36 sm:w-auto sm:space-x-8 md:col-span-2 lg:col-span-1 lg:col-start-2 lg:h-auto lg:justify-start lg:space-x-6',
+            !showVideo
+              ? 'delay-300'
+              : 'pointer-events-none translate-y-4 opacity-0 lg:translate-x-16 lg:translate-y-0',
+          )}
+        >
+          {hasVideo && (
             <Thumbnail
-              href="https://www.opinionstage.com/page/6abbaf30-f4cd-48fe-add5-09178f832c0c"
-              image="/media/trickster-cards/quiz-thumb.jpg"
-              text="Take the quiz"
+              onClick={() => setState('video')}
+              image="/media/trailer/thumbnail.png"
+              text="Watch the trailer"
+              isActive={state === 'video'}
               icon={
-                <Icon
-                  icon={faArrowUpRightFromSquare}
-                  className="text-3xl drop-shadow-lg"
-                />
+                state === 'video' ? (
+                  <Spinner className="fa-inline drop-shadow-lg" />
+                ) : (
+                  <Icon
+                    icon={faCirclePlay}
+                    className="fa-inline drop-shadow-lg"
+                  />
+                )
               }
             />
-          </div>
+          )}
+          <Thumbnail
+            href="https://www.opinionstage.com/page/6abbaf30-f4cd-48fe-add5-09178f832c0c"
+            image="/media/trickster-cards/quiz-thumb.jpg"
+            text="Take the quiz"
+            icon={
+              <Icon
+                icon={faArrowUpRightFromSquare}
+                className="text-3xl drop-shadow-lg"
+              />
+            }
+          />
         </div>
       </div>
     </div>
@@ -281,7 +274,7 @@ function Thumbnail({
   return (
     <Wrapper
       href={href?.toString()}
-      className="group relative block aspect-video h-full overflow-clip rounded-sm bg-black"
+      className="group relative block aspect-video h-full grow overflow-clip rounded-sm bg-black sm:grow-0"
       target={href ? '_blank' : undefined}
       onClick={onClick}
     >

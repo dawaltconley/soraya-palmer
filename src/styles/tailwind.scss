@@ -331,4 +331,12 @@
       color.change($gray, $alpha: 0.95) 100%
     );
   }
+
+  .splash-grid {
+    display: grid;
+    @media #{screen(lg)} {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto 1fr;
+    }
+  }
 }
