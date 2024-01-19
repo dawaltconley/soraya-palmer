@@ -236,7 +236,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
             href="https://www.opinionstage.com/page/6abbaf30-f4cd-48fe-add5-09178f832c0c"
             image="/media/trickster-cards/quiz-thumb.jpg"
             images={images}
-            text="Take the quiz"
+            text={<>Which essential ghost are&nbsp;you?</>}
             icon={
               <Icon
                 icon={faArrowUpRightFromSquare}
@@ -254,7 +254,7 @@ interface ThumbnailProps {
   href?: string | URL
   onClick?: () => void
   image: string
-  text?: string
+  text?: ReactNode
   icon?: ReactNode
   isActive?: boolean
   images?: ResponsiveImageData
@@ -308,7 +308,7 @@ function Thumbnail({
       {text && (
         <div
           className={clsx(
-            'text-shadow gradient-b absolute bottom-0 left-0 right-0 translate-y-0 pb-1 pt-7 text-center font-sans transition duration-300 group-hover:translate-y-1 group-hover:opacity-0',
+            'text-shadow gradient-b absolute bottom-0 left-0 right-0 translate-y-0 px-1 pb-2 pt-6 text-center font-sans leading-tight transition duration-300 group-hover:translate-y-1 group-hover:opacity-0',
             {
               'opacity-0': isActive,
             },
