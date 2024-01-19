@@ -11,18 +11,18 @@ export default function BookBuyButton({ stores }: BookBuyButtonProps) {
     'https://bookshop.org/p/books/the-human-origins-of-beatrice-porter-other-essential-ghosts-soraya-palmer/18592932',
   )
   return (
-    <div className="relative items-center justify-stretch font-sans @md:flex">
+    <div className="relative mx-auto w-2/3 font-sans md:w-full">
       <a
         ref={button}
         href={link}
-        className="group inline-block border-2 border-amber-300/80 bg-gray-950/50 px-4 py-3 font-sans transition duration-300 hover:border-amber-300 hover:bg-gray-950 focus-visible:border-amber-300 focus-visible:bg-gray-950"
+        className="group mr-4 inline-block border-2 border-amber-300/80 bg-gray-950/50 px-4 py-3 font-sans transition duration-300 hover:border-amber-300 hover:bg-gray-950 focus-visible:border-amber-300 focus-visible:bg-gray-950"
         target="_blank"
       >
         <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active whitespace-nowrap font-semibold">
           Buy the book
         </span>
       </a>
-      <div className="flex h-full w-full items-baseline border-transparent @md:ml-4">
+      <div className="inline-flex h-full items-baseline border-transparent">
         <span>from</span>
         <BookStoreSelect
           stores={stores}

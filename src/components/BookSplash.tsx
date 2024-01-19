@@ -191,7 +191,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         />
         <div
           className={clsx(
-            'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
+            'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition duration-1000 before:-z-10 md:ml-12 md:mt-0',
             !showVideo
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',
