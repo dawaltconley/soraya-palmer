@@ -335,7 +335,6 @@
   .splash-grid {
     display: grid;
     @media #{screen(lg)} {
-      grid-template-columns: auto 1fr;
       grid-template-rows: auto 1fr;
     }
   }
