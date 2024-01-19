@@ -296,9 +296,9 @@ function Thumbnail({
       {icon && (
         <div
           className={clsx(
-            'absolute inset-0 flex flex-col items-center justify-center text-4xl opacity-0 transition duration-300 group-hover:bg-gray-900/30 group-hover:opacity-100',
+            'absolute inset-0 flex flex-col items-center justify-center bg-gray-950/15 text-4xl text-transparent transition duration-300 group-hover:bg-gray-900/30 group-hover:text-white',
             {
-              'bg-gray-900/30 opacity-100': isActive,
+              'bg-gray-900/30 text-white': isActive,
             },
           )}
         >
