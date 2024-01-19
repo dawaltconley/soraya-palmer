@@ -286,7 +286,7 @@ function Thumbnail({
         className="absolute inset-0"
         imgProps={{
           className: clsx(
-            'h-full w-full object-contain duration-300 group-hover:blur',
+            'h-full w-full object-contain duration-300 group-hover:blur-sm',
             {
               blur: isActive,
             },
