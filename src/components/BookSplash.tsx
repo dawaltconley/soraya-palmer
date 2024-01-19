@@ -119,7 +119,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
       ref={splash}
       id="splash"
       className={clsx(
-        'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full bg-gray-950 duration-1000 before:bg-gray-950 before:delay-[inherit] before:duration-[inherit]',
+        'vignette bg-img-leaves overlay-before relative min-h-[50vh] w-full bg-gray-950 transition duration-1000 before:bg-gray-950 before:delay-[inherit] before:duration-[inherit]',
         !showVideo ? 'delay-300 before:opacity-[0.85]' : 'before:opacity-100',
         className,
       )}
