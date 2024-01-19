@@ -322,4 +322,13 @@
   .text-shadow {
     text-shadow: 0px 0px 1.2em theme('colors.gray.950');
   }
+
+  .gradient-b {
+    $gray: theme('colors.gray.950');
+    background: linear-gradient(
+      to bottom,
+      color.change($gray, $alpha: 0) 0%,
+      color.change($gray, $alpha: 0.95) 100%
+    );
+  }
 }

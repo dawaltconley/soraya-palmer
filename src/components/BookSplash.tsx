@@ -1,5 +1,5 @@
 import type { HomeQuery } from '@tina/__generated__/types'
-import type { ComponentPropsWithoutRef } from 'react'
+import type { ReactNode, ComponentPropsWithoutRef } from 'react'
 import type { Store, Location as StoreLocation } from './BookStoreSelect'
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { withTinaWrapper } from '@lib/browser/withTinaWrapper'
@@ -191,7 +191,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         />
         <div
           className={clsx(
-            'text-shadow relative z-10 mt-8 max-w-prose grow font-serif text-white transition duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
+            'text-shadow relative z-10 mt-8 flex max-w-prose grow flex-col font-serif text-white transition duration-1000 @container/book-text before:-z-10 md:ml-12 md:mt-0',
             !showVideo
               ? 'delay-300'
               : 'pointer-events-none translate-x-16 opacity-0',
@@ -211,45 +211,117 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
             )}
           </div>
           <div
-            className="mt-8 text-center md:text-left"
+            className="mb-auto mt-8 text-center md:text-left"
             data-tina-field={tinaField(data.home.book, 'bookstores')}
           >
             <div className="inline-block">
               <BuyTheBookLink stores={stores} />
             </div>
           </div>
-          <div className="mt-6 w-full text-center text-base md:text-left">
+          <div className="mt-8 flex h-28 w-full justify-center space-x-8 text-base md:h-20 md:justify-start md:space-x-4 lg:h-28 xl:h-32">
             {hasVideo && (
-              <button
-                className="group mr-4 whitespace-nowrap font-sans sm:mr-8"
+              <Thumbnail
                 onClick={() => setState('video')}
-              >
-                {state === 'video' ? (
-                  <Spinner className="fa-inline mr-0.5" />
-                ) : (
-                  <Icon icon={faCirclePlay} className="fa-inline mr-0.5" />
-                )}{' '}
-                <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active transition duration-300">
-                  Watch the trailer
-                </span>
-              </button>
+                image="/media/trailer/thumbnail.png"
+                text="Watch the trailer"
+                isActive={state === 'video'}
+                icon={
+                  state === 'video' ? (
+                    <Spinner className="fa-inline drop-shadow-lg" />
+                  ) : (
+                    <Icon
+                      icon={faCirclePlay}
+                      className="fa-inline drop-shadow-lg"
+                    />
+                  )
+                }
+              />
             )}
-            <a
+            <Thumbnail
               href="https://www.opinionstage.com/page/6abbaf30-f4cd-48fe-add5-09178f832c0c"
-              className="group whitespace-nowrap font-sans"
-              target="_blank"
-            >
-              <Icon
-                icon={faArrowUpRightFromSquare}
-                className="fa-inline mr-0.5"
-              />{' '}
-              <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active transtiion duration-300">
-                Take the quiz
-              </span>
-            </a>
+              image="/media/trickster-cards/quiz-thumb.jpg"
+              text="Take the quiz"
+              icon={
+                <Icon
+                  icon={faArrowUpRightFromSquare}
+                  className="text-3xl drop-shadow-lg"
+                />
+              }
+            />
           </div>
         </div>
       </div>
     </div>
   )
 })
+
+interface ThumbnailProps {
+  href?: string | URL
+  onClick?: () => void
+  image: string
+  text?: string
+  icon?: ReactNode
+  isActive?: boolean
+  images?: ResponsiveImageData
+}
+
+function Thumbnail({
+  href,
+  onClick,
+  image,
+  text,
+  icon,
+  isActive,
+  images = {},
+}: ThumbnailProps) {
+  const metadata = getMetadata(image, images)
+  let Wrapper: 'a' | 'button' = 'a'
+  if (href) Wrapper = 'a'
+  else if (onClick) Wrapper = 'button'
+  return (
+    <Wrapper
+      href={href?.toString()}
+      className="group relative block aspect-video h-full overflow-clip rounded-sm bg-black"
+      target={href ? '_blank' : undefined}
+      onClick={onClick}
+    >
+      <Image
+        src={metadata}
+        alt=""
+        className="absolute inset-0"
+        imgProps={{
+          className: clsx(
+            'h-full w-full object-contain duration-300 group-hover:blur',
+            {
+              blur: isActive,
+            },
+          ),
+        }}
+      />
+      {icon && (
+        <div
+          className={clsx(
+            'absolute inset-0 flex flex-col items-center justify-center text-4xl opacity-0 transition duration-300 group-hover:bg-gray-900/30 group-hover:opacity-100',
+            {
+              'bg-gray-900/30 opacity-100': isActive,
+            },
+          )}
+        >
+          {icon}
+        </div>
+      )}
+      {text && (
+        <div
+          className={clsx(
+            'text-shadow gradient-b absolute bottom-0 left-0 right-0 translate-y-0 pb-1 pt-7 text-center font-sans transition duration-300 group-hover:translate-y-1 group-hover:opacity-0',
+            {
+              'opacity-0': isActive,
+            },
+          )}
+        >
+          {text}
+        </div>
+      )}
+    </Wrapper>
+  )
+}
