@@ -365,6 +365,15 @@ const homePage: Collection = {
                 },
               },
             },
+            {
+              type: 'image',
+              name: 'thumb',
+              label: 'Thumbnail',
+              ui: {
+                description:
+                  'Preview image for the trailer. Required for the play button.',
+              },
+            },
           ],
         },
         bookstores,

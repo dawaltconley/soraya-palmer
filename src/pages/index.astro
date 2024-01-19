@@ -28,6 +28,8 @@ const writingSampleImages =
         '(min-width: 1536px) 476px, (min-width: 1280px) 396px, (min-width: 1024px) 438px, (min-width: 768px) 320px, (min-width: 640px) 576px, 100vw',
     })) || []
 
+const bookTrailerThumb = page.data.home.book.trailer?.thumb
+
 const images = await makeResponsive([
   {
     path: page.data.home.about.image,
@@ -38,6 +40,16 @@ const images = await makeResponsive([
     path: page.data.home.book.cover,
     sizes: '(min-width: 1536px) 382px, (min-width: 768px) 340px, 320px',
     alt: 'Book cover of The Human Origins of Beatrice Porter',
+  },
+  bookTrailerThumb
+    ? {
+        path: bookTrailerThumb,
+        sizes: '268px',
+      }
+    : null,
+  {
+    path: '/media/trickster-cards/quiz-thumb.jpg',
+    sizes: '268px',
   },
   ...writingSampleImages,
 ])

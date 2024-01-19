@@ -213,10 +213,11 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
               : 'pointer-events-none translate-y-4 opacity-0 lg:translate-x-16 lg:translate-y-0',
           )}
         >
-          {hasVideo && (
+          {hasVideo && trailer?.thumb && (
             <Thumbnail
               onClick={() => setState('video')}
-              image="/media/trailer/thumbnail.png"
+              image={trailer.thumb}
+              images={images}
               text="Watch the trailer"
               isActive={state === 'video'}
               icon={
@@ -234,6 +235,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
           <Thumbnail
             href="https://www.opinionstage.com/page/6abbaf30-f4cd-48fe-add5-09178f832c0c"
             image="/media/trickster-cards/quiz-thumb.jpg"
+            images={images}
             text="Take the quiz"
             icon={
               <Icon
