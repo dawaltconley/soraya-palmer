@@ -173,7 +173,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
           imgRef={image}
           imgProps={{
             className:
-              'mx-auto h-full w-full max-w-xs object-contain drop-shadow-2xl md:mx-0 md:max-w-none',
+              'mx-auto h-full w-full max-w-xs object-contain drop-shadow-2xl md:mx-0 md:max-w-sm ',
             loading: 'eager',
           }}
         />
@@ -207,7 +207,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         </div>
         <div
           className={clsx(
-            'relative z-10 flex w-full justify-center space-x-4 text-base transition duration-1000 sm:h-36 sm:w-auto sm:space-x-8 md:col-span-2 lg:col-span-1 lg:col-start-2 lg:h-auto lg:justify-start lg:space-x-6',
+            'relative z-10 flex w-full items-end justify-center space-x-4 text-base transition duration-1000 @container sm:h-36 sm:w-auto sm:space-x-8 md:col-span-2 lg:col-span-1 lg:col-start-2 lg:h-auto lg:justify-start lg:space-x-6',
             !showVideo
               ? 'delay-300'
               : 'pointer-events-none translate-y-4 opacity-0 lg:translate-x-16 lg:translate-y-0',
@@ -276,7 +276,7 @@ function Thumbnail({
   return (
     <Wrapper
       href={href?.toString()}
-      className="group relative block aspect-video h-full grow overflow-clip rounded-sm bg-black sm:grow-0"
+      className="group relative block aspect-video h-full max-h-[calc(28.125cqw-0.75rem)] grow overflow-clip rounded-sm bg-black sm:grow-0"
       target={href ? '_blank' : undefined}
       onClick={onClick}
     >
