@@ -276,14 +276,14 @@ function Thumbnail({
   return (
     <Wrapper
       href={href?.toString()}
-      className="group relative block aspect-video h-full max-h-[calc(28.125cqw-0.75rem)] grow overflow-clip rounded-sm bg-black sm:grow-0"
+      className="group relative block aspect-video h-full max-h-[calc(28.125cqw-0.75rem)] grow overflow-clip rounded-sm bg-gray-950 sm:grow-0"
       target={href ? '_blank' : undefined}
       onClick={onClick}
     >
       <Image
         src={metadata}
         alt=""
-        className="absolute inset-0"
+        className="absolute inset-0 brightness-75 saturate-[75%]"
         imgProps={{
           className: clsx(
             'h-full w-full object-contain duration-300 group-hover:blur-sm',
@@ -296,9 +296,9 @@ function Thumbnail({
       {icon && (
         <div
           className={clsx(
-            'absolute inset-0 flex flex-col items-center justify-center bg-gray-950/15 text-4xl text-transparent transition duration-300 group-hover:bg-gray-900/30 group-hover:text-white',
+            'absolute inset-0 flex flex-col items-center justify-center text-4xl text-transparent transition duration-300 group-hover:bg-gray-900/30 group-hover:text-white',
             {
-              'bg-gray-900/30 text-white': isActive,
+              'text-white': isActive,
             },
           )}
         >
