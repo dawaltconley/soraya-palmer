@@ -488,6 +488,24 @@ const homePage: Collection = {
             {
               name: 'ReadMore',
               label: 'Arrow Link',
+              fields: [
+                {
+                  type: 'string',
+                  name: 'href',
+                  label: 'URL',
+                  required: true,
+                },
+                {
+                  type: 'string',
+                  name: 'children',
+                  label: 'Text',
+                  required: true,
+                },
+              ],
+            },
+            {
+              name: 'ReadMoreInline',
+              label: 'Arrow Link (inline)',
               inline: true,
               fields: [
                 {

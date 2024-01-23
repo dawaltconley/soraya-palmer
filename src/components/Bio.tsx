@@ -10,6 +10,11 @@ type Components = Parameters<typeof TinaMarkdown>[0]['components']
 
 const components: Components = {
   ReadMore: ({ href = '', children = '' }: any) => (
+    <p>
+      <ReadMore href={href}>{children}</ReadMore>
+    </p>
+  ),
+  ReadMoreInline: ({ href = '', children = '' }: any) => (
     <ReadMore href={href}>{children}</ReadMore>
   ),
 }
