@@ -54,7 +54,7 @@ export default withTinaWrapper<WritingSamplesQuery, WritingSamplesProps>(
             </div>
           )}
           {linkText && (
-            <div className="mt-10 text-center font-serif text-lg">
+            <div className="mt-12 text-center font-serif text-lg">
               <ReadMore href="/writing">{linkText}</ReadMore>
             </div>
           )}

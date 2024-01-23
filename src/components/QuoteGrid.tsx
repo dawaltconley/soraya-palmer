@@ -69,7 +69,7 @@ export default withTinaWrapper<HomeQuery, QuoteGridProps>(function QuoteGrid({
         })}
       </div>
       {linkText && (
-        <div className="mt-4 text-center font-serif text-lg">
+        <div className="mt-12 text-center font-serif text-lg">
           <ReadMore href="/press">{linkText}</ReadMore>
         </div>
       )}
