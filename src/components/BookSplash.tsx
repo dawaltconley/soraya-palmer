@@ -152,6 +152,7 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
                   />
                 </div>
                 <button
+                  aria-label="close"
                   className="absolute right-0 top-0 -translate-y-full p-4 text-xl duration-200 hover:text-amber-300 md:left-full md:right-auto md:translate-y-0"
                   onClick={() => setState('initial')}
                 >
