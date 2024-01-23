@@ -18,7 +18,8 @@ const canonicalUrl = Astro.site && new URL(Astro.url.pathname, Astro.site)
 title = title && title !== siteTitle ? `${title} – ${siteTitle}` : siteTitle
 ogImage ??= await client.queries
   .global({ relativePath: 'global.yaml' })
-  .then(({ data }) => makeOg(data.global.ogImage))
+  .then(({ data }) => data.global.ogImage)
+ogImage &&= await makeOg(ogImage)
 ---
 
 <!doctype html>
@@ -41,7 +42,7 @@ ogImage ??= await client.queries
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
-    <meta property="og:image" content={ogImage} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
 
     <link rel="shortcut icon" type="image/svg" href="/media/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
