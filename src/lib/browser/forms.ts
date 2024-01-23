@@ -114,7 +114,6 @@ export const useForm = ({ requiredFields = [] }: FormProps) => {
     formData.current = data
 
     setStatus('submitting')
-    await new Promise((resolve) => window.setTimeout(resolve, 2000))
 
     try {
       const response = await submitForm(data, { action, method, encType })
