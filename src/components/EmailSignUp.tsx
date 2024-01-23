@@ -44,7 +44,7 @@ export default function EmailSignUp({ content }: EmailSignUpProps) {
       {description && <p className="mt-2 font-serif">{description}</p>}
       {status !== 'success' && (
         <form
-          className="mx-auto mt-4 flex max-w-xl text-lg"
+          className="plausible-event-name=Email+Signup mx-auto mt-4 flex max-w-xl text-lg"
           method="post"
           action="https://script.google.com/macros/s/AKfycbzQdHSp2CwiRcTcOMo7vn4jn74DnrG6f_k8-QAupvoGxyKDEkBLJjkt4P5_x9eZaiv4xA/exec"
           onSubmit={(e) => {

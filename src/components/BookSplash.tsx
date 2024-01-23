@@ -216,7 +216,10 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
         >
           {hasVideo && trailer?.thumb && (
             <Thumbnail
-              onClick={() => setState('video')}
+              onClick={() => {
+                setState('video')
+                window.plausible('Watch Trailer')
+              }}
               image={trailer.thumb}
               images={images}
               text="Watch the trailer"

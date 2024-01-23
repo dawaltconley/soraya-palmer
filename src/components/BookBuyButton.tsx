@@ -17,6 +17,20 @@ export default function BookBuyButton({ stores }: BookBuyButtonProps) {
         href={link}
         className="group mr-4 inline-block border-2 border-amber-300/80 bg-gray-950/50 px-4 py-3 font-sans transition duration-300 hover:border-amber-300 hover:bg-gray-950 focus-visible:border-amber-300 focus-visible:bg-gray-950"
         target="_blank"
+        onClick={(e) => {
+          let followedLink = false
+          const followLink = () => {
+            if (followedLink) return
+            followedLink = true
+            window.location.href = link
+          }
+          window.plausible('Buy the Book', {
+            callback: followLink,
+            props: { link },
+          })
+          window.setTimeout(followLink, 1000)
+          e.preventDefault()
+        }}
       >
         <span className="underline-link group-hover:underline-link--active group-focus-visible:underline-link--active whitespace-nowrap font-semibold">
           Buy the book

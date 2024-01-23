@@ -68,7 +68,7 @@ export default function ContactForm({ content }: ContactFormProps) {
       {showForm && (
         <form
           ref={formRef}
-          className="contact-form mx-auto mt-8 w-full max-w-xl grid-cols-2 text-lg @container/contact-form"
+          className="contact-form plausible-event-name=Contact+Form mx-auto mt-8 w-full max-w-xl grid-cols-2 text-lg @container/contact-form"
           action="https://api.sorayapalmer.com/contact/"
           onSubmit={(e) => {
             lockHeight()

@@ -89,6 +89,7 @@ export default function BookStoreSelect({
                         onSelect={() => {
                           setSelected(store)
                           onSelect(store)
+                          window.plausible('Store Select', { props: { store } })
                         }}
                       >
                         <div>{store.name}</div>
