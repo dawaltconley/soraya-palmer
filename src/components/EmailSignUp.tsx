@@ -44,12 +44,16 @@ export default function EmailSignUp({ content }: EmailSignUpProps) {
       {description && <p className="mt-2 font-serif">{description}</p>}
       {status !== 'success' && (
         <form
-          className="plausible-event-name=Email+Signup mx-auto mt-4 flex max-w-xl text-lg"
+          className="mx-auto mt-4 flex max-w-xl text-lg"
           method="post"
           action="https://script.google.com/macros/s/AKfycbzQdHSp2CwiRcTcOMo7vn4jn74DnrG6f_k8-QAupvoGxyKDEkBLJjkt4P5_x9eZaiv4xA/exec"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
+            let error: string | null = null
             lockHeight()
-            handleSubmit(e)
+            await handleSubmit(e).catch((e) => {
+              error = e instanceof Error ? e.message : e.toString()
+            })
+            window.plausible('Email Signup', { props: { error } })
           }}
         >
           <label htmlFor="sign-up-email" className="sr-only">

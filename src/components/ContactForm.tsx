@@ -68,11 +68,15 @@ export default function ContactForm({ content }: ContactFormProps) {
       {showForm && (
         <form
           ref={formRef}
-          className="contact-form plausible-event-name=Contact+Form mx-auto mt-8 w-full max-w-xl grid-cols-2 text-lg @container/contact-form"
+          className="contact-form mx-auto mt-8 w-full max-w-xl grid-cols-2 text-lg @container/contact-form"
           action="https://api.sorayapalmer.com/contact/"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
+            let error: string | null = null
             lockHeight()
-            handleSubmit(e)
+            await handleSubmit(e).catch((e) => {
+              error = e instanceof Error ? e.message : e.toString()
+            })
+            window.plausible('Contact Form', { props: { error } })
           }}
         >
           <label htmlFor="contact-name" className="form-label @md:col-span-1">
