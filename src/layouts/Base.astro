@@ -16,7 +16,7 @@ const siteTitle = 'Soraya Palmer'
 const canonicalUrl = Astro.site && new URL(Astro.url.pathname, Astro.site)
 
 title = title && title !== siteTitle ? `${title} – ${siteTitle}` : siteTitle
-ogImage ??= await client.queries
+ogImage ||= await client.queries
   .global({ relativePath: 'global.yaml' })
   .then(({ data }) => data.global.ogImage)
 ogImage &&= await makeOg(ogImage)
