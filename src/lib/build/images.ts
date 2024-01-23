@@ -52,6 +52,7 @@ export const makeOg = async (image: string): Promise<string> => {
     imageConfig.defaults.outputDir || './dist',
     fileName,
   )
+  const fileUrl = '/' + path.join(...filePath.split(path.sep).slice(1))
   await fsp.writeFile(filePath, buffer)
-  return fileName
+  return fileUrl
 }
