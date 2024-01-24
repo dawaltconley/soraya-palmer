@@ -10,16 +10,23 @@ export interface Props {
   class?: string
 }
 
-let { title, description, class: className, ogImage } = Astro.props
+let {
+  title,
+  description,
+  class: className,
+  ogImage: ogImageCustom,
+} = Astro.props
 
 const siteTitle = 'Soraya Palmer'
 const canonicalUrl = Astro.site && new URL(Astro.url.pathname, Astro.site)
 
 title = title && title !== siteTitle ? `${title} – ${siteTitle}` : siteTitle
-ogImage ||= await client.queries
-  .global({ relativePath: 'global.yaml' })
-  .then(({ data }) => data.global.ogImage)
-ogImage &&= await makeOg(ogImage)
+let ogImage: string =
+  ogImageCustom ||
+  (await client.queries
+    .global({ relativePath: 'global.yaml' })
+    .then(({ data }) => data.global.ogImage))
+ogImage = new URL(await makeOg(ogImage), Astro.url.origin).href
 ---
 
 <!doctype html>
@@ -42,7 +49,7 @@ ogImage &&= await makeOg(ogImage)
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImage} />
 
     <link rel="shortcut icon" type="image/svg" href="/media/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
