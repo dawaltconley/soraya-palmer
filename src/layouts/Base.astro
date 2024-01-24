@@ -2,6 +2,7 @@
 import '@styles/global.scss'
 import { client } from '@tina/__generated__/client'
 import { makeOg } from '@lib/build/images'
+import { isNotEmpty } from '@lib/utils'
 
 export interface Props {
   title: string | null
@@ -27,6 +28,18 @@ let ogImage: string =
     .global({ relativePath: 'global.yaml' })
     .then(({ data }) => data.global.ogImage))
 ogImage = new URL(await makeOg(ogImage), Astro.url.origin).href
+
+const twitterHandle = await client.queries
+  .global({ relativePath: 'global.yaml' })
+  .then(({ data }) =>
+    data.global.socialLinks
+      ?.filter(isNotEmpty)
+      .map((s) => new URL(s))
+      .find((s) => s.hostname.endsWith('twitter.com'))
+      ?.pathname.split('/')[1]
+      .replace(/^/, '@'),
+  )
+  .catch(() => null)
 ---
 
 <!doctype html>
@@ -50,7 +63,10 @@ ogImage = new URL(await makeOg(ogImage), Astro.url.origin).href
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content={ogImage} />
+    {twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
 
     <link rel="shortcut icon" type="image/svg" href="/media/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
