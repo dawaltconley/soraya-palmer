@@ -50,6 +50,7 @@ ogImage = new URL(await makeOg(ogImage), Astro.url.origin).href
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="shortcut icon" type="image/svg" href="/media/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
