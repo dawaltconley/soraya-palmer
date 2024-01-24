@@ -18,6 +18,7 @@ export default withTinaWrapper<GlobalQuery>(({ data }) => (
           href={url}
           title={icon.name}
           className="duration-150 hover:text-amber-300"
+          target="_blank"
         >
           <Icon
             icon={icon.getDefinition()}
