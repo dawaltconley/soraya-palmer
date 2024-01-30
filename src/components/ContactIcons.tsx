@@ -16,7 +16,7 @@ export default withTinaWrapper<GlobalQuery>(({ data }) => (
         <a
           key={url}
           href={url}
-          title={icon.name}
+          aria-label={icon.name}
           className="duration-150 hover:text-amber-300"
           target="_blank"
         >
