@@ -7,3 +7,7 @@ pluginSearchDirs: false
 tailwindFunctions:
   - classNames
   - clsx
+overrides:
+  - files: '*.astro'
+    options:
+      parser: astro
