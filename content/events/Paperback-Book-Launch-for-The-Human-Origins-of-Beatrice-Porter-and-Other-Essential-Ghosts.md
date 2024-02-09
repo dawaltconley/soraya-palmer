@@ -2,7 +2,7 @@
 url: 'https://ptknitwear.com/events'
 title: >-
   Paperback Book Launch for The Human Origins of Beatrice Porter and Other
-  Essential Ghosts
+  Essential Ghosts with Daphne Palasi Andreades
 image: /media/24-03-19 Palmer & Andreades (1).png
 imageControls:
   alt: >-
