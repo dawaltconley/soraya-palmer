@@ -1,5 +1,6 @@
 ---
-url: 'https://ptknitwear.com/events'
+url: >-
+  https://www.eventbrite.com/e/soraya-palmer-presents-the-human-origins-of-beatrice-porter-tickets-829228423537?aff=oddtdtcreator
 title: >-
   Paperback Book Launch for The Human Origins of Beatrice Porter and Other
   Essential Ghosts with Daphne Palasi Andreades
