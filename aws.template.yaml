@@ -3,6 +3,12 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Resources for Soraya Palmer's website
 
+Metadata:
+  cfn-lint:
+    config:
+      ignore_checks:
+        - W3002 # ignore warnings about dependency on the `package` command
+
 Resources:
   Domain:
     Type: AWS::CloudFormation::Stack
