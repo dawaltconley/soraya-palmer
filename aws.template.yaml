@@ -47,6 +47,17 @@ Resources:
           arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaClientId,\
           arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaContentToken,\
           arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaSearchToken"
+
+  # Site Api
+  ApiDomain:
+    Type: AWS::ApiGateway::DomainName
+    DependsOn:
+      - ContactFormApi
+      - SiteApi
+    Properties:
+      DomainName: api.sorayapalmer.com
+      CertificateArn: !GetAtt Domain.Outputs.CertificateArn
+      SecurityPolicy: TLS_1_2
   ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -55,7 +66,37 @@ Resources:
         Email: 'sorayapalmerwrites@gmail.com'
         Required: 'name,email,subject,message'
         Honeypot: 'fax_number'
-        ApiDomain: sorayapalmer.com
-        ApiSubdomain: api
-        CertificateArn: !GetAtt Domain.Outputs.CertificateArn
         AllowOrigin: 'https://sorayapalmer.com'
+  ContactFormApiMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref ApiDomain
+      BasePath: contact-form
+      RestApiId: !GetAtt ContactFormApi.Outputs.ApiId
+      Stage: !GetAtt ContactFormApi.Outputs.ApiStageName
+  SiteApi:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./aws/api.template.yaml
+      Parameters:
+        AllowOrigin: 'https://sorayapalmer.com'
+        MailerliteApiKey: /SorayaPalmer/MailerliteApiKey
+        MailerliteHoneypot: 'fax_number'
+  SiteApiMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref ApiDomain
+      RestApiId: !GetAtt SiteApi.Outputs.ApiId
+      Stage: !GetAtt SiteApi.Outputs.ApiStageName
+
+Outputs:
+  SiteDomain:
+    Value: !GetAtt StaticWebsite.Outputs.FullDomain
+  SiteDistributionDomain:
+    Value: !GetAtt StaticWebsite.Outputs.DistributionDomainName
+  SiteBucket:
+    Value: !GetAtt StaticWebsite.Outputs.SiteBucket
+  ApiDomain:
+    Value: !GetAtt ApiDomain.DistributionDomainName
+  ApiDomainAlias:
+    Value: !Ref ApiDomain

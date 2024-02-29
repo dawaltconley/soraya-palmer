@@ -45,8 +45,7 @@ export default function EmailSignUp({ content }: EmailSignUpProps) {
       {status !== 'success' && (
         <form
           className="mx-auto mt-4 flex max-w-xl text-lg"
-          method="post"
-          action="https://script.google.com/macros/s/AKfycbzQdHSp2CwiRcTcOMo7vn4jn74DnrG6f_k8-QAupvoGxyKDEkBLJjkt4P5_x9eZaiv4xA/exec"
+          action="https://api.sorayapalmer.com/subscribe/"
           onSubmit={async (e) => {
             let error: string | null = null
             lockHeight()
