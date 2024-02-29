@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Resources for subscribing visitors to mailing list
+
+Parameters:
+  ApiGatewayId:
+    Type: String
+    Description: ID of the Api
+  AllowOrigin:
+    Type: String
+  MailerliteApiKey:
+    Type: 'AWS::SSM::Parameter::Value<String>'
+  Honeypot:
+    Type: CommaDelimitedList
+    Description: List of honeypot form field names. These will cause the function to quietly abort.
+    Default: ''
+
+Resources:
+  # ApiMethod:
+  #   Type: AWS::ApiGatewayV2::Integration
+  #   Properties:
+  #     ApiId: !Ref ApiGatewayId
+  #     IntegrationMethod: GET
+  #     IntegrationType: AWS_PROXY
+  #     IntegrationUri: # lambda URI
+  #
+  # ApiResource:
+  #   Type: AWS::ApiGatewayV2::Route
+  #   Properties:
+  #     ApiId: !Ref ApiGatewayId
+  #     RouteKey: GET /subscribe
+  #     Target: !Sub 'integrations/${ApiMethod}'
+  #
+  # LambdaFunction:
+  #   Type: AWS::Lambda::Function
+  #   Properties:
+  #     Code:
+  #       ZipFile: ./mailerlite.js
+  #     Runtime: nodejs18.x
+  #     Role: # The Amazon Resource Name (ARN) of the function's execution role.
+  #
+  SubscribeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: MailerliteIntegration
+      Handler: index.lambdaHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Timeout: 10
+      Events:
+        Subscribe:
+          Type: Api
+          Properties:
+            Path: /subscribe
+            Method: get
+            RestApiId:
+              Ref: !Ref ApiGatewayId
+      Environment:
+        Variables:
+          ALLOW_ORIGIN: !Ref AllowOrigin
+          MAILERLITE_API_KEY: !Ref MailerliteApiKey
+          HONEYPOT_FIELDS: !Join [',', !Ref Honeypot]
