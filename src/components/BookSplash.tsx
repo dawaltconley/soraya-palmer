@@ -131,11 +131,11 @@ export default withTinaWrapper<HomeQuery, BookSplashProps>(function BookSplash({
                   <Video
                     sources={sources}
                     play={state === 'video'}
+                    volume={0.1}
                     className={clsx(
                       'duration-1000',
                       showVideo ? 'delay-300' : 'scale-95 opacity-0',
                     )}
-                    muted
                     autoPlay={false}
                     preload="auto"
                     onReady={() => setIsVideoLoaded(true)}

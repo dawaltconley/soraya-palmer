@@ -13,6 +13,7 @@ interface Source {
 export interface VideoProps extends ComponentPropsWithoutRef<'video'> {
   sources: Source[]
   play?: boolean
+  volume?: number
   onReady: (e?: SyntheticEvent<HTMLVideoElement>) => void
 }
 
@@ -20,6 +21,7 @@ export default function Video({
   sources,
   play = false,
   onReady,
+  volume = 1,
   ...props
 }: VideoProps) {
   const video = useRef<HTMLVideoElement>(null)
@@ -40,6 +42,11 @@ export default function Video({
       v.pause()
     }
   }, [play])
+
+  useEffect(() => {
+    if (!video.current) return
+    video.current.volume = volume
+  }, [volume])
 
   return (
     <video ref={video} onCanPlayThrough={onReady} {...props}>
