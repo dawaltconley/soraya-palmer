@@ -3,6 +3,7 @@
   "suggest.noselect": true,
   "tsserver.enable": true,
   "tsserver.useLocalTsdk": true,
+  "javascript.suggestionActions.enabled": false,
   "css.validate": false,
   "scss.validate": false,
   "tailwindCSS.enable": true,
