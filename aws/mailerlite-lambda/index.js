@@ -3,11 +3,13 @@
 
 const { ALLOW_ORIGIN, HONEYPOT_FIELDS, MAILERLITE_API_KEY } = process.env
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': ALLOW_ORIGIN,
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Access-Control-Allow-Methods': 'GET',
-}
+const corsHeaders = ALLOW_ORIGIN
+  ? {
+      'Access-Control-Allow-Origin': ALLOW_ORIGIN,
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET',
+    }
+  : {}
 
 /**
  * @param {number} statusCode

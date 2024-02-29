@@ -3,9 +3,9 @@ Transform: AWS::Serverless-2016-10-31
 Description: Resources for subscribing visitors to mailing list
 
 Parameters:
-  ApiGatewayId:
-    Type: String
-    Description: ID of the Api
+  # ApiGatewayId:
+  #   Type: String
+  #   Description: ID of the Api
   AllowOrigin:
     Type: String
   MailerliteApiKey:
@@ -14,6 +14,40 @@ Parameters:
     Type: CommaDelimitedList
     Description: List of honeypot form field names. These will cause the function to quietly abort.
     Default: ''
+  # new
+  CertificateArn:
+    Type: String
+    Description: Certificate Manager ARN for the ApiDomain certificate. Required to use a custom domain.
+    Default: ''
+  HostedZoneId:
+    Type: AWS::Route53::HostedZone::Id # or string...
+    Default: ''
+  # Route53Dns:
+  #   Type: String
+  #   Description: Whether this domain uses Route53 for its DNS
+  #   Default: 'true'
+  #   AllowedValues: ['true', 'false']
+  ApiDomain:
+    Type: String
+    Description: Full domain where the api is hosted. Used to create an API Gateway custom domain name for this deployment.
+    Default: ''
+  ApiBasePath:
+    Type: String
+    Description: Base path of the custom domain where the API will be hosted.
+    Default: ''
+
+Conditions:
+  HasApiDomain: !Not [!Equals [!Ref ApiDomain, '']]
+  HasApiBasePath: !Not [!Equals [!Ref ApiBasePath, '']]
+  HasHostedZone: !Not [!Equals [!Ref HostedZoneId, '']]
+  HasCertificate: !Not [!Equals [!Ref CertificateArn, '']]
+  HasCustomApiDomain: !And
+    - !Condition HasApiDomain
+    - !Condition HasCertificate
+  CorsEnabled: !Not [!Equals [!Ref AllowOrigin, '']]
+  CreateRecordSetGroup: !And
+    - !Condition HasCustomApiDomain
+    - !Condition HasHostedZone
 
 Resources:
   # ApiMethod:
@@ -39,10 +73,44 @@ Resources:
   #     Runtime: nodejs18.x
   #     Role: # The Amazon Resource Name (ARN) of the function's execution role.
   #
+  SubscribeApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors: !If
+        - CorsEnabled
+        - AllowMethods: "'GET,POST,OPTIONS'"
+          AllowHeaders: "'Content-Type'"
+          AllowOrigin: !Sub "'${AllowOrigin}'"
+        - !Ref AWS::NoValue
+      # Domain:
+      #   # Domain: !If
+      #   # - HasCustomApiDomain
+      #   # - BasePath: !If
+      #   BasePath: !If
+      #     - HasApiBasePath
+      #     - - !Ref ApiBasePath # could just set default to '/' I think
+      #     - !Ref AWS::NoValue
+      #   CertificateArn: !If
+      #     - HasCertificate
+      #     - !Ref CertificateArn
+      #     - !Ref AWS::NoValue
+      #   DomainName: !If
+      #     - HasApiDomain
+      #     - !Ref ApiDomain
+      #     - !Ref AWS::NoValue
+      #   Route53:
+      #     HostedZoneId: !Ref HostedZoneId
+      #     # Route53: !If
+      #     #   - HasHostedZone
+      #     # - HostedZoneId: !Ref HostedZoneId
+      #     # - !Ref AWS::NoValue
+      #   # - !Ref AWS::NoValue
+
   SubscribeFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: MailerliteIntegration
+      CodeUri: mailerlite-lambda
       Handler: index.lambdaHandler
       Runtime: nodejs18.x
       Architectures:
@@ -54,10 +122,39 @@ Resources:
           Properties:
             Path: /subscribe
             Method: get
-            RestApiId:
-              Ref: !Ref ApiGatewayId
+            RestApiId: !Ref SubscribeApi
       Environment:
         Variables:
           ALLOW_ORIGIN: !Ref AllowOrigin
           MAILERLITE_API_KEY: !Ref MailerliteApiKey
           HONEYPOT_FIELDS: !Join [',', !Ref Honeypot]
+
+  CustomDomain:
+    Type: AWS::ApiGatewayV2::DomainName
+    Condition: HasCustomApiDomain
+    Properties:
+      DomainName: !Ref ApiDomain
+      DomainNameConfigurations:
+        - CertificateArn: !Ref CertificateArn
+          SecurityPolicy: TLS_1_2
+
+  CustomDomainMapping:
+    Type: AWS::ApiGatewayV2::ApiMapping
+    Condition: HasCustomApiDomain
+    Properties:
+      DomainName: !Ref CustomDomain
+      ApiId: !Ref SubscribeApi
+      Stage: Prod
+      ApiMappingKey: !If [HasApiBasePath, !Ref ApiBasePath, !Ref AWS::NoValue]
+
+  RecordSetGroup:
+    Type: AWS::Route53::RecordSetGroup
+    Condition: CreateRecordSetGroup
+    Properties:
+      HostedZoneName: !Sub '${ApiDomain}.'
+      RecordSets:
+        - Name: !Ref CustomDomain
+          Type: A
+          AliasTarget:
+            HostedZoneId: !GetAtt CustomDomain.RegionalHostedZoneId
+            DNSName: !GetAtt CustomDomain.RegionalDomainName

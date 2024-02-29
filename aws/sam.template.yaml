@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Resources for subscribing visitors to mailing list
+
+Parameters:
+  AllowOrigin:
+    Type: String
+  MailerliteApiKey:
+    Type: 'AWS::SSM::Parameter::Value<String>'
+  MailerliteHoneypot:
+    Type: CommaDelimitedList
+    Description: List of honeypot form field names. These will cause the function to quietly abort.
+    Default: ''
+
+Resources:
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: !Sub "'${AllowOrigin}'"
+
+  SubscribeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: mailerlite-lambda
+      Handler: index.lambdaHandler
+      Runtime: nodejs18.x
+      Architectures:
+        - x86_64
+      Timeout: 10
+      Events:
+        Subscribe:
+          Type: Api
+          Properties:
+            Path: /subscribe
+            Method: get
+            RestApiId: !Ref Api
+      Environment:
+        Variables:
+          ALLOW_ORIGIN: !Ref AllowOrigin
+          MAILERLITE_API_KEY: !Ref MailerliteApiKey
+          HONEYPOT_FIELDS: !Join [',', !Ref MailerliteHoneypot]
+
+Outputs:
+  ApiId:
+    Description: 'API Gateway ID'
+    Value: !Ref Api
+  ApiRootResourceId:
+    Description: 'Root resource ID for API Gateway'
+    Value: !GetAtt Api.RootResourceId
+  ApiStageName:
+    Value: Prod

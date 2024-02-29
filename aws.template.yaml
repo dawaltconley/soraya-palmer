@@ -50,7 +50,7 @@ Resources:
   ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ./node_modules/@dawaltconley/contact-api/dist/build/template.yaml
+      TemplateURL: ./node_modules/@dawaltconley/contact-api-0.1/dist/build/template.yaml
       Parameters:
         Email: 'sorayapalmerwrites@gmail.com'
         Required: 'name,email,subject,message'
@@ -59,3 +59,170 @@ Resources:
         ApiSubdomain: api
         CertificateArn: !GetAtt Domain.Outputs.CertificateArn
         AllowOrigin: 'https://sorayapalmer.com'
+
+  # Site Api
+  ApiDomain:
+    Type: AWS::CloudFormation::Stack
+    DependsOn:
+      # - ContactFormApi2
+      - SiteApi
+    Properties:
+      TemplateURL: ./node_modules/@dawaltconley/cfn-static-website/api-domain.template.yaml
+      Parameters:
+        ApiDomain: api2.sorayapalmer.com
+        CertificateArn: !GetAtt Domain.Outputs.CertificateArn
+        HostedZoneId: !GetAtt Domain.Outputs.HostedZoneId
+  # ContactFormApi2: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: ./node_modules/@dawaltconley/contact-api/dist/build/template.yaml
+  #     Parameters:
+  #       Email: 'sorayapalmerwrites@gmail.com'
+  #       Required: 'name,email,subject,message'
+  #       Honeypot: 'fax_number'
+  #       AllowOrigin: 'https://sorayapalmer.com'
+  # ContactFormApiMapping:
+  #   Type: AWS::ApiGateway::BasePathMapping
+  #   Properties:
+  #     DomainName: !GetAtt ApiDomain.Outputs.CustomDomain
+  #     BasePath: 1
+  #     RestApiId: !GetAtt ContactFormApi2.Outputs.ApiId
+  #     Stage: Prod
+  SiteApi:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./aws/sam.template.yaml
+      Parameters:
+        AllowOrigin: 'https://sorayapalmer.com'
+        MailerliteApiKey: /SorayaPalmer/MailerliteApiKey
+        MailerliteHoneypot: 'fax_number'
+  SiteApiMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !GetAtt ApiDomain.Outputs.CustomDomain
+      BasePath: 2
+      RestApiId: !GetAtt SiteApi.Outputs.ApiId
+      Stage: !GetAtt SiteApi.Outputs.ApiStageName
+
+  # Api:
+  #   Type: AWS::CloudFormation::Stack
+  #   DependsOn:
+  #     - ContactFormApi
+  #   Properties:
+  #     TemplateURL: ./aws/sam.template.yaml
+  #     Parameters:
+  #       Api
+  #       ApiGatewayId: !GetAtt ContactFormApi.Outputs.ApiId
+  #       ApiParentResourceId: !GetAtt ContactFormApi.Outputs.ApiRootResourceId
+  #       MailerliteApiKey: /SorayaPalmer/MailerliteApiKey
+  #       Honeypot: 'fax_number'
+  #       AllowOrigin: '*'
+  # MailingList3:
+  #   # Type: AWS::CloudFormation::Stack
+  #   Type: AWS::Serverless::Application
+  #   DependsOn:
+  #     - ContactFormApi2
+  #   Properties:
+  #     # TemplateURL: ./aws/sam.template.yaml
+  #     Location: ./aws/sam.template.yaml
+  #     Parameters:
+  #       ApiGatewayId: !GetAtt ContactFormApi2.Outputs.ApiId
+  #       ApiParentResourceId: !GetAtt ContactFormApi2.Outputs.ApiRootResourceId
+  #       MailerliteApiKey: /SorayaPalmer/MailerliteApiKey
+  #       Honeypot: 'fax_number'
+  #       AllowOrigin: '*'
+
+  # Site Api
+  # Api:
+  #   Type: AWS::Serverless::Api
+  #   Properties:
+  #     StageName: Prod
+  #     Cors: 'https://sorayapalmer.com'
+  # ApiDomain:
+  #   Type: AWS::CloudFormation::Stack
+  #   DependsOn: [Api]
+  #   Properties:
+  #     TemplateURL: ./node_modules/@dawaltconley/cfn-static-website/api-domain.template.yaml
+  #     Parameters:
+  #       ApiDomain: api2.sorayapalmer.com
+  #       CertificateArn: !Ref Domain.Outputs.CertificateArn
+  #       HostedZoneId: !GetAtt Domain.Outputs.HostedZoneId
+  # ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: ./node_modules/@dawaltconley/contact-api/dist/build/template.yaml
+  #     Parameters:
+  #       Email: 'sorayapalmerwrites@gmail.com'
+  #       Required: 'name,email,subject,message'
+  #       Honeypot: 'fax_number'
+  #       AllowOrigin: 'https://sorayapalmer.com'
+  # ContactFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     CodeUri: mailerlite-lambda
+  #     Handler: index.lambdaHandler
+  #     Runtime: nodejs18.x
+  #     Architectures:
+  #       - x86_64
+  #     Timeout: 10
+  #     Events:
+  #       # Contact:
+  #       #   Type: Api
+  #       #   Properties:
+  #       #     Path: /contact
+  #       #     Method: get
+  #       #     RestApiId: !Ref Api
+  #       Subscribe:
+  #         Type: Api
+  #         Properties:
+  #           Path: /subscribe
+  #           Method: get
+  #           RestApiId: !Ref Api
+  #     Environment:
+  #       Variables:
+  #         ALLOW_ORIGIN: !Ref AllowOrigin
+  #         MAILERLITE_API_KEY: !Ref MailerliteApiKey
+  #         HONEYPOT_FIELDS: !Join [',', !Ref Honeypot]
+  # SubscribeFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     CodeUri: mailerlite-lambda
+  #     Handler: index.lambdaHandler
+  #     Runtime: nodejs18.x
+  #     Architectures:
+  #       - x86_64
+  #     Timeout: 10
+  #     Events:
+  #       Subscribe:
+  #         Type: Api
+  #         Properties:
+  #           Path: /subscribe
+  #           Method: get
+  #           RestApiId: !Ref Api
+  #     Environment:
+  #       Variables:
+  #         ALLOW_ORIGIN: !Ref AllowOrigin
+  #         MAILERLITE_API_KEY: !Ref MailerliteApiKey
+  #         HONEYPOT_FIELDS: !Join [',', !Ref Honeypot]
+  # ApiExecutionRole:
+  #   Type: AWS::IAM::Role
+  #   Properties:
+  #     AssumeRolePolicyDocument:
+  #       Version: '2012-10-17'
+  #       Statement:
+  #         - Effect: Allow
+  #           Principal:
+  #             Service:
+  #               - apigateway.amazonaws.com
+  #           Action:
+  #             - 'sts:AssumeRole'
+  #     Policies:
+  #       - PolicyName: !GetAtt '${AWS::StackName}ExecutionPolicy'
+  #         PolicyDocument:
+  #           Version: '2012-10-17'
+  #           Statement:
+  #             - Action: lambda:*
+  #               Effect: Allow
+  #               Resource:
+  #                 - !GetAtt ContactFormApi.Outputs.FunctionArn
+  #                 # - !GetAtt SubscribeFunction.Arn

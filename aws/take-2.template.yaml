@@ -4,7 +4,10 @@ Description: Resources for subscribing visitors to mailing list
 Parameters:
   ApiGatewayId:
     Type: String
-    Description: ID of the Api Gateway API
+    Description: ID of the Api Gateway API.
+  ApiParentResourceId:
+    Type: String
+    Description: ID of the parent resource of the new lambda method.
   AllowOrigin:
     Type: String
   MailerliteApiKey:
@@ -49,29 +52,75 @@ Parameters:
 #     - !Condition HasHostedZone
 
 Resources:
-  ApiMethod:
-    Type: AWS::ApiGatewayV2::Integration
+  ApiDeployment:
+    Type: AWS::ApiGateway::Deployment
     Properties:
-      ApiId: !Ref ApiGatewayId # Invalid API identifier specified 694316186841:knyawz3heb (Service: AmazonApiGatewayV2; Status Code: 404; Error Code: NotFoundException; Request ID: cb5323c0-4cef-447b-9cbd-b86195321bca; Proxy: null)
-      IntegrationMethod: GET
-      IntegrationType: AWS_PROXY
-      # IntegrationUri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFunction.Arn}/invocations"
-      # IntegrationUri: !Sub "arn:aws:lambda:${AWS::Region}:694316186841:function:WebPortfolio-ContactFormApi-ZBK9F9-ContactFunction-ZIte5IU7lY2i"
-      IntegrationUri: !GetAtt LambdaFunction.Arn
-
-    # Currently 694316186841:knyawz3heb
-    # Should just be knyawz3heb
+      RestApiId: !Ref ApiGatewayId
+      StageName: Prod
 
   ApiResource:
-    Type: AWS::ApiGatewayV2::Route
-    DependsOn:
-      # also ApiGatewayRestApi
-      - LambdaFunction
-      - ApiMethod
+    Type: AWS::ApiGateway::Resource
     Properties:
-      ApiId: !Ref ApiGatewayId
-      RouteKey: GET /subscribe
-      Target: !Sub 'integrations/${ApiMethod}'
+      RestApiId: !Ref ApiGatewayId
+      ParentId: !Ref ApiParentResourceId
+      PathPart: subscribe
+
+  ApiMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      HttpMethod: GET
+      Integration:
+        # Credentials: !GetAtt ApiGatewayIamRole.Arn
+        IntegrationHttpMethod: POST
+        # PassthroughBehavior: WHEN_NO_MATCH
+        Type: AWS_PROXY
+        Uri: !Sub 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFunction.Arn}/invocations'
+      OperationName: subscribe
+      ResourceId: !Ref ApiResource
+      RestApiId: !Ref ApiGatewayId
+
+  # ApiMethod:
+  #   Type: AWS::ApiGatewayV2::Integration
+  #   Properties:
+  #     ApiId: !Ref ApiGatewayId # Invalid API identifier specified 694316186841:knyawz3heb (Service: AmazonApiGatewayV2; Status Code: 404; Error Code: NotFoundException; Request ID: cb5323c0-4cef-447b-9cbd-b86195321bca; Proxy: null)
+  #     IntegrationMethod: GET
+  #     IntegrationType: AWS_PROXY
+  #     IntegrationUri: !GetAtt LambdaFunction.Arn
+  #     ConnectionType: INTERNET
+  #     CredentialsArn: !GetAtt ApiGatewayIamRole.Arn
+  #
+  # ApiResource:
+  #   Type: AWS::ApiGatewayV2::Route
+  #   DependsOn:
+  #     - LambdaFunction
+  #     - ApiMethod
+  #   Properties:
+  #     ApiId: !Ref ApiGatewayId
+  #     RouteKey: GET /subscribe
+  #     Target: !Sub 'integrations/${ApiMethod}'
+
+  ApiGatewayIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+            Action: sts:AssumeRole
+            # Sid: ''
+      Path: /
+      Policies:
+        - PolicyName: LambdaAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: lambda:*
+                Resource: !GetAtt LambdaFunction.Arn
 
   LambdaFunction:
     Type: AWS::Lambda::Function
@@ -103,6 +152,8 @@ Resources:
             Principal:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
 
   # SubscribeApi:
   #   Type: AWS::Serverless::Api
@@ -189,3 +240,36 @@ Resources:
   #         AliasTarget:
   #           HostedZoneId: !GetAtt CustomDomain.RegionalHostedZoneId
   #           DNSName: !GetAtt CustomDomain.RegionalDomainName
+
+  ApiExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - apigateway.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: !GetAtt '${AWS::StackName}ExecutionPolicy' # ApiExecutionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              # - Action: sqs:SendMessage
+              #   Effect: Allow
+              #   Resource:
+              #     - Ref: OrderQueueArn
+              - Action: lambda:*
+                Effect: Allow
+                Resource:
+                  - !GetAtt ContactFormApi.Outputs.FunctionArn
+                  - !GetAtt SubscribeFunction.Arn
+                  # - Ref: GetOrders
+                  # - Ref: PostOrders
+                  # - Ref: GetSingleOrder
+                  # - Ref: UpdateOrder
+                  # - Ref: DeleteOrder
+
