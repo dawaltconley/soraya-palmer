@@ -10,7 +10,9 @@ let g:ale_linters = {
 \ 'typescriptreact': ['eslint', 'tsserver'],
 \ 'javascriptreact': ['eslint', 'tsserver'],
 \ 'css': ['stylelint'],
-\ 'scss': ['stylelint']
+\ 'scss': ['stylelint'],
+\ 'cloudformation': ['cfn-lint'],
+\ 'yaml': ['yamllint']
 \}
 let g:ale_linter_aliases['astro'] = ['html', 'css', 'scss', 'javascript', 'typescript']
 let g:ale_linter_aliases['sass'] = ['scss']
