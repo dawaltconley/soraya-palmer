@@ -30,6 +30,7 @@ phases:
           --exclude="*" \
           --include="_astro/*" \
           --include="_responsive-images/*" \
+          --include="media/trailer/*" \
           --include="fonts/*" \
           --size-only
       - |
@@ -37,6 +38,7 @@ phases:
           --cache-control 'no-cache' \
           --exclude="_astro/*" \
           --exclude="_responsive-images/*" \
+          --exclude="media/trailer/*" \
           --exclude="fonts/*"
 
 cache:
