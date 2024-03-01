@@ -18,7 +18,7 @@ Resources:
     Properties:
       StageName: Prod
       Cors:
-        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowMethods: "'GET,OPTIONS'"
         AllowHeaders: "'Content-Type'"
         AllowOrigin: !Sub "'${AllowOrigin}'"
 
