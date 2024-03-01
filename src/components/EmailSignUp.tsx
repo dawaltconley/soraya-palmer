@@ -45,7 +45,6 @@ export default function EmailSignUp({ content }: EmailSignUpProps) {
       {status !== 'success' && (
         <form
           className="mx-auto mt-4 flex max-w-xl text-lg"
-          method="post"
           action="https://api.sorayapalmer.com/subscribe/"
           onSubmit={async (e) => {
             let error: string | null = null
