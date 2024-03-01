@@ -69,7 +69,7 @@ export default function ContactForm({ content }: ContactFormProps) {
         <form
           ref={formRef}
           className="contact-form mx-auto mt-8 w-full max-w-xl grid-cols-2 text-lg @container/contact-form"
-          action="https://api.sorayapalmer.com/contact/"
+          action="https://api.sorayapalmer.com/contact-form/contact/"
           onSubmit={async (e) => {
             let error: string | null = null
             lockHeight()
