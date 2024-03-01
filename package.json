@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.4.1",
-    "@dawaltconley/cfn-static-website": "^3.1.0",
+    "@dawaltconley/cfn-static-website": "^3.2.0",
     "@dawaltconley/contact-api": "^0.2.3",
     "@types/aws-lambda": "^8.10.134",
     "prettier": "^3.0.3",
