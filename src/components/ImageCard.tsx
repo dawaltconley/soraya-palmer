@@ -1,5 +1,5 @@
 import type { ReactNode, CSSProperties } from 'react'
-import type { ImageMetadata } from '@dawaltconley/responsive-images'
+import type { ResponsiveImageData } from '@lib/images'
 import Image from './Image'
 import clsx from 'clsx'
 
@@ -25,7 +25,7 @@ export const isCardStyle = (str: string): str is CardStyle =>
   CardStyle.some((s) => s === str)
 
 export interface ImageCardProps {
-  image: string | ImageMetadata
+  image: string | ResponsiveImageData[string]
   imageSize?: 'cover' | 'contain'
   imagePosition?: [number, number]
   imageSide?: 'left' | 'right'

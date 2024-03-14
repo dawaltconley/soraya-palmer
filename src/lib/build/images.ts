@@ -1,4 +1,4 @@
-import type { ImageMetadata } from '@dawaltconley/responsive-images'
+import type { HastOutput } from '@dawaltconley/responsive-images'
 import crypto from 'node:crypto'
 import fsp from 'node:fs/promises'
 import path from 'node:path'
@@ -12,20 +12,21 @@ export interface ImageData {
   alt?: string
 }
 
-export type ResponsiveImageData = Record<string, ImageMetadata>
+export type ResponsiveImageData = Record<string, HastOutput>
 
 export const normalizeImagePath = (image: string): string =>
   toUrl(image)?.href || path.resolve('./public', `.${image}`)
 
 const processImageData = async ({
   path: image,
-  sizes,
+  sizes = '100vw',
   alt = '',
-}: ImageData): Promise<ImageMetadata> =>
-  imageConfig.metadataFromSizes(normalizeImagePath(image), {
-    sizes,
-    alt,
-  })
+}: ImageData): Promise<HastOutput> => {
+  const metadata = await imageConfig
+    .responsive(normalizeImagePath(image))
+    .fromSizes(sizes)
+  return metadata.toHast({ alt })
+}
 
 export const makeResponsive = async (
   images: (ImageData | null | undefined)[],

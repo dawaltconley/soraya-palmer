@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { ImageMetadata } from '@dawaltconley/responsive-images'
+import type { ResponsiveImageData } from '@lib/images'
 import type { ImageCardProps } from './ImageCard'
 import Card from './Card'
 import pick from 'lodash/pick'
@@ -29,7 +29,7 @@ export interface ArticlePreviewProps
   extends Pick<ImageCardProps, (typeof passthroughProps)[number]> {
   url: string | URL
   title: string
-  image?: string | ImageMetadata | null
+  image?: string | ResponsiveImageData[string] | null
   alt?: string | null
   date?: string | Date | null
   description?: ReactNode | null

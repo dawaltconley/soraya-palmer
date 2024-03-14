@@ -1,24 +1,22 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
-import type { FromSizesOptions } from '@dawaltconley/responsive-images'
+import type { ImageOptions } from '@dawaltconley/responsive-images'
 import images from '@build/image-config'
 
-export interface Props extends HTMLAttributes<'picture'>, FromSizesOptions {
+export interface Props extends HTMLAttributes<'picture'>, ImageOptions {
   src: string
   alt: string
-  imgProps?: HTMLAttributes<'img'>
+  sizes: string
+  imgProps?: Omit<HTMLAttributes<'img'>, 'sizes' | 'class:list'>
 }
 
 const { src, alt, sizes, widths, formats, imgProps, ...pictureProps } =
   Astro.props
 
-const sources = await images.sourceFromSizes(src, {
-  ...imgProps,
-  alt,
-  sizes,
-  widths,
-  formats,
-})
+const sources = await images
+  .responsive(src)
+  .fromSizes(sizes, { widths, formats })
+  .toSources({ ...imgProps, alt })
 ---
 
 <picture {...pictureProps}>

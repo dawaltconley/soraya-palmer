@@ -1,46 +1,29 @@
-import type { ImageMetadata } from '@dawaltconley/responsive-images'
+import type { ResponsiveImageData } from '@lib/images'
 import { forwardRef, type ComponentPropsWithoutRef, type Ref } from 'react'
 
-export type Metadata = ImageMetadata['metadata']
-
 export interface ImageProps extends ComponentPropsWithoutRef<'picture'> {
-  src: string | ImageMetadata
+  src: string | ResponsiveImageData[string]
   alt: string
-  sizes?: string
   imgRef?: Ref<HTMLImageElement>
   imgProps?: ComponentPropsWithoutRef<'img'>
 }
 
 export default forwardRef<HTMLPictureElement, ImageProps>(function Image(
-  { src, alt, sizes: sizesProp, imgRef, imgProps = {}, ...picture },
+  { src, alt, imgRef, imgProps = {}, ...picture },
   pictureRef,
 ) {
   const isResponsive = typeof src === 'object'
-  const metaValues = isResponsive ? Object.values(src.metadata) : [[]]
-  const sizes =
-    sizesProp ||
-    (isResponsive && typeof src.sizes === 'string' && src.sizes) ||
-    undefined
-  const smallest = metaValues[metaValues.length - 1][0]
-  const biggest = metaValues[metaValues.length - 1][metaValues[0].length - 1]
-
+  const sources = isResponsive ? [...src.children] : []
+  const img = sources.pop()
   return (
     <picture ref={pictureRef} {...picture}>
-      {isResponsive &&
-        metaValues.map((imageFormat) => (
-          <source
-            key={imageFormat[0].sourceType}
-            type={imageFormat[0].sourceType}
-            srcSet={imageFormat.map((img) => img.srcset).join(', ')}
-            sizes={sizes}
-          />
-        ))}
+      {sources.map(({ properties }) => (
+        <source key={properties.type?.toString()} {...properties} />
+      ))}
       <img
         ref={imgRef}
-        src={!isResponsive ? src : smallest?.url}
-        width={biggest?.width}
-        height={biggest?.height}
-        alt={alt}
+        src={!isResponsive ? src : undefined}
+        {...img?.properties}
         loading="lazy"
         decoding="async"
         {...imgProps}

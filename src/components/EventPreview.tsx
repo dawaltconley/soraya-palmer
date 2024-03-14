@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { ImageMetadata } from '@dawaltconley/responsive-images'
+import type { ResponsiveImageData } from '@lib/images'
 import type { ImageCardProps } from './ImageCard'
 import Card from './Card'
 import Icon from './Icon'
@@ -66,7 +66,7 @@ export interface EventPreviewProps
   > {
   url?: string | URL
   title: string
-  image: string | ImageMetadata
+  image: string | ResponsiveImageData[string]
   alt?: string
   start: string | Date
   end?: string | Date
