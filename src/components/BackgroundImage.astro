@@ -22,7 +22,7 @@ const output = await imageConfig
   .toCss(selector, { orientations })
   .then((css) =>
     postcss([autoprefixer, cssnano]).process(css, {
-      from: undefined,
+      from: 'undefined',
       map: false,
     }),
   )
