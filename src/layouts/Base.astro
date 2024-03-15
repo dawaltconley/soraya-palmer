@@ -78,6 +78,7 @@ const twitterHandle = await client.queries
     {
       import.meta.env.MODE === 'production' && (
         <script
+          is:inline
           defer
           data-domain="sorayapalmer.com"
           src="https://plausible.io/js/script.tagged-events.outbound-links.js"
