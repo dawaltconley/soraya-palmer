@@ -3,6 +3,14 @@ meta:
     [A] stunning debut novel . . . With magnetic prose and nuanced characters,
     Palmer has created a story where readers will be invested from page one.
 press:
+  - article: >-
+      content/press/Spectrum-News-NY1__Feature-on-NY1-News-Read-into-it-Brooklyn-Book-Festival-returns.md
+    display: quote
+    layout: tile
+    rows: 1
+    cols: 1
+    imageSide: left
+    _template: article
   - article: content/press/The-Rumpus__The-First-Book-Soraya-Palmer-The-Rumpus.md
     display: quote
     layout: tile
