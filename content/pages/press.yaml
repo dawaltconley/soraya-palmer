@@ -78,38 +78,10 @@ press:
     cols: 2
     imageSide: left
     _template: article
-  - article: content/press/New-York-Amsterdam-News__In-Books.md
-    display: quote
-    layout: tile
-    rows: 1
-    cols: 3
-    imageSide: right
-    _template: article
-  - article: >-
-      content/press/publishersweekly-com__The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts.md
-    display: quote
-    layout: tile
-    rows: 1
-    cols: 1
-    _template: article
   - article: content/press/Financial-Times__A-Round-Up-of-Debut-Novels.md
     display: quote
     layout: tile
     rows: 1
-    cols: 1
-    _template: article
-  - article: >-
-      content/press/Chicago-Review-of-Books__Afro-Caribbean-Folklore-s-Unanswered-Questions.md
-    display: quote
-    layout: tile
-    rows: 1
-    cols: 3
-    imageSide: left
-    _template: article
-  - article: content/press/Shelf-Awareness__Friday-March-3-2023.md
-    display: quote
-    layout: tile
-    rows: 2
     cols: 1
     _template: article
   - article: content/press/Today__45-new-books-we-can-t-wait-to-read-in-2023.md
@@ -118,27 +90,3 @@ press:
     rows: 1
     cols: 1
     _template: article
-  - article: content/press/Booklist__Booklist-Review.md
-    display: quote
-    layout: tile
-    rows: 1
-    cols: 1
-    _template: article
-  - quote: content/quotes/Gabriella-Burnham.md
-    layout: card
-    rows: 1
-    cols: 2
-    imageSide: right
-    _template: quote
-  - quote: content/quotes/Daphne-Palasi-Andreades.md
-    layout: card
-    rows: 1
-    cols: 2
-    imageSide: left
-    _template: quote
-  - quote: content/quotes/Mina-Sekin.md
-    layout: tile
-    rows: 1
-    cols: 2
-    imageSide: right
-    _template: quote
