@@ -12,7 +12,7 @@ press:
     _template: article
   - article: >-
       content/press/Spectrum-News-NY1__Feature-on-NY1-News-Read-into-it-Brooklyn-Book-Festival-returns.md
-    display: quote
+    display: title
     layout: tile
     rows: 1
     cols: 1
