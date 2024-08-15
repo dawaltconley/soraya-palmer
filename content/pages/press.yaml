@@ -3,6 +3,14 @@ meta:
     [A] stunning debut novel . . . With magnetic prose and nuanced characters,
     Palmer has created a story where readers will be invested from page one.
 press:
+  - article: >-
+      content/press/Loop-News__Soraya-Palmer-author-of-Jam-Trini-descent-is-turning-the-page-Loop-Jamaica.md
+    display: quote
+    layout: tile
+    rows: 1
+    cols: 1
+    imageSide: left
+    _template: article
   - article: content/press/YouTube__Interview-with-Page-Turner-Plus-on-IKTV.md
     display: title
     layout: tile
