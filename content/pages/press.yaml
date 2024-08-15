@@ -4,6 +4,14 @@ meta:
     Palmer has created a story where readers will be invested from page one.
 press:
   - article: >-
+      content/press/All-Arts-PBS__-The-Human-Origins-of-Beatrice-Porter-and-Other-Essential-Ghosts-by-Soraya-Palmer.md
+    display: quote
+    layout: tile
+    rows: 1
+    cols: 1
+    imageSide: left
+    _template: article
+  - article: >-
       content/press/Loop-News__Soraya-Palmer-author-of-Jam-Trini-descent-is-turning-the-page-Loop-Jamaica.md
     display: quote
     layout: tile
