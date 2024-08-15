@@ -42,7 +42,7 @@ press:
     imageSide: left
     _template: article
   - article: content/press/YouTube__Interview-with-Page-Turner-Plus-on-IKTV.md
-    display: title
+    display: quote
     layout: tile
     rows: 1
     cols: 1
