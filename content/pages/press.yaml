@@ -4,7 +4,7 @@ meta:
     Palmer has created a story where readers will be invested from page one.
 press:
   - article: content/press/YouTube__Interview-with-Page-Turner-Plus-on-IKTV.md
-    display: quote
+    display: title
     layout: tile
     rows: 1
     cols: 1
