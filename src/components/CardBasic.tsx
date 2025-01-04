@@ -23,7 +23,7 @@ export default function CardBasic({
       style={{ borderColor }}
     >
       <div
-        className={clsx('m-auto max-w-prose', {
+        className={clsx('m-auto max-w-prose grow', {
           'pb-[1em]': hasLink,
         })}
       >

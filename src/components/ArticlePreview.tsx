@@ -67,13 +67,16 @@ export default function ArticlePreview({
             style === 'inline',
         })}
       >
-        <ArticleLayout {...props} />
+        <ArticleLayout {...props} hideDescription={Boolean(image)} />
       </div>
     </Card>
   )
 }
 
-export type ArticleLayoutProps = Omit<ArticlePreviewProps, 'url' | 'image'>
+export interface ArticleLayoutProps
+  extends Omit<ArticlePreviewProps, 'url' | 'image'> {
+  hideDescription?: boolean
+}
 
 export function ArticleLayout({ layout, ...props }: ArticleLayoutProps) {
   switch (layout) {
@@ -117,6 +120,7 @@ function ArticleLayoutDate({
   date: dateString,
   children,
   description = children,
+  hideDescription,
   hLevel,
 }: ArticleLayoutProps) {
   const date = dateString ? new Date(dateString) : null
@@ -153,7 +157,12 @@ function ArticleLayoutDate({
         </div>
       )}
       {description && (
-        <div className="hidden text-base before:-top-4 @sm:block @md:text-lg @2xl/image-card:block">
+        <div
+          className={clsx(
+            'text-base before:-top-4 @md:text-lg',
+            hideDescription ? 'hidden @sm:block @2xl/image-card:block' : '',
+          )}
+        >
           {description}
         </div>
       )}
