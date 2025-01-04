@@ -10,12 +10,16 @@ Metadata:
         - W3002 # ignore warnings about dependency on the `package` command
 
 Resources:
-  Domain:
-    Type: AWS::CloudFormation::Stack
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
     Properties:
-      TemplateURL: ./node_modules/@dawaltconley/cfn-static-website/domain.template.yaml
-      Parameters:
-        Domain: sorayapalmer.com
+      DomainName: sorayapalmer.com
+      SubjectAlternativeNames:
+        - '*.sorayapalmer.com'
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: sorayapalmer.com
+          ValidationDomain: sorayapalmer.com
   StaticWebsite:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -25,8 +29,8 @@ Resources:
         Subdomain: www
         Redirect: SubdomainToApex
         TrailingSlash: 'false'
-        Route53Dns: 'true'
-        CertificateArn: !GetAtt Domain.Outputs.CertificateArn
+        Route53Dns: 'false'
+        CertificateArn: !Ref Certificate
         CloudFrontPriceClass: PriceClass_100
         CloudFrontSecurityPolicy: TLSv1.2_2021
         CloudFrontCachePolicy: CachingOptimized
@@ -57,7 +61,7 @@ Resources:
       - SiteApi
     Properties:
       DomainName: api.sorayapalmer.com
-      CertificateArn: !GetAtt Domain.Outputs.CertificateArn
+      CertificateArn: !Ref Certificate
       SecurityPolicy: TLS_1_2
   ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
     Type: AWS::CloudFormation::Stack
