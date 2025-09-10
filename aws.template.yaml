@@ -20,6 +20,9 @@ Resources:
       DomainValidationOptions:
         - DomainName: sorayapalmer.com
           ValidationDomain: sorayapalmer.com
+      Tags:
+        - Key: Customer
+          Value: Soraya Palmer
   StaticWebsite:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -34,6 +37,9 @@ Resources:
         CloudFrontPriceClass: PriceClass_100
         CloudFrontSecurityPolicy: TLSv1.2_2021
         CloudFrontCachePolicy: CachingOptimized
+      Tags:
+        - Key: Customer
+          Value: Soraya Palmer
   GitHubDeployment:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -52,6 +58,9 @@ Resources:
           arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaContentToken,\
           arn:aws:ssm:us-east-1:${AWS::AccountId}:parameter/SorayaPalmer/TinaSearchToken"
         AlarmEmail: web@dylan.ac
+      Tags:
+        - Key: Customer
+          Value: Soraya Palmer
 
   # Site Api
   ApiDomain:
@@ -63,6 +72,9 @@ Resources:
       DomainName: api.sorayapalmer.com
       CertificateArn: !Ref Certificate
       SecurityPolicy: TLS_1_2
+      Tags:
+        - Key: Customer
+          Value: Soraya Palmer
   ContactFormApi: # see https://github.com/dawaltconley/contact-api/blob/main/docs/template.md
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -72,6 +84,9 @@ Resources:
         Required: 'name,email,subject,message'
         Honeypot: 'fax_number'
         AllowOrigin: 'https://sorayapalmer.com'
+      Tags:
+        - Key: Customer
+          Value: Soraya Palmer
   ContactFormApiMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
@@ -87,6 +102,9 @@ Resources:
         AllowOrigin: 'https://sorayapalmer.com'
         MailerliteApiKey: /SorayaPalmer/MailerliteApiKey
         MailerliteHoneypot: 'fax_number'
+      Tags:
+        - Key: Customer
+          Value: Soraya Palmer
   SiteApiMapping:
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
